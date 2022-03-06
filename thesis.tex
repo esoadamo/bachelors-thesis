@@ -55,8 +55,8 @@
     author      = Adam Hlaváček,
     gender      = m,
     advisor     = {RNDr. Vladimír Štill, Ph.D.},
-    title       = {The Proof of P = NP},
-    TeXtitle    = {The Proof of $\mathsf{P}=\mathsf{NP}$},
+    title       = {Revitalization and Modernization of Web Application of the Epistolary Seminar of Informatics},
+    TeXtitle    = {Revitalization and Modernization of Web Application of the Epistolary Seminar of Informatics},
     keywords    = {keyword1, keyword2, ...},
     TeXkeywords = {keyword1, keyword2, \ldots},
     abstract    = {%
@@ -105,9 +105,9 @@
 %% and to print out List of Abbreviations and/or Glossary in your
 %% document. Titles for these tables can be changed by replacing the
 %% titles `Abbreviations` and `Glossary`, respectively.
-%% \clearpage
-%% \printnoidxglossary[title={Abbreviations}, type=\acronymtype]
-%% \printnoidxglossary[title={Glossary}]
+\clearpage
+\printnoidxglossary[title={Abbreviations}, type=\acronymtype]
+\printnoidxglossary[title={Glossary}]
 
 %% The \chapter* command can be used to produce unnumbered chapters:
 \chapter*{Introduction}
@@ -175,6 +175,26 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 
 \end{markdown*}
 
+\chapter{TODO}
+\shorthandoff{-}
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  inlineFootnotes,
+  hashEnumerators,
+  fencedCode,
+  citations,
+  citationNbsps,
+  pipeTables,
+  tableCaptions,
+}
+
+- what is endpoint
+- HTTP methods
+
+\end{markdown*}
+
 \chapter{ESI Infrastrucute}
 \shorthandoff{-}
 \begin{markdown*}{%
@@ -208,6 +228,10 @@ The backend server~[@ksi-web-backend] is written as a Python 3 project and acts 
 ### Code sandboxing
 
 To sandbox untrusted code, mainly originating from participants task evaluations, ESI uses `isolate`~[@isolate] project. This project was developed for the needs of programming contests, so it perfectly fits ESI's needs. It uses so-called boxes, in which an executed command has only a limited, but fully defined, set of capabilies. This can mitigate the risk of overloading the host's system by a program stuck in nevereding loop, using the hosts network as a point of entry for an attacker, or even gaining direct access to the hosts system.
+
+### Python web framework
+
+The ESI backend utilizes the Falcon~[@falcon] framework for handling all HTTP API calls, which is used by companies like PayPal and LinkedIn~[@falcon-usage]. This framework is optimized for creating RESTful~[@rest] API and as such is better suitable for larger volume of incoming requests. Every endpoint is defined as a class, which has an implemented method for every supported HTTP method of this endpoint. This methods are given two parameters -- `request` and `response`. This simplicity of the framework design allows for easy and quick implementation of new endpoints and also for steep learning curve for new project maintainers.
 
 
 \end{markdown*}
