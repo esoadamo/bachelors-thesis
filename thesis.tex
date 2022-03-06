@@ -205,6 +205,10 @@ The backend~[@ksi-web-backend] has no means for automatic deployment and updatin
 
 The backend server~[@ksi-web-backend] is written as a Python 3 project and acts mainly as a middle-ware between the user and the database. A heavily utilized part of the backend is its capability to execute untrusted code sandboxed, which is a crucial part of the ESI. The backend is also capable of manipulating with a git repository containing data of solvable tasks.
 
+### Code sandboxing
+
+To sandbox untrusted code, mainly originating from participants task evaluations, ESI uses `isolate`~[@isolate] project. This project was developed for the needs of programming contests, so it perfectly fits ESI's needs. It uses so-called boxes, in which an executed command has only a limited, but fully defined, set of capabilies. This can mitigate the risk of overloading the host's system by a program stuck in nevereding loop, using the hosts network as a point of entry for an attacker, or even gaining direct access to the hosts system.
+
 
 \end{markdown*}
 
