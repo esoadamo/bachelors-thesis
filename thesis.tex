@@ -1,0 +1,244 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% I, the copyright holder of this work, release this work into the
+%% public domain. This applies worldwide. In some countries this may
+%% not be legally possible; if so: I grant anyone the right to use
+%% this work for any purpose, without any conditions, unless such
+%% conditions are required by law.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[
+  digital, %% The `digital` option enables the default options for the
+           %% digital version of a document. Replace with `printed`
+           %% to enable the default options for the printed version
+           %% of a document.
+%%  color,   %% Uncomment these lines (by removing the %% at the
+%%           %% beginning) to use color in the printed version of your
+%%           %% document
+  oneside, %% The `oneside` option enables one-sided typesetting,
+           %% which is preferred if you are only going to submit a
+           %% digital version of your thesis. Replace with `twoside`
+           %% for double-sided typesetting if you are planning to
+           %% also print your thesis. For double-sided typesetting,
+           %% use at least 120 g/m² paper to prevent show-through.
+  lof,     %% The `lof` option prints the List of Figures. Replace
+           %% with `nolof` to hide the List of Figures.
+  lot,     %% The `lot` option prints the List of Tables. Replace
+           %% with `nolot` to hide the List of Tables.
+]{fithesis4}
+%% The following section sets up the locales used in the thesis.
+\usepackage[resetfonts]{cmap} %% We need to load the T2A font encoding
+\usepackage[T1,T2A]{fontenc}  %% to use the Cyrillic fonts with Russian texts.
+\usepackage[
+  main=english, %% By using `czech` or `slovak` as the main locale
+                %% instead of `english`, you can typeset the thesis
+                %% in either Czech or Slovak, respectively.
+  english, german, russian, czech, slovak %% The additional keys allow
+]{babel}        %% foreign texts to be typeset as follows:
+%%
+%%   \begin{otherlanguage}{german}  ... \end{otherlanguage}
+%%   \begin{otherlanguage}{russian} ... \end{otherlanguage}
+%%   \begin{otherlanguage}{czech}   ... \end{otherlanguage}
+%%   \begin{otherlanguage}{slovak}  ... \end{otherlanguage}
+%%
+%% For non-Latin scripts, it may be necessary to load additional
+%% fonts:
+\usepackage{paratype}
+\def\textrussian#1{{\usefont{T2A}{PTSerif-TLF}{m}{rm}#1}}
+%%
+%% The following section sets up the metadata of the thesis.
+\thesissetup{
+    date        = \the\year/\the\month/\the\day,
+    university  = mu,
+    faculty     = fi,
+    type        = bc,
+    department  = Department of Machine Learning and Data Processing,
+    author      = Adam Hlaváček,
+    gender      = m,
+    advisor     = {RNDr. Vladimír Štill, Ph.D.},
+    title       = {The Proof of P = NP},
+    TeXtitle    = {The Proof of $\mathsf{P}=\mathsf{NP}$},
+    keywords    = {keyword1, keyword2, ...},
+    TeXkeywords = {keyword1, keyword2, \ldots},
+    abstract    = {%
+      This is the abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
+    thanks      = {%
+      These are the acknowledgements for my thesis, which can
+
+      span multiple paragraphs.
+    },
+    bib         = example.bib,
+    %% Remove the following line to use the JVS 2018 faculty logo.
+    facultyLogo = fithesis-fi,
+}
+\usepackage{makeidx}      %% The `makeidx` package contains
+\makeindex                %% helper commands for index typesetting.
+\usepackage[acronym]{glossaries}          %% The `glossaries` package
+\renewcommand*\glspostdescription{\hfill} %% contains helper commands
+\loadglsentries{example-terms-abbrs.tex}  %% for typesetting glossaries
+\makenoidxglossaries                      %% and lists of abbreviations.
+%% These additional packages are used within the document:
+\usepackage{paralist} %% Compact list environments
+\usepackage{amsmath}  %% Mathematics
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{url}      %% Hyperlinks
+\usepackage{markdown} %% Lightweight markup
+\usepackage{listings} %% Source code highlighting
+\lstset{
+  basicstyle      = \ttfamily,
+  identifierstyle = \color{black},
+  keywordstyle    = \color{blue},
+  keywordstyle    = {[2]\color{cyan}},
+  keywordstyle    = {[3]\color{olive}},
+  stringstyle     = \color{teal},
+  commentstyle    = \itshape\color{magenta},
+  breaklines      = true,
+}
+\usepackage{floatrow} %% Putting captions above tables
+\floatsetup[table]{capposition=top}
+\usepackage[babel]{csquotes} %% Context-sensitive quotation marks
+\begin{document}
+%% Uncomment the following lines (by removing the %% at the beginning)
+%% and to print out List of Abbreviations and/or Glossary in your
+%% document. Titles for these tables can be changed by replacing the
+%% titles `Abbreviations` and `Glossary`, respectively.
+%% \clearpage
+%% \printnoidxglossary[title={Abbreviations}, type=\acronymtype]
+%% \printnoidxglossary[title={Glossary}]
+
+%% The \chapter* command can be used to produce unnumbered chapters:
+\chapter*{Introduction}
+%% Unlike \chapter, \chapter* does not update the headings and does not
+%% enter the chapter to the table of contents. I we want correct
+%% headings and a table of contents entry, we must add them manually:
+
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  inlineFootnotes,
+  hashEnumerators,
+  fencedCode,
+  citations,
+  citationNbsps,
+  pipeTables,
+  tableCaptions,
+}
+
+The Epistolary Seminar of Informatics (ESI for short) is an annual online competition and also one of the activities of the Faculty of Informatics targeted at high school students. The central part of ESI takes place from September to April in four thematic waves. Each wave consists of at least a dozen tasks in which the participants can learn and then apply various informatics principles. Participants who earn a minimum of 60\% points for completing given tasks awarded throughout all four waves are suitable to be accepted to the Faculty of Informatics without taking entrance exams. Every year ESI has more than five hundred participants that come to solve the tasks on its current website located at https://ksi.fi.muni.cz/.
+
+The current website is created with an outdated framework, and only a fraction of the current organizers have a needed understanding of possible issues. Because of this, the main goal of this thesis is to create a new web application for ESI, while the main focuses of the new application are on easy and effective moderation in terms of long term support.
+
+Secondary goals of this thesis are for the new web application to make the website usable on mobile devices, present older tasks incompatible with the current website and to improve the overall user experience of the web page.
+
+As a part of this thesis, some related modifications are also made to the server part of the ESI infrastructure.
+
+The first two chapters are dedicated to researching other competitions similar to the ESI and their approach to their websites. The third chapter describes the ESI's server-side infrastructure. Chapter 4–6 illustrates the new implementation. Chapter 7 describes the completed application infrastructure. The resulting web application, which is a primary goal of this thesis, can be seen in use at https://ksi.fi.muni.cz/novy-web/.
+
+\end{markdown*}
+
+\markright{\textsc{Introduction}}
+\addcontentsline{toc}{chapter}{Introduction}
+
+\chapter{Current state of the web frontend of Epistolary Seminar of Informatics}
+\shorthandoff{-}
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  inlineFootnotes,
+  hashEnumerators,
+  fencedCode,
+  citations,
+  citationNbsps,
+  pipeTables,
+  tableCaptions,
+}
+
+The current web frontend of the Epistolary Seminar of Informatics (ESI for short) was written using the first version of the Ember.js framework. The last minor version of the first version of the Ember.js framework was released on the 12th of June 2015~[@ember-1]. The frontend stayed principally the same throughout the years because the first Ember.js version cannot be upgraded to a more recent and supported version with ease. Following the fact that Ember v1 was released in 2015, present seminar organizers face a few severe issues -- the foremost being security implications of using old and deprecated software and the secondary being the lack of volunteers with enough knowledge of this technology. In its current state, the frontend is singlehandedly managed by Ondřej Borýsek~[@ksi-web-frontend].
+
+Since the support of the utilized framework ended, the organizers have been aware of these issues. They have tried to migrate the used version to a current stable version of Ember, most notably inside a private project called web-frontend-ember3~[@ksi-web-frontend-ember3], but these attempts were not successful. The leading explanation for the prevalence of the current frontend is that all organizers are volunteers. With only a limited time available, the organizers decided to work on more imminent duties. However, this task has gained a significant priority as Ondřej Borýsek will finish his studies shortly, and, consequently, none of the team members will be capable of resolving issues or implementing new features.
+
+When deciding how to approach the development of the new version of the ESI frontend, I was faced with three viable alternatives. The first option was to adapt the web of any similarly focused seminar, which was deemed inappropriate because the ESI frontend has grown its backend with unique features not easily adaptable from other projects. The second possibility was to continue with a previous attempt to upgrade the frontend to the newer version of the Ember framework. This option was also discarded as there is a risk that the project would be eventually hard to manage, similarly to the current state. As per the Stack Overflow 2020 developer survey~[@stackoverflow-survey], the Ember framework is no longer used regularly and thus unsuitable for a long-lasting project.
+
+The last option was to develop a new project from scratch using one of the most used web frameworks. Besides jQuery, which is not a full-featured web framework, the most used ones are React and Angular~[@stackoverflow-survey].
+
+React~[@react-github], developed by Meta, is the most popular~[@stackoverflow-survey] full-featured web framework. It is focused on the fast development of responsive web applications while heavily depending on modularity and supporting it via external libraries. This modularity allows the developer to tailor the project's library set precisely for the project's needs. Since component logic in React is written in JavaScript instead of templates, it is easy to pass rich data through the applications and keep state out of the DOM~[@reactjs]. An added benefit of React is that it is taught on the Faculty of Informatics Masaryk University in a course Modern Markup Languages and Their Applications, which is compulsory for both programs Informatics~[@fi-inf] and 
+Programming and Development~[@fi-pva]. Nevertheless, most of the current members of the organizer teams have no experience with web development whatsoever.
+
+Angular~[@angular], developed by Google, on the other hand, includes most of the frequently used features~[@angular-features] like routing, HTTP client, forms manipulation, and internalization. Therefore Angular allows the developers to get familiar with a new project more rapidly without needing to learn about new libraries used within a given project first.
+
+Because the team of seminar organizers changes quite frequently, it is crucial to minimize the entrance barrier for new developers to be capable of modifying the frontend. A lower entrance barrier can be achieved by using a well-established technology with minimal supplementary knowledge required. Concerning precisely that argumentation, Angular was chosen as more fitting and is utilized throughout this thesis.
+
+\end{markdown*}
+
+\chapter{ESI Infrastrucute}
+\shorthandoff{-}
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  inlineFootnotes,
+  hashEnumerators,
+  fencedCode,
+  citations,
+  citationNbsps,
+  pipeTables,
+  tableCaptions,
+}
+
+ESI's organizers manage two virtual servers hosted on faculty's Open Nebula platform, both running Debian OS. One of these servers is for production, the second is for testing. Both share the same format - an Apache web server, which server the frontend and reverse proxies the backend.
+The production server is called `kleobis` and the development `kyzikos` and I will refer to them troughout this thesis as such.
+
+Kleobis has assigned two domains -- [ksi.fi.muni.cz](https://ksi.fi.muni.cz) for access to the frontend and [rest.ksi.fi.muni.cz](https://rest.ksi.fi.muni.cz) for calling backend endpoints.
+
+Kyzikos has no public access, because it is meant as a development server on which the organizers can test their possibly breaking modification without interfering with the production instance.
+
+The frontend can be automatically deployed from its repository by building it using GitHub Actions and then copying the built web application on the desired server by calling an automated script on one of the organizers faculty accounts.
+
+The backend has no means for automatic deployment and updating. The process has to be performed manualy, by logging into target server, pulling from the source code repository and performing a manual restart. This is a desired workflow, because updates to the backend server are infrequent and a manual check of functionality after an update increases certanity that the server will work as desired even after the update.
+
+
+
+\end{markdown*}
+
+
+
+
+\chapter{ESI Backend}
+\shorthandoff{-}
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  inlineFootnotes,
+  hashEnumerators,
+  fencedCode,
+  citations,
+  citationNbsps,
+  pipeTables,
+  tableCaptions,
+}
+
+The main part of the ESI backend is written in Python 3. It connects to the 
+
+\end{markdown*}
+
+
+\shorthandon{-}
+
+  \printbibliography[heading=bibintoc] %% Print the bibliography.
+
+  \makeatletter\thesis@blocks@clear\makeatother
+  \phantomsection %% Print the index and insert it into the
+  \addcontentsline{toc}{chapter}{\indexname} %% table of contents.
+  \printindex
+
+\appendix %% Start the appendices.
+\chapter{An appendix}
+Here you can insert the appendices of your thesis.
+
+\end{document}
