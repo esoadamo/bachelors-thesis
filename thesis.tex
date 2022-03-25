@@ -44,6 +44,7 @@
 %% For non-Latin scripts, it may be necessary to load additional
 %% fonts:
 \usepackage{paratype}
+\usepackage{my-alias}
 \def\textrussian#1{{\usefont{T2A}{PTSerif-TLF}{m}{rm}#1}}
 %%
 %% The following section sets up the metadata of the thesis.
@@ -116,18 +117,7 @@
 %% enter the chapter to the table of contents. I we want correct
 %% headings and a table of contents entry, we must add them manually:
 
-\begin{markdown*}{%
-  hybrid,
-  definitionLists,
-  footnotes,
-  inlineFootnotes,
-  hashEnumerators,
-  fencedCode,
-  citations,
-  citationNbsps,
-  pipeTables,
-  tableCaptions,
-}
+\mdstart
 
 The Epistolary Seminar of Informatics (ESI for short) is an annual online competition and also one of the activities of the Faculty of Informatics targeted at high school students. The central part of ESI takes place from September to April in four thematic waves. Each wave consists of at least a dozen tasks in which the participants can learn and then apply various informatics principles. Participants who earn a minimum of 60\% points for completing given tasks awarded throughout all four waves are suitable to be accepted to the Faculty of Informatics without taking entrance exams. Every year ESI has more than five hundred participants that come to solve the tasks on its current website located at https://ksi.fi.muni.cz/.
 
@@ -144,20 +134,7 @@ The first two chapters are dedicated to researching other competitions similar t
 \markright{\textsc{Introduction}}
 \addcontentsline{toc}{chapter}{Introduction}
 
-\chapter{Current state of the web frontend of Epistolary Seminar of Informatics}
-\shorthandoff{-}
-\begin{markdown*}{%
-  hybrid,
-  definitionLists,
-  footnotes,
-  inlineFootnotes,
-  hashEnumerators,
-  fencedCode,
-  citations,
-  citationNbsps,
-  pipeTables,
-  tableCaptions,
-}
+\mdchap{Current state of the web frontend of Epistolary Seminar of Informatics}
 
 The current web frontend of the Epistolary Seminar of Informatics (ESI for short) was written using the first version of the Ember.js framework. The last minor version of the first version of the Ember.js framework was released on the 12th of June 2015~[@ember-1]. The frontend stayed principally the same throughout the years because the first Ember.js version cannot be upgraded to a more recent and supported version with ease. Following the fact that Ember v1 was released in 2015, present seminar organizers face a few severe issues -- the foremost being security implications of using old and deprecated software and the secondary being the lack of volunteers with enough knowledge of this technology. In its current state, the frontend is singlehandedly managed by Ondřej Borýsek~[@ksi-web-frontend].
 
@@ -176,20 +153,7 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 
 \end{markdown*}
 
-\chapter{TODO}
-\shorthandoff{-}
-\begin{markdown*}{%
-  hybrid,
-  definitionLists,
-  footnotes,
-  inlineFootnotes,
-  hashEnumerators,
-  fencedCode,
-  citations,
-  citationNbsps,
-  pipeTables,
-  tableCaptions,
-}
+\mdchap{TODO}
 
 - what is endpoint
 - what is frontend
@@ -208,20 +172,7 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 
 \end{markdown*}
 
-\chapter{ESI Infrastrucute}
-\shorthandoff{-}
-\begin{markdown*}{%
-  hybrid,
-  definitionLists,
-  footnotes,
-  inlineFootnotes,
-  hashEnumerators,
-  fencedCode,
-  citations,
-  citationNbsps,
-  pipeTables,
-  tableCaptions,
-}
+\mdchap{ESI Infrastrucute}
 
 ESI's organizers manage two virtual servers hosted on faculty's Open Nebula platform, both running Debian OS. One of these servers is for production, the second is for testing. Both share the same format - an Apache web server, which server the frontend and reverse proxies the backend.
 The production server is called `kleobis` and the development `kyzikos` and I will refer to them troughout this thesis as such.
@@ -248,20 +199,7 @@ The ESI backend utilizes the Falcon~[@falcon] framework for handling all HTTP AP
 
 \end{markdown*}
 
-\chapter{Swagger}
-\shorthandoff{-}
-\begin{markdown*}{%
-  hybrid,
-  definitionLists,
-  footnotes,
-  inlineFootnotes,
-  hashEnumerators,
-  fencedCode,
-  citations,
-  citationNbsps,
-  pipeTables,
-  tableCaptions,
-}
+\mdchap{Swagger}
 
 OpenAPI, formerly known as Swagger~[@swagger-about], is a set of projects that together can ease the development process for clients connecting to the exposed backend APIs. This can be achieved by the backend exposing a JSON file documenting the structure of the APIs. This structure mainly includes:
 
@@ -284,20 +222,7 @@ Another part of the set of OpenAPI projects is a project called `swagger-codegen
 \end{markdown*}
 
 
-\chapter{Backend modifications}
-\shorthandoff{-}
-\begin{markdown*}{%
-  hybrid,
-  definitionLists,
-  footnotes,
-  inlineFootnotes,
-  hashEnumerators,
-  fencedCode,
-  citations,
-  citationNbsps,
-  pipeTables,
-  tableCaptions,
-}
+\mdchap{Backend modifications}
 
 ## Swagger proxy
 
@@ -389,18 +314,7 @@ From this information, the TypeScript OpenAPI is able to generate the `swagger.j
 \label{fig:swagger-ui}
 \end{figure}
 
-\begin{markdown*}{%
-  hybrid,
-  definitionLists,
-  footnotes,
-  inlineFootnotes,
-  hashEnumerators,
-  fencedCode,
-  citations,
-  citationNbsps,
-  pipeTables,
-  tableCaptions,
-}
+\mdstart
 
 After the `swagger.json` definition file is generated on the backend, the `swagger-codegen`~[@swagger-codegen] tool can be used to generate respective code on the frontend:
 
@@ -416,20 +330,7 @@ Because the definition of the API is stored within a separate project, this coul
 
 \end{markdown*}
 
-\chapter{Feedback coleection}
-\shorthandoff{-}
-\begin{markdown*}{%
-  hybrid,
-  definitionLists,
-  footnotes,
-  inlineFootnotes,
-  hashEnumerators,
-  fencedCode,
-  citations,
-  citationNbsps,
-  pipeTables,
-  tableCaptions,
-}
+\mdchap{Collecting feedback}
 
 Since the October 2021 the OSI organizers were encouraged to submit their feedback on the state of the new web frontend. The new frontned was scheduled to be made public with a release of the last wave of the OSI year 2021/2022. Up until that date, the organizers have submitted through designated form 9 bug reports and 10 feature suggestions. 
 
