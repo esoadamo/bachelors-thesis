@@ -27,6 +27,7 @@
 ]{fithesis4}
 %% The following section sets up the locales used in the thesis.
 \usepackage[resetfonts]{cmap} %% We need to load the T2A font encoding
+\usepackage{latex-javaScript/jslistings}
 \usepackage[T1,T2A]{fontenc}  %% to use the Cyrillic fonts with Russian texts.
 \usepackage[
   main=english, %% By using `czech` or `slovak` as the main locale
@@ -194,7 +195,7 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 - what is frontend
 - what is backend
 - HTTP methods
-- contraction JSON, ESI, API
+- contraction JSON, ESI, API, URL
 - docker
 - angular modularization
 - mastodon
@@ -203,6 +204,7 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 - ssr
 - rxjs
 - swagger UI
+- good commits
 
 \end{markdown*}
 
@@ -299,13 +301,18 @@ Another part of the set of OpenAPI projects is a project called `swagger-codegen
 
 ## Swagger proxy
 
+### Possible approaches
+
 Because the OSI backend is written with a Python Falkon framework without any specified typing and that request inputs and outputs may span across multiple functions and methods, obtaining this information automatically does not seem as a possible course of action, so the information for the creation of the `swagger.json` file need to be generated from the scratch by manually describing every possible endpoint. It was possible to add the documentation directly to the backend project by using [swaggerit wrapper](https://github.com/dutradda/swaggerit) -- the recommended alternative to a now discontinuied falcon-swagger~[@falcon-swagger], but this approach would require a manual typing of all required fields. Another possibility was to describe the backend API with a TypeScript language by using TypeScript OpenAPI~[@tsoa]. This approach has a significant advantage that it uses a TypeScript interfaces to describe expected inputs and outputs. TypeScript interfaces can also be inherited, making it useful to prevent code duplication and its linked dangers.
+
+### Implemented solution
 
 A new project was created as a part of this thesis, web-backend-swagger~[@ksi-web-backend-swagger]. It uses TypeScript OpenAPI to describe the backend API with a similar file structure to the backend project. 
 
 For comparsion, consider following shortened code from the OSI's backend for handling an update request to a forum post:
 
-```python
+\newpage
+~~~python
 class Post(object):
     def on_put(self, req, resp, id):
         if (not req.context['user'].is_org():
@@ -317,14 +324,14 @@ class Post(object):
             return
         post.author = data['author']
         post.body = data['body']
-        
-```
+        req.context['result'] = {'post': util.post.to_json(post, req.context['user'].id)}
+~~~
 
 
-From this code example, it is evident, that the backend is expecting a JSON dictionary with a single key `post`, which contains additional dictionary with keys `author` and `body`. This can 
+From this code example, it is evident, that the endpoint is expecting a JSON dictionary as an i with a single key `post`, which contains additional dictionary with keys `author` and `body`. This information can be transformed into TypeScript interfaces in a following way:
 
 
-~~~ js
+~~~ JavaScript
 export interface PostEdit {
     author: number;
     body: string;
@@ -333,10 +340,11 @@ export interface PostEdit {
 export interface PostsEditRequest {
     post: PostEdit;
 }
-
 ~~~
 
-```
+After examining the response content, it is possible to take use of the TypeScript interface generalization, because the `Post` interface fully includes all parameters from the `PostEdit` interface.
+
+~~~ JavaScript
 export interface PostResponse {
     post: Post;
 }
@@ -348,11 +356,83 @@ export interface Post extends PostEdit {
     reaction: number[];
     is_new: boolean;
 }
-```
+~~~
 
-```
+With the types of inputs and outputs of the endpoint defined, the endpoint itself can be now defined with TypeScript OpenAPI in a following way:
+
+~~~ JavaScript
+// the root path of all enpoints defined inside this class is under /posts/
+@Route('posts')
+export class EndpointPosts {
+// a login is required to access this endpoint
+    @Security('ksi')
+// this endpoint accepts POST request with a single parameter inside URL path named postId
+    @Put('{postsId}')
+// this endpoint should be uniquely reffered to as postEditSingle
+    public async postsEditSingle(
+// the postId parameter inside URL path is a number
+        @Path() postsId: number,
+// the endpoint expects data of a type PostsEditRequest 
+        @Body() postsUpdateRequest: PostsEditRequest,
+// this endpoint returns data of a type PostResponse on success
+    ): Promise<PostResponse>
+    {  /* ... code to process the request ... */  }
+~~~
+
+From this information, the TypeScript OpenAPI is able to generate the `swagger.json` endpoint description, which can be visualized by Swagger UI, as seen in figure \ref{fig:swagger-ui}.
+
+\end{markdown*}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/swagger-ui}
+\caption{The visualization of the post edit endpoint by Swagger UI}
+\label{fig:swagger-ui}
+\end{figure}
+
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  inlineFootnotes,
+  hashEnumerators,
+  fencedCode,
+  citations,
+  citationNbsps,
+  pipeTables,
+  tableCaptions,
+}
+
+After the `swagger.json` definition file is generated on the backend, the `swagger-codegen`~[@swagger-codegen] tool can be used to generate respective code on the frontend:
+
+~~~ JavaScript
 public postsEditSingle(body: PostsEditRequest, postsId: number): Observable<PostResponse>;
-```
+~~~
+
+Internally, this function will take care of handling authorization and possible exceptions, so that the developer can use this as a normal function, without the need to worry about its inner workings.
+
+### Possible drawbacks
+
+Because the definition of the API is stored within a separate project, this could in the future lead to a de-synchronization between the definition of the API and the backend code itself. Though, this threat would be present in some form unless the `swagger.json` can be generated directly from the backend code. If no technology like OpenAPI was used, then the possible issue would move on the client may be updated with less frequency than backend. The separate project is a compromise, which minimizes the risk of de-synchronization by using a simple to use syntax for the backend developers and easy changes implementation by regenerating the code from the Swagger definition for the frontend developers.
+
+\end{markdown*}
+
+\chapter{Feedback coleection}
+\shorthandoff{-}
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  inlineFootnotes,
+  hashEnumerators,
+  fencedCode,
+  citations,
+  citationNbsps,
+  pipeTables,
+  tableCaptions,
+}
+
+Since the October 2021 the OSI organizers were encouraged to submit their feedback on the state of the new web frontend. The new frontned was scheduled to be made public with a release of the last wave of the OSI year 2021/2022. Up until that date, the organizers have submitted through designated form 9 bug reports and 10 feature suggestions. 
+
 \end{markdown*}
 
 
