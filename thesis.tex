@@ -191,7 +191,10 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 }
 
 - what is endpoint
+- what is frontend
+- what is backend
 - HTTP methods
+- contraction JSON, ESI, API
 
 \end{markdown*}
 
@@ -233,6 +236,36 @@ To sandbox untrusted code, mainly originating from participants task evaluations
 
 The ESI backend utilizes the Falcon~[@falcon] framework for handling all HTTP API calls, which is used by companies like PayPal and LinkedIn~[@falcon-usage]. This framework is optimized for creating RESTful~[@rest] API and as such is better suitable for larger volume of incoming requests. Every endpoint is defined as a class, which has an implemented method for every supported HTTP method of this endpoint. This methods are given two parameters -- `request` and `response`. This simplicity of the framework design allows for easy and quick implementation of new endpoints and also for steep learning curve for new project maintainers.
 
+\end{markdown*}
+
+\chapter{Swagger}
+\shorthandoff{-}
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  inlineFootnotes,
+  hashEnumerators,
+  fencedCode,
+  citations,
+  citationNbsps,
+  pipeTables,
+  tableCaptions,
+}
+
+OpenAPI, formerly known as Swagger~[@swagger-about], is a set of projects that together can ease the development process for clients connecting to the exposed backend APIs. This can be achieved by the backend exposing a JSON file documenting the structure of the APIs. This structure mainly includes:
+
+- relative paths to the endpoint inside the application
+- expected HTTP method
+- expected inputs, which can be inside
+    - header
+    - parameter
+    - form
+    - JSON body content
+- return code and values
+
+
+The client that is being implemented against this backend can take use of this information so that it precisely knowns what type of data to send and what type of the data to expect. This makes the development process easier, because it eliminates the possibility of miscommunication between the frontend and backend teams. 
 
 \end{markdown*}
 
