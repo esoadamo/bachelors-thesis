@@ -195,6 +195,7 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 - what is backend
 - HTTP methods
 - contraction JSON, ESI, API
+- docker
 
 \end{markdown*}
 
@@ -269,7 +270,7 @@ The client that is being implemented against this backend can take use of this i
 
 ## swagger-codegen
 
-Another part of the set of OpenAPI projects is a project called `swagger-codegen`~[@swagger-codegen].  
+Another part of the set of OpenAPI projects is a project called `swagger-codegen`~[@swagger-codegen]. This tool is able to parse the `swagger.json` file and produce a code for given language that can be used for manipulating with the backend's API. This is a strong opportunity for the developer as this completely eliminates the need for manually checking how to send a requests, instead all required parameters are passed to a generated function which in turn returns the desired data. Furthermore, when used in conjunction with an explicitly typed language, such as TypeScript, the developer of the client application is immediately notified about an type error when a part of the API changes, allowing for a much faster and more secure development. 
 
 \end{markdown*}
 
