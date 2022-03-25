@@ -265,7 +265,11 @@ OpenAPI, formerly known as Swagger~[@swagger-about], is a set of projects that t
 - return code and values
 
 
-The client that is being implemented against this backend can take use of this information so that it precisely knowns what type of data to send and what type of the data to expect. This makes the development process easier, because it eliminates the possibility of miscommunication between the frontend and backend teams. 
+The client that is being implemented against this backend can take use of this information so that it precisely knowns what type of data to send and what type of the data to expect. This makes the development process easier, because it eliminates the possibility of miscommunication between the frontend and backend teams. Every time the API on the backend is changed all that it takes is to regenerate the swagger.json file and all the clients can download it and modify their requests according to the new specification.
+
+## swagger-codegen
+
+Another part of the set of OpenAPI projects is a project called `swagger-codegen`~[@swagger-codegen].  
 
 \end{markdown*}
 
