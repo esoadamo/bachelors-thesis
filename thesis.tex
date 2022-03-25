@@ -196,6 +196,13 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 - HTTP methods
 - contraction JSON, ESI, API
 - docker
+- angular modularization
+- mastodon
+- content policy
+- wpa
+- ssr
+- rxjs
+- swagger UI
 
 \end{markdown*}
 
@@ -273,6 +280,98 @@ The client that is being implemented against this backend can take use of this i
 Another part of the set of OpenAPI projects is a project called `swagger-codegen`~[@swagger-codegen]. This tool is able to parse the `swagger.json` file and produce a code for given language that can be used for manipulating with the backend's API. This is a strong opportunity for the developer as this completely eliminates the need for manually checking how to send a requests, instead all required parameters are passed to a generated function which in turn returns the desired data. Furthermore, when used in conjunction with an explicitly typed language, such as TypeScript, the developer of the client application is immediately notified about an type error when a part of the API changes, allowing for a much faster and more secure development. 
 
 \end{markdown*}
+
+
+\chapter{Backend modifications}
+\shorthandoff{-}
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  inlineFootnotes,
+  hashEnumerators,
+  fencedCode,
+  citations,
+  citationNbsps,
+  pipeTables,
+  tableCaptions,
+}
+
+## Swagger proxy
+
+Because the OSI backend is written with a Python Falkon framework without any specified typing and that request inputs and outputs may span across multiple functions and methods, obtaining this information automatically does not seem as a possible course of action, so the information for the creation of the `swagger.json` file need to be generated from the scratch by manually describing every possible endpoint. It was possible to add the documentation directly to the backend project by using [swaggerit wrapper](https://github.com/dutradda/swaggerit) -- the recommended alternative to a now discontinuied falcon-swagger~[@falcon-swagger], but this approach would require a manual typing of all required fields. Another possibility was to describe the backend API with a TypeScript language by using TypeScript OpenAPI~[@tsoa]. This approach has a significant advantage that it uses a TypeScript interfaces to describe expected inputs and outputs. TypeScript interfaces can also be inherited, making it useful to prevent code duplication and its linked dangers.
+
+A new project was created as a part of this thesis, web-backend-swagger~[@ksi-web-backend-swagger]. It uses TypeScript OpenAPI to describe the backend API with a similar file structure to the backend project. 
+
+For comparsion, consider following shortened code from the OSI's backend for handling an update request to a forum post:
+
+```python
+class Post(object):
+    def on_put(self, req, resp, id):
+        if (not req.context['user'].is_org():
+            return
+        data = json.loads(req.stream.read().decode('utf-8'))['post']
+        post = session.query(model.Post).get(id)
+        if post is None:
+            resp.status = falcon.HTTP_404
+            return
+        post.author = data['author']
+        post.body = data['body']
+        
+```
+
+
+From this code example, it is evident, that the backend is expecting a JSON dictionary with a single key `post`, which contains additional dictionary with keys `author` and `body`. This can 
+
+
+~~~ js
+export interface PostEdit {
+    author: number;
+    body: string;
+}
+
+export interface PostsEditRequest {
+    post: PostEdit;
+}
+
+~~~
+
+```
+export interface PostResponse {
+    post: Post;
+}
+
+export interface Post extends PostEdit {
+    id: number,
+    thread: number;
+    published_at: string;
+    reaction: number[];
+    is_new: boolean;
+}
+```
+
+```
+public postsEditSingle(body: PostsEditRequest, postsId: number): Observable<PostResponse>;
+```
+\end{markdown*}
+
+
+\chapter{--new-chapter--}
+\shorthandoff{-}
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  inlineFootnotes,
+  hashEnumerators,
+  fencedCode,
+  citations,
+  citationNbsps,
+  pipeTables,
+  tableCaptions,
+}
+\end{markdown*}
+
 
 \shorthandon{-}
 
