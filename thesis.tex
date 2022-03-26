@@ -159,7 +159,7 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 - what is frontend
 - what is backend
 - HTTP methods
-- contraction JSON, ESI, API, URL
+- contraction JSON, ESI, API, URL, UX, UI
 - docker
 - angular modularization
 - mastodon
@@ -169,6 +169,8 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 - rxjs
 - swagger UI
 - good commits
+- 0auth
+
 
 \end{markdown*}
 
@@ -212,12 +214,19 @@ OpenAPI, formerly known as Swagger~[@swagger-about], is a set of projects that t
     - JSON body content
 - return code and values
 
+The Swagger also supports advanced features such as defining accepted authorizations means such as API keys or 0auth tokens.
 
-The client that is being implemented against this backend can take use of this information so that it precisely knowns what type of data to send and what type of the data to expect. This makes the development process easier, because it eliminates the possibility of miscommunication between the frontend and backend teams. Every time the API on the backend is changed all that it takes is to regenerate the swagger.json file and all the clients can download it and modify their requests according to the new specification.
+The client that is being implemented against this backend can take use of this information so that it precisely knowns what type of data to send and what type of the data to expect. This makes the development process easier, because it eliminates the possibility of miscommunication between the frontend and backend teams. Every time the API on the backend is changed all that it takes is to regenerate the `swagger.json` file and all the clients can download it and modify their requests according to the new specification.
 
 ## swagger-codegen
 
-Another part of the set of OpenAPI projects is a project called `swagger-codegen`~[@swagger-codegen]. This tool is able to parse the `swagger.json` file and produce a code for given language that can be used for manipulating with the backend's API. This is a strong opportunity for the developer as this completely eliminates the need for manually checking how to send a requests, instead all required parameters are passed to a generated function which in turn returns the desired data. Furthermore, when used in conjunction with an explicitly typed language, such as TypeScript, the developer of the client application is immediately notified about an type error when a part of the API changes, allowing for a much faster and more secure development. 
+Another part of the set of OpenAPI projects is a project called `swagger-codegen`~[@swagger-codegen]. This tool is able to parse the `swagger.json` file and produce a code for given language that can be used for manipulating with the backend's API. This is a strong opportunity for the developer as this completely eliminates the need for manually checking how to send a requests, instead all required parameters are passed to a generated function which in turn returns the desired data. Furthermore, when used in conjunction with an explicitly typed language, such as TypeScript, the developer of the client application is immediately notified about an type error when a part of the API changes, allowing for a much faster and more secure development.
+
+Currently, the `swagger-codegen` supports generating code for 40 languages, where a `typescript-angular` and `typescript-fetch` are counted as two distinct languages, even though both use TypeScript as a base.
+
+## swagger-ui
+
+The SmartBear Software also provides a tool called Swagger UI~[@swagger-ui]. This tool was developed to parse the `swagger.json` file and to present it in a easily readable form as a web page. The developer can see every described endpoint with its description, accepted method and expected input and output types. The Swagger UI also provides the possibility to directly call the endpoints from the web page by filling parameters into a form and then examining the result of the API call. The SmartBear Software also presents a [demonstration](https://petstore.swagger.io/#/) of the Swagger UI on its website, which can be used to analyze any `swagger.json` file by providing its URL.
 
 \end{markdown*}
 
@@ -332,7 +341,15 @@ Because the definition of the API is stored within a separate project, this coul
 
 \mdchap{Collecting feedback}
 
-Since the October 2021 the OSI organizers were encouraged to submit their feedback on the state of the new web frontend. The new frontned was scheduled to be made public with a release of the last wave of the OSI year 2021/2022. Up until that date, the organizers have submitted through designated form 9 bug reports and 10 feature suggestions. With the release of the last fourth wave of the OSI year 2021/2022, the feedback was opened also to the participants, together with a questionnaire for them to fill. The participants were motivated to fill the questionnaire by awarding a trophy to everyone who submits it. 
+## Means of feedback collection
+
+Since the October 2021 the OSI organizers were encouraged to submit their feedback on the state of the new web frontend. The new frontned was scheduled to be made public with a release of the last wave of the OSI year 2021/2022. Up until that date, the organizers have submitted through designated form 9 bug reports and 10 feature suggestions. With the release of the last fourth wave of the OSI year 2021/2022, the feedback was opened also to the participants, together with a questionnaire for them to fill. The participants were motivated to fill the questionnaire by awarding a trophy to everyone who submits it.
+
+## Questionare
+
+The questionare sent to the OSI participants consisted of three parts. In the first part, the participants were asked to provide their opinion on two new experimental UX features. The second section has consisted of questions about comparsion of the new and current OSI web frontend. The last section was made of free form questions about what do participants think that has improved with a new web and what was better on the old web frontend.
+
+
 
 \end{markdown*}
 
