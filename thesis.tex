@@ -144,8 +144,8 @@ When deciding how to approach the development of the new version of the ESI fron
 
 The last option was to develop a new project from scratch using one of the most used web frameworks. Besides jQuery, which is not a full-featured web framework, the most used ones are React and Angular~[@stackoverflow-survey].
 
-React~[@react-github], developed by Meta, is the most popular~[@stackoverflow-survey] full-featured web framework. It is focused on the fast development of responsive web applications while heavily depending on modularity and supporting it via external libraries. This modularity allows the developer to tailor the project's library set precisely for the project's needs. Since component logic in React is written in JavaScript instead of templates, it is easy to pass rich data through the applications and keep state out of the DOM~[@reactjs]. An added benefit of React is that it is taught on the Faculty of Informatics Masaryk University in a course Modern Markup Languages and Their Applications, which is compulsory for both programs Informatics~[@fi-inf] and 
-Programming and Development~[@fi-pva]. Nevertheless, most of the current members of the organizer teams have no experience with web development whatsoever.
+React~[@react-github], developed by Meta, is the most popular~[@stackoverflow-survey] full-featured web framework. It is focused on the fast development of responsive web applications while heavily depending on modularity and supporting it via external libraries. This modularity allows the developer to tailor the project's library set precisely for the project's needs. Since component logic in React is written in JavaScript instead of templates, it is easy to pass rich data through the applications and keep state out of the DOM~[@reactjs]. An added benefit of React is that it is taught on the Faculty of Informatics Masaryk University in a course Modern Markup Languages and Their Applications, which is compulsory for both
+Programming and Development~[@fi-pva] program and some specializations of Informatics~[@fi-inf]. Nevertheless, most of the current members of the organizer teams have no experience with web development whatsoever.
 
 Angular~[@angular], developed by Google, on the other hand, includes most of the frequently used features~[@angular-features] like routing, HTTP client, forms manipulation, and internalization. Therefore Angular allows the developers to get familiar with a new project more rapidly without needing to learn about new libraries used within a given project first.
 
@@ -170,6 +170,11 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 - swagger UI
 - good commits
 - 0auth
+- OSI team, team member lifetime
+- other seminars
+- bootstrap
+- angular.js
+- Q \& A
 
 
 \end{markdown*}
@@ -243,7 +248,7 @@ Because the OSI backend is written with a Python Falkon framework without any sp
 
 A new project was created as a part of this thesis, web-backend-swagger~[@ksi-web-backend-swagger]. It uses TypeScript OpenAPI to describe the backend API with a similar file structure to the backend project. 
 
-For comparsion, consider following shortened code from the OSI's backend for handling an update request to a forum post:
+For comparison, consider following shortened code from the OSI's backend for handling an update request to a forum post:
 
 \newpage
 ~~~python
@@ -339,6 +344,45 @@ Because the definition of the API is stored within a separate project, this coul
 
 \end{markdown*}
 
+\mdchap{Selecting framework for a new web application}
+
+Choosing the right framework, if any, largely impact the structure of the whole application. Because one of the main goals of this thesis is for it to be easily maintainable and quick to understand, the framework must be corresponding to these needs. Given the nature of the composition of the OSI organizers team, where most of the team members do have different skill sets, it is plausible that some of the next maintainers of the OSI web application will have only a basic knowledge about web development in general. Most of this general knowledge is likely to originate from the course PB138 Modern Markup Languages and Their Applications on the Faculty of Informatics Masaryk University. With that in mind, it is evident, that the selected framework needs to be fast to learn and easy to understand with as little background as possible.
+
+## Developing without framework
+
+Even though that it is possible to develop whole application without the use of any existing framework, this approach gains significant problems with the enlarging size of the application. Given that nearly every modern page consist at least of three components -- HTML file defining the elements, JavaScript file with functionality and CSS file used to style the look and placement of elements on the page, it would be possible to import JS and CSS files to different webpages to reuse code. However, this does not apply to HTML, which would have to be a separate file for every web page of the application, resulting in a large reuse of a code. It would be possible to implement a logic that would create complex HTML components from predefined source templates, but this approach would effectively create a new framework. This new framework would then suffer from additional issues like lack of external support and previously untested code.
+
+## Developing with a framework
+
+For reasons shown in the previous section, the development of a larger web application without a framework is not ideal. On the other hand, when a framework is used in the project and then later is the framework marked as obsolete, it can be a challenging task to continue with a maintenance of the project, perhaps best shown on the example of the current OSI web. To select the correct framework for a project, it is possible to investigate the most used ones as they are expected to be supported for a longer period of time. Stack Overflow, a company best known for its site for Q~\&~A regarding computer programming, publishes results of annual survey among developers. According to the 2020 survey~[@stackoverflow-survey] with 36~291 responses from professional developers, the most used web frameworks with at least 25\% of positive responses are jQuery~(43.3\%), React.js~(36.8\%), Angular~(26.5\%). These are the frameworks that I have considered for the new OSI web application.
+
+### jQuery
+
+### React
+
+React~[@reactjs] is a web framework that is being taught on the PB138 Modern Markup Languages and Their Applications course on the Faculty of Informatics Masaryk University. It introduces its own syntax called JSX~[@reactjs-main-concepts]. JSX is a syntax extension of JavaScript, which allows writing HTML template together with JavaScript logic:
+
+~~~JavaScript
+function formatName(user) {
+  return user.firstName + ' ' + user.lastName;
+}
+function getGreeting(user) {
+  if (user) return <h1>Hello, {formatName(user)}!</h1>;
+  else return <h1>Hello, Stranger.</h1>;
+}
+~~~
+
+The practise of putting JavaSript code and HTML DOM together is useful for the understanding of code by eliminating the need to look on multiple places, possibly split between files. The way of organizing code parts is completely in the hands of the developer.
+
+Main concepts of react are based upon creating components in a form of JavaScript function or ES6 class, which can then be used directly inside the JSX. Component-state management is implemented by saving the state locally and passing functions to child components, which can then propagate events by calling the passed functions as callback. This way of state management, especially when combined with components implemented as functions, makes it possible to produce a cleaner code with well visible dependencies.
+
+The bare React without any dependencies does not contain additional features such as CSS encapsulation, meaning that any style defined and imported anywhere in the app will affect even parent components that match its selector, though this feature can be achieved by using the officially supported tool for creating React applications.
+
+### Angular
+
+
+\end{markdown*}
+
 \mdchap{Collecting feedback}
 
 ## Means of feedback collection
@@ -350,26 +394,7 @@ Since the October 2021 the OSI organizers were encouraged to submit their feedba
 The questionare sent to the OSI participants consisted of three parts. In the first part, the participants were asked to provide their opinion on two new experimental UX features. The second section has consisted of questions about comparsion of the new and current OSI web frontend. The last section was made of free form questions about what do participants think that has improved with a new web and what was better on the old web frontend.
 
 
-
 \end{markdown*}
-
-
-\chapter{--new-chapter--}
-\shorthandoff{-}
-\begin{markdown*}{%
-  hybrid,
-  definitionLists,
-  footnotes,
-  inlineFootnotes,
-  hashEnumerators,
-  fencedCode,
-  citations,
-  citationNbsps,
-  pipeTables,
-  tableCaptions,
-}
-\end{markdown*}
-
 
 \shorthandon{-}
 
