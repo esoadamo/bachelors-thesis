@@ -358,6 +358,17 @@ For reasons shown in the previous section, the development of a larger web appli
 
 ### jQuery
 
+The jQuery library~[@jquery] is not a full-featured web framework, instead it aims to make common tasks like event handling, animations and document manipulation simpler. As a simple presentation of its capabilities, consider following code with plain JavaScript and jQuery~[@jquery]:
+
+~~~JavaScript
+// JavaScript
+document.querySelector('button.continue').innerHTML = "Next Step ...";
+// jQuery
+\$("button.continue").html("Next Step...");
+~~~
+
+For its supposed different use case, the jQuery fully lacks advanced features like abstract component creation and styles encapsulation.
+
 ### React
 
 React~[@reactjs] is a web framework that is being taught on the PB138 Modern Markup Languages and Their Applications course on the Faculty of Informatics Masaryk University. It introduces its own syntax called JSX~[@reactjs-main-concepts]. JSX is a syntax extension of JavaScript, which allows writing HTML template together with JavaScript logic:
@@ -379,7 +390,7 @@ Main concepts of react are based upon creating components in a form of JavaScrip
 The bare React without any dependencies does not contain additional features such as CSS encapsulation, meaning that any style defined and imported anywhere in the app will affect even parent components that match its selector, though this feature can be achieved by using the officially supported tool for creating React applications.
 
 ### Angular
-
+	
 
 \end{markdown*}
 
