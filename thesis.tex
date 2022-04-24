@@ -159,8 +159,7 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 - what is frontend
 - what is backend
 - HTTP methods
-- contraction JSON, ESI, API, URL, UX, UI
-- docker
+- contraction JSON, ESI, API, URL, UX, UI, FI, HTTP
 - mastodon
 - content policy
 - wpa
@@ -174,6 +173,7 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 - angular.js
 - Q \& A
 - angular components input, output, ngif, ngfor
+- secondary 
 
 
 \end{markdown*}
@@ -241,7 +241,7 @@ The SmartBear Software also provides a tool called Swagger UI~[@swagger-ui]. Thi
 
 ### Possible approaches
 
-Because the OSI backend is written with a Python Falkon framework without any specified typing and that request inputs and outputs may span across multiple functions and methods, obtaining this information automatically does not seem as a possible course of action, so the information for the creation of the `swagger.json` file need to be generated from the scratch by manually describing every possible endpoint. It was possible to add the documentation directly to the backend project by using [swaggerit wrapper](https://github.com/dutradda/swaggerit) -- the recommended alternative to a now discontinuied falcon-swagger~[@falcon-swagger], but this approach would require a manual typing of all required fields. Another possibility was to describe the backend API with a TypeScript language by using TypeScript OpenAPI~[@tsoa]. This approach has a significant advantage that it uses a TypeScript interfaces to describe expected inputs and outputs. TypeScript interfaces can also be inherited, making it useful to prevent code duplication and its linked dangers.
+Because the OSI backend is written with a Python Falkon framework without any specified typing and that request inputs and outputs may span across multiple functions and methods, obtaining this information automatically does not seem as a possible course of action, so the information for the creation of the `swagger.json` file need to be generated from the scratch by manually describing every possible endpoint. It was possible to add the documentation directly to the backend project by using [swaggerit wrapper](https://github.com/dutradda/swaggerit) -- the recommended alternative to a now discontinuied falcon-swagger~[@falcon-swagger], but this approach would require a manual typing of all required fields. Another possibility was to describe the backend API with a TypeScript language by using TypeScript OpenAPI~[@tsoa]. This approach has a significant advantage that it uses a TypeScript interfaces to describe expected inputs and outputs. TypeScript interfaces can also be inherited, making it useful to prevent code duplication and its linked threats.
 
 ### Implemented solution
 
@@ -341,6 +341,24 @@ Internally, this function will take care of handling authorization and possible 
 
 Because the definition of the API is stored within a separate project, this could in the future lead to a de-synchronization between the definition of the API and the backend code itself. Though, this threat would be present in some form unless the `swagger.json` can be generated directly from the backend code. If no technology like OpenAPI was used, then the possible issue would move on the client may be updated with less frequency than backend. The separate project is a compromise, which minimizes the risk of de-synchronization by using a simple to use syntax for the backend developers and easy changes implementation by regenerating the code from the Swagger definition for the frontend developers.
 
+## Docker container
+
+The only public instance of the OSI backend is for the production environment. The second instance, created for testing purposes, is only available from inside of the faculty network, which makes it inappropriate for wide testing by all OSI organizers, given that not every organizer is also student of the FI. This makes the need for another backend instance obvious. Furthermore, being able to easily create multiple instances for local testing during development decreases a chance of a larger issues, because of their local scope.
+
+The backend project itself has only a few external dependencies -- except for Python 3 environment, it needs a [`isolate`](https://github.com/ioi/isolate/) project executable for sandboxing untrusted participants code and a database to connect to. By selecting a base Docker image of Python 3 based on [Debian buster](https://hub.docker.com/_/python) it is possible to create an environment simmilar to the OSI production server. Almost every required modification to the backend project can be done directly inside the [Dockerfile](https://github.com/fi-ksi/web-backend/blob/master/.docker/Dockerfile), namely:
+
+- because `isolate` is not available as a Debian package, it has to be compiled manually. The Dockerfile downloads the built version from my personal Debain package repository
+- for easier manipulation with the database, an SQLite database file will be used instead of MariaDB server used on production. This decision has a few implications:
+  - the SQLite database backend does not automatically convert data types, so some source code patches were needed to fix data types passed to the database
+  - SQLite does not fully implement all SQL language features, for example `CURRENT_TIMESTAMP + INTERVAL 1 SECOND` needs to be replaced with `datetime("now", "+1 seconds")`
+- the server needs to be accessible from the Docker container's IP address, not only from localhost
+- `isolate` requires the `/etc/` directory to be bind mounted as `/opt/etc`, which is not possible inside a Docker container, unless the container is started in a privileged mode
+- the default starting script, which launches the server as a background daemon, needs to be replaced with a different container entry point that stays in the foreground, which is useful for starting the container in an interactive mode
+
+The data of the backend server, together with the SQLite database file, are kept externally and are only bind mounted to the container, so that rebuilding the docker image does not erase them. Only when the entrypoint of the container is executed the data is mounted into appropriate location. To prevent insufficient permission when accessing to the data by the unprivileged `ksi` user inside the container, the real owner is masked by using `bindfs` tool.
+
+Because the container is running in a privileged mode with shared `/dev/fuse` for the `bindfs` tool, it is currently undesirable to execute production server inside the container, as it may pose a security risk. On the other hand, the container is fully suitable for usage during the development of the frontend application. Furthermore, the whole docker container can be packaged inside a `.tar` file and then transferred to another machine, making the process of creating another backend instance faster. This feature was used when deploying a temporary [testing server](https://ksi.ahlava.cz/api/years), which is available for all OSI organizers and is running inside the docker container.
+
 \end{markdown*}
 
 \mdchap{Selecting framework for a new web application}
@@ -425,6 +443,7 @@ To demonstrate the power of these features, consider following example: The user
 As seen from the example, even basic the chaining of events can reduce code complexity and duplication, while simultaneously increasing application speed.
 
 \end{markdown*}
+
 
 \mdchap{Collecting feedback}
 
