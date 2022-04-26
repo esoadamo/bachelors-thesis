@@ -174,6 +174,7 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 - Q \& A
 - angular components input, output, ngif, ngfor
 - secondary 
+- updating angular
 
 
 \end{markdown*}
@@ -441,6 +442,137 @@ The RxJS library defines two main participants inside the flow of an `Observable
 To demonstrate the power of these features, consider following example: The user wants to login to a web application, so he fills username and password and then clicks on the login button. This click emits an event to an observable `loginSuccessful`, which will take the value of username and password and send them to the backend server. If the server approves sent credentials as valid, the `loginSuccessful` observable will emit a value of `true` and `false` otherwise. A listener called `menuContent` waits for an emission of a new state from the `loginSuccessful` observable and then transforms the content of menu on web page based upon new state, requiring re-rendering of only a small portion of the whole page. Second listeners listens only for `true` emission from `loginSuccessful` by filtering emitted values and then shows a welcome dialog to a newly logged in user.
 
 As seen from the example, even basic the chaining of events can reduce code complexity and duplication, while simultaneously increasing application speed.
+
+\end{markdown*}
+
+
+\mdchap{Final web application}
+
+During the development of the application, I have followed following principles:
+
+1. optimize the desktop page variant for displays of size 1920x1080
+2. everything has to be accessible on mobile phone
+3. provide an unique link whenever possible
+4. prefer asynchronous operations
+5. update smaller chunks of components instead of whole
+6. cache mainly static but frequently accessed information
+
+Because the design of the current still looks good enough nowadays, the overall look of the webpage is unchanged. The colour pattern was generated as shades defined from main OSI colours and all icons were reused from the current web application.
+
+All text resources are either loaded directly from backend or from the `cs.json` resource file. This makes changing texts easier and also enables for easy translation to another language, as only a change of one file is required.
+
+## Landing page
+
+The landing page is referenced on every propagation media and as such is a first element of the OSI web application that possible participants will most likely see. The current landing page~( \ref{fig:welcome-curr}) uses a signification portion of space for large icons and long text blocks. It also presents a clickable button in the middle of an image, which is a disturbing design pattern. To address these issues, the new landing page~(\ref{fig:welcome-new}) splits the content into two rows so that newest information are visible without any scrolling required. The longer texts have been hidden behind carousel which is shown when the user clicks on one of the key OSI points in the middle of screen.
+
+A second most notable design choice that differs from the current web application is the width and color of the navigation bar. In the current version, the navigation bar is located near the middle, whereas in the new application it covers full width of the screen with unified colours. This approach gives more breathable feel and is also easier to scale on different resolutions.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/welcome_curr}
+\caption{The current OSI landing page on desktop}
+\label{fig:welcome-curr}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/welcome_new}
+\caption{The new OSI landing page on mobile}
+\label{fig:welcome-new}
+\end{figure}
+
+## Tasks graph page
+
+The main point of OSI is a page with all tasks available to participants. The tasks are presented trough the form of acyclic graph, which can precisely represent which tasks are required to be completed before proceeding to the next ones.
+
+The current version of the web frontend (\ref{fig:graph-curr}) shows a legend explaining the different graph node colors on the left, which moves whole graph slightly to the right side. Moreover, with a progress of a year, the graph could get more complicated and unclear. The new web frontend (\ref{fig:graph-new}) tries to take a maximum advantage of available page width. This is done by moving the legend into a modal dialog (\ref{fig:graph-new-settings}) accessible by a help button in the top right corner of the page. Given that the legend is mostly used by only new users of OSI web application, there is a little need to keep it visible all the time. Furthermore, to increase the clarity of the task graph, it is possible for the user to turn splitting the whole graph into multiple smaller graphs by grouping them into their thematic waves (\ref{fig:graph-split}). In this mode, the user can then keep open only the relevant parts of graph, presumably only the currently active OSI task wave.
+
+Though, the most notable change can be seen when using the OSI web application on a mobile phone (\ref{fig:graph-mobile}). In the current version, the graph on the mobile is too narrow to fit, which results in multiple tasks overlapping. This makes it nearly impossible to open correct task. Instead, in the new web application, a special graph presentation mode was created. In this mode, the tasks are shown in the mode of a list, where tasks required to be completed before other tasks can be unlocked are shown first. This mode lacks information about different graph branches as seen on desktop version, but provides a viable compromise to usability on a mobile phone.
+
+In the spirit of the third followed principle, all tasks in all modes are now rendered as HTML anchor points, instead of clickable canvas as in the current version. The advantage of this approach is that now every task can be searched by its name from within the web browser and multiple tasks can be opened in a new tab by pressing the middle button on the mouse.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/graph_curr}
+\caption{The current task graph}
+\label{fig:graph-curr}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/graph_new}
+\caption{The new task graph}
+\label{fig:graph-new}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/graph_newsettings}
+\caption{The settings of the new task graph with legend}
+\label{fig:graph-new-settings}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/graph_split}
+\caption{The task graph when spitted by wave groups}
+\label{fig:graph-split}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=.5\textwidth]{assets/img/graph-mobile}
+\caption{The task graph when seen on a mobile phone (current left, new right)}
+\label{fig:graph-mobile}
+\end{figure}
+
+
+## The task page
+
+The functionality of a OSI task page remains almost unchanged, mainly a design modifications were made. In the current version (\ref{fig:task-curr}), the task has a section selection in its begging, where it may feel disruptive and complicated. Most of the time, the participant does not need to see discussion or his evaluation before he had read and tried to solved the task. The new web application puts all controls after the tasks assignment, imitating a style of an internet news article which has first title, then author, date of publication and then the content of the article. The content of the article is followed by a link to a discussion about said article. This design choice, together with less bright background, aims to lower possible distractions from the text of the assignment. Both discussion and solution are opened as a modal dialog on desktop to keep the page's scroll position intact. In the mobile version, where there is not enough space to open modal with more content, the assignment is replaced with requested section.
+
+
+\begin{figure}
+\includegraphics[width=.9\textwidth]{assets/img/task-curr}
+\caption{The current look of a OSI task}
+\label{fig:task-curr}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/task-new}
+\caption{The new design of a OSI task}
+\label{fig:task-new}
+\end{figure}
+
+
+## Discussion page
+
+The discussion forum on OSI web consists of two pages -- first the selection of discussion subject thread and then posts within the tread.
+
+### Discussion selection
+
+The selection takes form of a table with a name of thread and its posts count. The most notable difference between the current (\ref{fig:discussroot-curr}) and new (\ref{fig:discussroot-new}) design is that the current version contains a third column with a count of unread posts inside the thread. This columns is always visible, even if all posts had been read. Moreover, it shows white text on orange background, which may be difficult to read. In the new design, the count of the unread posts is shown only if there are any and is shown as a bold text in the post count column, making it easier for quick navigation.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/discussionroot-curr}
+\caption{The current look of a OSI discussion selection page}
+\label{fig:discussroot-curr}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/discussionroot-new}
+\caption{The new design of a OSI discussion selection page}
+\label{fig:discussroot-new}
+\end{figure}
+
+### Discussion posts
+
+In the current version (\ref{fig:discuss-curr}), the posts have no borders and responses to a previous post are differentiated by a larger offset. However, if the posts receives multiple replies, it may overflow the maximum offset, which makes identifying which posts responds to which a difficult task. The new design of the web applications addresses these issues by adding borders to posts and a rails that indicate which post is parent of which reply. If the level of replies is too deep, then an additional button to unpack and continue within the reply thread is shown. When a reply thread is unpacked, it becomes the topmost post, hiding every post with a lesser level. By preternaturally unpacking replies, the web application assures that the structure of posts will never overflow maximum offset and as such will always be easily readable. A new added feature is an unique link to each post, which makes it easier to share it more precisely, rather than having to share the whole discussion thread and then manually search for the post content.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/discussion-curr}
+\caption{The current look of a OSI discussion posts}
+\label{fig:discuss-curr}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/discussion-new}
+\caption{The new design of a OSI discussion posts}
+\label{fig:discuss-new}
+\end{figure}
 
 \end{markdown*}
 
