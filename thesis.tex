@@ -163,9 +163,6 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 - mastodon
 - content policy
 - wpa
-- ssr
-- RxJS
-- good commits
 - 0auth
 - OSI team, team member lifetime
 - other seminars
@@ -483,6 +480,23 @@ The new automatic deployment process is also triggered upon push to a watched br
 
 This new deployment process does not rely on any specific person to participate, only requirement is the existence of the called CGI script on the target server. To mitigate security concerns about downloading and untrusted `tar` file and blindly replacing own files with its content, the CGI script contains various methods of protection. Foremost, the script is supposed to be accessible only when a correct authorization is performed to the web server beforehand, which together with a strong password will mitigate most attack attempts, as those will be handled by the web server and the script will not be executed. If the attacker was to gain access by guessing the correct password, then the script itself will check that the owner and repository of the `build.tar` match with expected values and if not, refuses to perform the action. Finally, the CGI script is executed in a sandboxed environment with write access only to the distribution files, to prevent accidental file modification.
 
+### Automatic changelog generation
+
+To keep the users of the web application informed about development progress, a changelog dialogue was shown whenever a change has been made since user's last visit (\ref{fig:changelog}). The changelog is generated automatically based on git commits history. This is possible due to respecting Conventional Commits specification~[@conventional-commits], where commits have a structure similar to `feat(category): description` or `fix(category): description`. Parsing such commit messages from git history is a trivial tasks, consequently making generating automatic changelog practically effortless. The changelog is generated on build time or by manually executing `util/gen-changelog.sh` script. Regenerating the changelog also updates application version number.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{assets/img/changelog}
+\caption{A changelog dialogue with recent changes}
+\label{fig:changelog}
+\end{figure}
+
+### Login status and theme synchronization
+
+Whenever user changes preferred colour theme or logs in or out, the information about this action is synchronized across all opened tabs through [`BroadcastChannel`](https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel) API. This feature greatly improves UX in such cases when user opens multiple tasks that required log in at once without logging in. By simply entering his credentials in one of opened tabs, the status will be propagated across all tabs without any additional input from the user.
+
+### Improved loading times
+
+To improve loading times, all modules (except for `shared` module) are imported as Angular lazy modules~[@angular-lazy]. This assures that on the first load the application will load the minimal subset of code required to render content. Additional code from different modules is downloaded automatically when the user requests it, typically when navigating to another subpage. Furthermore, Angular provides a simple way to convert the application in a so-called Progressive Web Application, PWA for short. PWA relies on a Service worker technology, that works as a proxy for all network requests made by the application~[@angular-pwa]. As such, it can intercept the requests and instead of passing it through, return a version saved in cache. Most modern browsers support service workers, so the web application is cached automatically after first load. Subsequent call will be returned from cache, making loading pages instantaneous. On the background, the service worker checks if the code of the application was changed, then it is silently downloaded and applied upon next load of the application, making the transition between versions seamless. In the future, this behaviour could be a prerequisite for fully offline available OSI web application, though it would require backend modification and possibly break its compatibility with the current web application.
 
 ## UI Design
 
