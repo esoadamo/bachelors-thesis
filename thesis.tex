@@ -58,7 +58,7 @@
     gender      = m,
     advisor     = {RNDr. Vladimír Štill, Ph.D.},
     title       = {Revitalization and Modernization of Web Application of the Epistolary Seminar of Informatics},
-    TeXtitle    = {Revitalization and Modernization of Web Application of the Epistolary Seminar of Informatics},
+    TeXtitle    = {Revitalization and Modernization of Web Application of the Online Seminar of Informatics},
     keywords    = {keyword1, keyword2, ...},
     TeXkeywords = {keyword1, keyword2, \ldots},
     abstract    = {%
@@ -79,7 +79,7 @@
 \makeindex                %% helper commands for index typesetting.
 \usepackage[acronym]{glossaries}          %% The `glossaries` package
 \renewcommand*\glspostdescription{\hfill} %% contains helper commands
-\loadglsentries{example-terms-abbrs.tex}  %% for typesetting glossaries
+\loadglsentries{abbreviations.tex}  %% for typesetting glossaries
 \makenoidxglossaries                      %% and lists of abbreviations.
 %% These additional packages are used within the document:
 \usepackage{paralist} %% Compact list environments
@@ -119,7 +119,7 @@
 
 \mdstart
 
-The Epistolary Seminar of Informatics (ESI for short) is an annual online competition and also one of the activities of the Faculty of Informatics targeted at high school students. The central part of ESI takes place from September to April in four thematic waves. Each wave consists of at least a dozen tasks in which the participants can learn and then apply various informatics principles. Participants who earn a minimum of 60\% points for completing given tasks awarded throughout all four waves are suitable to be accepted to the Faculty of Informatics without taking entrance exams. Every year ESI has more than five hundred participants that come to solve the tasks on its current website located at https://ksi.fi.muni.cz/.
+The Online Seminar of Informatics (ESI for short) is an annual online competition and also one of the activities of the Faculty of Informatics targeted at high school students. The central part of ESI takes place from September to April in four thematic waves. Each wave consists of at least a dozen tasks in which the participants can learn and then apply various informatics principles. Participants who earn a minimum of 60\% points for completing given tasks awarded throughout all four waves are suitable to be accepted to the Faculty of Informatics without taking entrance exams. Every year ESI has more than five hundred participants that come to solve the tasks on its current website located at https://ksi.fi.muni.cz/.
 
 The current website is created with an outdated framework, and only a fraction of the current organizers have a needed understanding of possible issues. Because of this, the main goal of this thesis is to create a new web application for ESI, while the main focuses of the new application are on easy and effective moderation in terms of long term support.
 
@@ -134,9 +134,9 @@ The first two chapters are dedicated to researching other competitions similar t
 \markright{\textsc{Introduction}}
 \addcontentsline{toc}{chapter}{Introduction}
 
-\mdchap{Current state of the web frontend of Epistolary Seminar of Informatics}
+\mdchap{Current state of the web frontend of Online Seminar of Informatics}
 
-The current web frontend of the Epistolary Seminar of Informatics (ESI for short) was written using the first version of the Ember.js framework. The last minor version of the first version of the Ember.js framework was released on the 12th of June 2015~[@ember-1]. The frontend stayed principally the same throughout the years because the first Ember.js version cannot be upgraded to a more recent and supported version with ease. Following the fact that Ember v1 was released in 2015, present seminar organizers face a few severe issues -- the foremost being security implications of using old and deprecated software and the secondary being the lack of volunteers with enough knowledge of this technology. In its current state, the frontend is singlehandedly managed by Ondřej Borýsek~[@ksi-web-frontend].
+The current web frontend of the Online Seminar of Informatics (ESI for short) was written using the first version of the Ember.js framework. The last minor version of the first version of the Ember.js framework was released on the 12th of June 2015~[@ember-1]. The frontend stayed principally the same throughout the years because the first Ember.js version cannot be upgraded to a more recent and supported version with ease. Following the fact that Ember v1 was released in 2015, present seminar organizers face a few severe issues -- the foremost being security implications of using old and deprecated software and the secondary being the lack of volunteers with enough knowledge of this technology. In its current state, the frontend is singlehandedly managed by Ondřej Borýsek~[@ksi-web-frontend].
 
 Since the support of the utilized framework ended, the organizers have been aware of these issues. They have tried to migrate the used version to a current stable version of Ember, most notably inside a private project called web-frontend-ember3~[@ksi-web-frontend-ember3], but these attempts were not successful. The leading explanation for the prevalence of the current frontend is that all organizers are volunteers. With only a limited time available, the organizers decided to work on more imminent duties. However, this task has gained a significant priority as Ondřej Borýsek will finish his studies shortly, and, consequently, none of the team members will be capable of resolving issues or implementing new features.
 
@@ -171,7 +171,7 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 - Q \& A
 - angular components input, output, ngif, ngfor
 - secondary 
-- updating angular
+
 
 
 \end{markdown*}
@@ -221,6 +221,7 @@ The Swagger also supports advanced features such as defining accepted authorizat
 The client that is being implemented against this backend can take use of this information so that it precisely knowns what type of data to send and what type of the data to expect. This makes the development process easier, because it eliminates the possibility of miscommunication between the frontend and backend teams. Every time the API on the backend is changed all that it takes is to regenerate the `swagger.json` file and all the clients can download it and modify their requests according to the new specification.
 
 ## swagger-codegen
+\label{chap:swagger-codegen}
 
 Another part of the set of OpenAPI projects is a project called `swagger-codegen`~[@swagger-codegen]. This tool is able to parse the `swagger.json` file and produce a code for given language that can be used for manipulating with the backend's API. This is a strong opportunity for the developer as this completely eliminates the need for manually checking how to send a requests, instead all required parameters are passed to a generated function which in turn returns the desired data. Furthermore, when used in conjunction with an explicitly typed language, such as TypeScript, the developer of the client application is immediately notified about an type error when a part of the API changes, allowing for a much faster and more secure development.
 
@@ -459,14 +460,13 @@ As seen from the example, even basic the chaining of events can reduce code comp
 \label{fig:file-tree}
 \end{figure}
 
-
 ### Project's directory tree
 
 The project's file tree is a important architecture design choice as it will influence whole project. Because the Angular framework has a set directory structure~[@angular-tutorial], this projects expands upon it to make it as easily accessible to new developers as possible (\ref{fig:file-tree}). The project's root directory contains two main subdirectories -- `src` with the source code of the application and `util` for helper scripts that perform automatic tasks.
 
 #### Source directory
 
-Same as Angular defaults, the source directory contains `app` subdirectory for web application code, `assets` for holding static files that are not direct part of the code and `environments` that define constants used by different instances 
+Same as Angular defaults, the source directory contains `app` subdirectory for web application code, `assets` for holding static files that are not direct part of the code and `environments` that define constants specific for every instance (for example URL for the backend server). The `api` directory holds all code generated by the `swagger-codegen` tool (\autoref{chap:swagger-codegen}). 
 
 ### Automatic deployment
 

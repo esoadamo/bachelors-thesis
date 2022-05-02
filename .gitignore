@@ -1,6 +1,6 @@
 _markdown_thesis/
 build/
-thesis.aux
+*.aux
 thesis.bbl
 thesis.bcf
 thesis.blg
