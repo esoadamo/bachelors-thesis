@@ -136,7 +136,7 @@ TODO: The first two chapters are dedicated to researching other competitions sim
 
 \mdchap{KSI Infrastrucute}
 
-KSI's organizers manage two virtual servers hosted on faculty's Open Nebula platform, both running Debian OS. One of these servers is for production, the second is for testing. Both share the same format - an Apache web server, which server the frontend and reverse proxies the backend.
+KSI's organizers manage two virtual servers hosted on faculty's Open Nebula platform, both running Debian OS. One of these servers is for production, the second is for testing. Both share the same format -- an Apache web server, which server the frontend and reverse proxies the backend.
 The production server is called `kleobis` and the development `kyzikos` and I will refer to them troughout this thesis as such.
 
 Kleobis has assigned two domains -- [ksi.fi.muni.cz](https://ksi.fi.muni.cz) for access to the frontend and [rest.ksi.fi.muni.cz](https://rest.ksi.fi.muni.cz) for calling backend endpoints.
@@ -170,7 +170,7 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 
 ## Backend
 
-The backend server~[@ksi-web-backend] is written as a Python 3 project and acts mainly as a middle-ware between the user and the database. A heavily utilized part of the backend is its capability to execute untrusted code sandboxed, which is a crucial part of the KSI. The backend is also capable of manipulating with a git repository containing data of solvable tasks.
+The backend server~[@ksi-web-backend] is written as a Python 3 project and acts mainly as a middle-ware between the user and the database. A heavily utilized part of the backend is its capability to execute untrusted code sandboxed, which is a crucial part of the KSI. The backend is used for manipulating with a git repository containing data of tasks for the participants to solve (assignment, solution and optional additional assets).
 
 ### Code sandboxing
 
@@ -184,15 +184,15 @@ The KSI backend utilizes the Falcon~[@falcon] framework for handling all HTTP AP
 
 \mdchap{Selecting framework for a new web application}
 
-Choosing the right framework, if any, largely impact the structure of the whole application. Because one of the main goals of this thesis is for it to be easily maintainable and quick to understand, the framework must be corresponding to these needs. Given the nature of the composition of the KSI organizers team, where most of the team members do have different skill sets, it is plausible that some of the next maintainers of the KSI web application will have only a basic knowledge about web development in general. Most of this general knowledge is likely to originate from the course PB138 Modern Markup Languages and Their Applications on the Faculty of Informatics Masaryk University. With that in mind, it is evident, that the selected framework needs to be fast to learn and easy to understand with as little background as possible.
+Choosing the right framework, if any, largely impact the structure of the whole application. Because one of the main goals of this thesis is for it to be easily maintainable and quick to understand, the framework must be corresponding to these needs. Given the nature of the composition of the KSI organizers team, where most of the team members do have different skill sets, it is plausible that some of the next maintainers of the KSI web application will have only a basic knowledge about web development in general. Most of this general knowledge is likely to originate from the course PB138 Modern Markup Languages and Their Applications on the Faculty of Informatics Masaryk University. With that in mind, it is evident, that the selected framework needs to be quick to learn and easy to understand with as little background as possible.
 
 ## Developing without framework
 
-Even though that it is possible to develop whole application without the use of any existing framework, this approach gains significant problems with the enlarging size of the application. Given that nearly every modern page consist at least of three components -- HTML file defining the elements, JavaScript file with functionality and CSS file used to style the look and placement of elements on the page, it would be possible to import JS and CSS files to different webpages to reuse code. However, this does not apply to HTML, which would have to be a separate file for every web page of the application, resulting in a large reuse of a code. It would be possible to implement a logic that would create complex HTML components from predefined source templates, but this approach would effectively create a new framework. This new framework would then suffer from additional issues like lack of external support and previously untested code.
+Even though that it is possible to develop whole application without the use of any existing framework, this approach gains significant problems with the enlarging size of the application. Given that nearly every modern page consist at least of three components -- HTML file defining the elements, JavaScript file with functionality and CSS file used to style the look and placement of elements on the page, it would be possible to import JS and CSS files to different webpages to reuse code. However, this does not apply to HTML, which would have to be a separate file for every web page of the application, resulting in a large duplication of code. It would be possible to implement a logic that would create complex HTML components from predefined source templates, but this approach would effectively create a new framework. This new framework would then suffer from additional issues like lack of external support and previously untested code.
 
 ## Developing with a framework
 
-For reasons shown in the previous section, the development of a larger web application without a framework is not ideal. On the other hand, when a framework is used in the project and then later is the framework marked as obsolete, it can be a challenging task to continue with a maintenance of the project, perhaps best shown on the example of the current KSI web. To select the correct framework for a project, it is possible to investigate the most used ones as they are expected to be supported for a longer period of time. Stack Overflow, a company best known for its site for Q~\&~A regarding computer programming, publishes results of annual survey among developers. According to the 2020 survey~[@stackoverflow-survey] with 36~291 responses from professional developers, the most used web frameworks with at least 25\% of positive responses are jQuery~(43.3\%), React.js~(36.8\%), Angular~(26.5\%). These are the frameworks that I have considered for the new KSI web application.
+For reasons shown in the previous section, the development of a larger web application without a framework is not ideal. On the other hand, when a framework is used in the project and then later the framework becomes obsolete, it can be a challenging task to continue with a maintenance of the project, perhaps best shown on the example of the current KSI web. To select the correct framework for a project, it is possible to investigate the most used ones as they are expected to be supported for a longer period of time. Stack Overflow, a company best known for its site for Q~\&~A regarding computer programming, publishes results of annual survey among developers. According to the 2020 survey~[@stackoverflow-survey] with 36~291 responses from professional developers, the most used web frameworks with at least 25\% of positive responses are jQuery~(43.3\%), React.js~(36.8\%), Angular~(26.5\%). These are the frameworks that I have considered for the new KSI web application.
 
 ### jQuery
 
@@ -205,11 +205,11 @@ document.querySelector('button.continue').innerHTML = "Next Step ...";
 \$("button.continue").html("Next Step...");
 ~~~
 
-For its supposed different use case, the jQuery fully lacks advanced features like abstract component creation and styles encapsulation.
+For its supposed use case, which is different from creating complex applications consisting of custom elements, the jQuery fully lacks advanced features like abstract component creation and styles encapsulation.
 
 ### React.js
 
-React.js~[@reactjs] is a web framework that is being taught on the PB138 Modern Markup Languages and Their Applications course on the Faculty of Informatics Masaryk University. It introduces its own syntax called JSX~[@reactjs-main-concepts]. JSX is a syntax extension of JavaScript, which allows writing HTML template together with JavaScript logic:
+React.js~[@reactjs] is a web framework that introduces its own syntax called JSX~[@reactjs-main-concepts]. JSX is a syntax extension of JavaScript, which allows writing HTML template together with JavaScript logic:
 
 ~~~JavaScript
 function formatName(user) {
@@ -223,9 +223,9 @@ function getGreeting(user) {
 
 The practise of putting JavaSript code and HTML DOM together is useful for the understanding of code by eliminating the need to look on multiple places, possibly split between files. The way of organizing code parts is completely in the hands of the developer.
 
-Main concepts of React.js are based upon creating components in a form of JavaScript function or ES6 class, which can then be used directly inside the JSX. Component-state management is implemented by saving the state locally and passing functions to child components, which can then propagate events by calling the passed functions as callback. This way of state management, especially when combined with components implemented as functions, makes it possible to produce a cleaner code with well visible dependencies.
+Main concepts of React.js are based upon creating components in a form of JavaScript function or class, which can then be used directly inside the JSX. Component-state management is implemented by saving the state locally and passing functions to child components, which can then propagate events by calling the passed functions as callback. This way of state management, especially when combined with components implemented as functions, makes it possible to produce a cleaner code with well visible dependencies.
 
-The bare React.js without any dependencies does not contain additional features such as CSS encapsulation, meaning that any style defined and imported anywhere in the app will affect even parent components that match its selector, though this feature can be achieved by using the officially supported tool for creating React.js applications.
+The bare React.js without any dependencies does not contain additional features such as CSS encapsulation, meaning that any style defined and imported anywhere in the app will affect even parent components that match its selector, though this feature can be achieved by using the officially supported tool for creating React.js applications. Another advantage of React.js is that it is being taught on the PB138 Modern Markup Languages and Their Applications course on the Faculty of Informatics Masaryk University.
 
 ### Angular
 
@@ -271,7 +271,7 @@ As seen from the example, even basic the chaining of events can reduce code comp
 
 \mdchap{Backend modifications}
 
-## Swagger
+## OpenAPI
 
 OpenAPI, formerly known as Swagger~[@swagger-about], is a set of projects that together can ease the development process for clients connecting to the exposed backend APIs. This can be achieved by the backend exposing a JSON file documenting the structure of the APIs. This structure mainly includes:
 
@@ -286,12 +286,12 @@ OpenAPI, formerly known as Swagger~[@swagger-about], is a set of projects that t
 
 The Swagger also supports advanced features such as defining accepted authorizations means such as API keys or 0auth tokens.
 
-The client that is being implemented against this backend can take use of this information so that it precisely knowns what type of data to send and what type of the data to expect. This makes the development process easier, because it eliminates the possibility of miscommunication between the frontend and backend teams. Every time the API on the backend is changed all that it takes is to regenerate the `swagger.json` file and all the clients can download it and modify their requests according to the new specification.
+The client that is being implemented against this backend can take use of this information so that it precisely knowns what type of data to send and what type of the data to expect. This makes the development process easier, because it lowers the possibility of miscommunication between the frontend and backend teams. Every time the API on the backend is changed all that it takes is to regenerate the `swagger.json` file and all the clients can download it and manually modify their requests according to the new specification.
 
 ### swagger-codegen
 \label{chap:swagger-codegen}
 
-Another part of the set of OpenAPI projects is a project called `swagger-codegen`~[@swagger-codegen]. This tool is able to parse the `swagger.json` file and produce a code for given language that can be used for manipulating with the backend's API. This is a strong opportunity for the developer as this completely eliminates the need for manually checking how to send a requests, instead all required parameters are passed to a generated function which in turn returns the desired data. Furthermore, when used in conjunction with an explicitly typed language, such as TypeScript, the developer of the client application is immediately notified about an type error when a part of the API changes, allowing for a much faster and more secure development.
+Another part of the set of OpenAPI projects is a project called `swagger-codegen`~[@swagger-codegen]. This tool is able to parse the `swagger.json` file and produce a code for given language that can be used for manipulating with the backend's API. This is a strong opportunity for the developer as this completely eliminates the need to manually check how to send a requests, instead all required parameters are passed to a generated function which in turn returns the desired data. Furthermore, when used in conjunction with an explicitly typed language, such as TypeScript, the developer of the client application is immediately notified about an type error when a part of the API changes, allowing for a much faster and more secure development.
 
 Currently, the `swagger-codegen` supports generating code for 40 languages, where a `typescript-angular` and `typescript-fetch` are counted as two distinct languages, even though both use TypeScript as a base.
 
@@ -303,7 +303,7 @@ The SmartBear Software also provides a tool called Swagger UI~[@swagger-ui]. Thi
 
 ### Possible approaches
 
-Because the KSI backend is written with a Python Falkon framework without any specified typing and that request inputs and outputs may span across multiple functions and methods, obtaining this information automatically does not seem as a possible course of action, so the information for the creation of the `swagger.json` file need to be generated from the scratch by manually describing every possible endpoint. It was possible to add the documentation directly to the backend project by using [swaggerit wrapper](https://github.com/dutradda/swaggerit) -- the recommended alternative to a now discontinuied falcon-swagger~[@falcon-swagger], but this approach would require a manual typing of all required fields. Another possibility was to describe the backend API with a TypeScript language by using TypeScript OpenAPI~[@tsoa]. This approach has a significant advantage that it uses a TypeScript interfaces to describe expected inputs and outputs. TypeScript interfaces can also be inherited, making it useful to prevent code duplication and its linked threats.
+Because the KSI backend is written with a Python Falkon framework without any specified typing and that request inputs and outputs may span across multiple functions and methods, obtaining this information automatically does not seem as a possible course of action, so the information for the creation of the `swagger.json` file need to be generated from the scratch by manually describing every possible endpoint. It was possible to add the documentation directly to the backend project by using [swaggerit wrapper](https://github.com/dutradda/swaggerit) -- the recommended alternative to a now discontinuied falcon-swagger~[@falcon-swagger], but this approach would require a manual typing of all required fields. Another possibility, which was chosen as a final solution, was to describe the backend API with a TypeScript language by using TypeScript OpenAPI~[@tsoa]. This approach has a significant advantage that it uses a TypeScript interfaces to describe expected inputs and outputs. TypeScript interfaces can also be inherited, making it useful to prevent code duplication and its linked threats.
 
 ### Implemented solution
 
@@ -315,7 +315,7 @@ For comparison, consider following shortened code from the KSI's backend for han
 ~~~python
 class Post(object):
     def on_put(self, req, resp, id):
-        if (not req.context['user'].is_org():
+        if not req.context['user'].is_org():
             return
         data = json.loads(req.stream.read().decode('utf-8'))['post']
         post = session.query(model.Post).get(id)
@@ -328,7 +328,7 @@ class Post(object):
 ~~~
 
 
-From this code example, it is evident, that the endpoint is expecting a JSON dictionary as an i with a single key `post`, which contains additional dictionary with keys `author` and `body`. This information can be transformed into TypeScript interfaces in a following way:
+From this code example, it is evident, that the endpoint is expecting a JSON dictionary with a single key `post`, which contains additional dictionary with keys `author` and `body`. This information can be transformed into TypeScript interfaces in a following way:
 
 
 ~~~ JavaScript
@@ -381,15 +381,11 @@ export class EndpointPosts {
 
 From this information, the TypeScript OpenAPI is able to generate the `swagger.json` endpoint description, which can be visualized by Swagger UI, as seen in figure \autoref{fig:swagger-ui}.
 
-\end{markdown*}
-
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/swagger-ui}
 \caption{The visualization of the post edit endpoint by Swagger UI}
 \label{fig:swagger-ui}
 \end{figure}
-
-\mdstart
 
 After the `swagger.json` definition file is generated on the backend, the `swagger-codegen`~[@swagger-codegen] tool can be used to generate respective code on the frontend:
 
@@ -399,9 +395,9 @@ public postsEditSingle(body: PostsEditRequest, postsId: number): Observable<Post
 
 Internally, this function will take care of handling authorization and possible exceptions, so that the developer can use this as a normal function, without the need to worry about its inner workings.
 
-### Possible drawbacks
+### Drawbacks and advantages
 
-Because the definition of the API is stored within a separate project, this could in the future lead to a de-synchronization between the definition of the API and the backend code itself. Though, this threat would be present in some form unless the `swagger.json` can be generated directly from the backend code. If no technology like OpenAPI was used, then the possible issue would move on the client may be updated with less frequency than backend. The separate project is a compromise, which minimizes the risk of de-synchronization by using a simple to use syntax for the backend developers and easy changes implementation by regenerating the code from the Swagger definition for the frontend developers.
+Because the definition of the API is stored within a separate project, this could in the future lead to a de-synchronization between the definition of the API and the backend code itself. Though, this threat would be present in some form unless the `swagger.json` can be generated directly from the backend code. If no technology like OpenAPI was used, then every time a backend endpoint would change, all frontend usages of such endpoint would need to be manually reviewed. The separate project is a compromise, which minimizes the risk of de-synchronization by using a simple to use syntax for the backend developers and easy changes implementation by regenerating the code from the Swagger definition for the frontend developers.
 
 ## Docker container
 
@@ -411,13 +407,13 @@ The backend project itself has only a few external dependencies -- except for Py
 
 - because `isolate` is not available as a Debian package, it has to be compiled manually. The Dockerfile downloads the built version from my personal Debain package repository
 - for easier manipulation with the database, an SQLite database file will be used instead of MariaDB server used on production. This decision has a few implications:
-  - the SQLite database backend does not automatically convert data types, so some source code patches were needed to fix data types passed to the database
-  - SQLite does not fully implement all SQL language features, for example `CURRENT_TIMESTAMP + INTERVAL 1 SECOND` needs to be replaced with `datetime("now", "+1 seconds")`
-- the server needs to be accessible from the Docker container's IP address, not only from localhost
+    - the SQLite database backend does not automatically convert data types, so some source code patches were needed to fix data types passed to the database
+    - SQLite does not fully implement all SQL language features, for example `CURRENT_TIMESTAMP + INTERVAL 1 SECOND` needs to be replaced with `datetime("now", "+1 seconds")`
+- the backend server needs to be accessible from the Docker container's IP address, while the default settings are to be accessible only from localhost
 - `isolate` requires the `/etc/` directory to be bind mounted as `/opt/etc`, which is not possible inside a Docker container, unless the container is started in a privileged mode
 - the default starting script, which launches the server as a background daemon, needs to be replaced with a different container entry point that stays in the foreground, which is useful for starting the container in an interactive mode
 
-The data of the backend server, together with the SQLite database file, are kept externally and are only bind mounted to the container, so that rebuilding the docker image does not erase them. Only when the entrypoint of the container is executed the data is mounted into appropriate location. To prevent insufficient permission when accessing to the data by the unprivileged `ksi` user inside the container, the real owner is masked by using `bindfs` tool.
+The data of the backend server, together with the SQLite database file, are kept externally and are only bind mounted to the container, so that rebuilding the docker image does not erase them. Only when the entrypoint of the container is executed the data is mounted into appropriate location. To prevent insufficient permission when accessing to the data by the unprivileged `ksi` user inside the container, the real owner is masked by using `bindfs` tool. The `bindfs` is also used to bind-mount `/etc/` to `/opt/etc` to bypass higher permission requirements for the Docker container. 
 
 Because the container is running in a privileged mode with shared `/dev/fuse` for the `bindfs` tool, it is currently undesirable to execute production server inside the container, as it may pose a security risk. On the other hand, the container is fully suitable for usage during the development of the frontend application. Furthermore, the whole docker container can be packaged inside a `.tar` file and then transferred to another machine, making the process of creating another backend instance faster. This feature was used when deploying a temporary [testing server](https://ksi.ahlava.cz/api/years), which is available for all KSI organizers and is running inside the docker container.
 
@@ -472,7 +468,6 @@ The new web applications supports switching between so called light (\autoref{fi
 \caption{Task page in a dark mode}
 \label{fig:dark-mode}
 \end{figure}
-
 
 ### Translations
 \label{chap:translations}
