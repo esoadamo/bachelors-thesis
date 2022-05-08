@@ -293,7 +293,7 @@ export class EndpointPosts {
     {  /* ... code to process the request ... */  }
 ~~~
 
-From this information, the TypeScript OpenAPI is able to generate the `swagger.json` endpoint description, which can be visualized by Swagger UI, as seen in figure \ref{fig:swagger-ui}.
+From this information, the TypeScript OpenAPI is able to generate the `swagger.json` endpoint description, which can be visualized by Swagger UI, as seen in figure \autoref{fig:swagger-ui}.
 
 \end{markdown*}
 
@@ -437,7 +437,7 @@ As seen from the example, even basic the chaining of events can reduce code comp
 
 ### Project's directory tree
 
-The project's file tree is a important architecture design choice as it will influence whole project. Because the Angular framework has a set directory structure~[@angular-tutorial], this projects expands upon it to make it as easily accessible to new developers as possible (\ref{fig:file-tree}). The project's root directory contains two main subdirectories -- `src` with the source code of the application and `util` for helper scripts that perform automatic tasks.
+The project's file tree is a important architecture design choice as it will influence whole project. Because the Angular framework has a set directory structure~[@angular-tutorial], this projects expands upon it to make it as easily accessible to new developers as possible (\autoref{fig:file-tree}). The project's root directory contains two main subdirectories -- `src` with the source code of the application and `util` for helper scripts that perform automatic tasks.
 
 #### Source directory
 
@@ -519,7 +519,7 @@ This new deployment process does not rely on any specific person to participate,
 ### Automatic changelog generation
 \label{chap:changelog}
 
-To keep the users of the web application informed about development progress, a changelog dialogue was shown whenever a change has been made since user's last visit (\ref{fig:changelog}). The changelog is generated automatically based on git commits history. This is possible due to respecting Conventional Commits specification~[@conventional-commits], where commits have a structure similar to `feat(category): description` or `fix(category): description`. Parsing such commit messages from git history is a trivial tasks, consequently making generating automatic changelog practically effortless. The changelog is generated on build time or by manually executing `util/gen-changelog.sh` script. Regenerating the changelog also updates application version number.
+To keep the users of the web application informed about development progress, a changelog dialogue was shown whenever a change has been made since user's last visit (\autoref{fig:changelog}). The changelog is generated automatically based on git commits history. This is possible due to respecting Conventional Commits specification~[@conventional-commits], where commits have a structure similar to `feat(category): description` or `fix(category): description`. Parsing such commit messages from git history is a trivial tasks, consequently making generating automatic changelog practically effortless. The changelog is generated on build time or by manually executing `util/gen-changelog.sh` script. Regenerating the changelog also updates application version number.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/changelog}
@@ -538,22 +538,20 @@ To improve loading times, all modules (except for `shared` module) are imported 
 
 ## UI Design
 
-During the development of the application, I have followed following principles:
+During the development of the application, following principles were maintained:
 
-1. optimize the desktop page variant for displays of size 1920x1080
-2. everything has to be accessible on mobile phone
-3. provide an unique link whenever possible
-4. prefer asynchronous operations
-5. update smaller chunks of components instead of whole
-6. cache mainly static but frequently accessed information
+1. everything has to be accessible on mobile phone
+2. provide an unique link whenever possible
+3. prefer asynchronous operations
+4. cache mainly static but frequently accessed information
 
-Because the design of the current still looks good enough nowadays, the overall look of the webpage is unchanged. The colour pattern was generated as shades defined from main KSI colours and all icons were reused from the current web application.
+Because the design of the current web still looks good enough nowadays, the overall new look of the webpage is similar -- the colour pattern was generated as shades defined from main KSI colours and all icons were reused from the current web application.
 
 All text resources are either loaded directly from backend or from the `cs.json` resource file. This makes changing texts easier and also enables for easy translation to another language, as only a change of one file is required.
 
 ### Landing page
 
-The landing page is referenced on every propagation media and as such is a first element of the KSI web application that possible participants will most likely see. The current landing page~( \ref{fig:welcome-curr}) uses a signification portion of space for large icons and long text blocks. It also presents a clickable button in the middle of an image, which is a disturbing design pattern. To address these issues, the new landing page~(\ref{fig:welcome-new}) splits the content into two rows so that newest information are visible without any scrolling required. The longer texts have been hidden behind carousel which is shown when the user clicks on one of the key KSI points in the middle of screen.
+The landing page is referenced on every propagation media and as such is a first element of the KSI web application that possible participants will most likely see. The current landing page~( \autoref{fig:welcome-curr}) uses a signification portion of space for large icons and long text blocks. It also presents a clickable button in the middle of an image, which is a disturbing design pattern. To address these issues, the new landing page~(\autoref{fig:welcome-new}) splits the content into two rows so that newest information are visible without any scrolling required. The longer texts have been hidden behind carousel which is shown when the user clicks on one of the key KSI points in the middle of screen.
 
 A second most notable design choice that differs from the current web application is the width and color of the navigation bar. In the current version, the navigation bar is located near the middle, whereas in the new application it covers full width of the screen with unified colours. This approach gives more breathable feel and is also easier to scale on different resolutions.
 
@@ -573,11 +571,11 @@ A second most notable design choice that differs from the current web applicatio
 
 The main point of KSI is a page with all tasks available to participants. The tasks are presented trough the form of acyclic graph, which can precisely represent which tasks are required to be completed before proceeding to the next ones.
 
-The current version of the web frontend (\ref{fig:graph-curr}) shows a legend explaining the different graph node colors on the left, which moves whole graph slightly to the right side. Moreover, with a progress of a year, the graph could get more complicated and unclear. The new web frontend (\ref{fig:graph-new}) tries to take a maximum advantage of available page width. This is done by moving the legend into a modal dialog (\ref{fig:graph-new-settings}) accessible by a help button in the top right corner of the page. Given that the legend is mostly used by only new users of KSI web application, there is a little need to keep it visible all the time. Furthermore, to increase the clarity of the task graph, it is possible for the user to turn splitting the whole graph into multiple smaller graphs by grouping them into their thematic waves (\ref{fig:graph-split}). In this mode, the user can then keep open only the relevant parts of graph, presumably only the currently active KSI task wave.
+The current version of the web frontend (\autoref{fig:graph-curr}) shows a legend explaining the different graph node colors on the left, which moves whole graph slightly to the right side. Moreover, as new tasks are added with a progress of a year, the graph could get more complicated and unclear. The new web frontend (\autoref{fig:graph-new}) tries to take a maximum advantage of available page width. This is done by moving the legend into a modal dialog (\autoref{fig:graph-new-settings}) accessible by a help button in the top right corner of the page. Given that the legend is mostly used by only new users of KSI web application, there is a little need to keep it visible all the time. Furthermore, to increase the clarity of the task graph, it is possible for the user to turn splitting the whole graph into multiple smaller graphs by grouping them into their thematic waves (\autoref{fig:graph-split}). In this mode, the user can then keep open only the relevant parts of graph, presumably only the currently active KSI task wave.
 
-Though, the most notable change can be seen when using the KSI web application on a mobile phone (\ref{fig:graph-mobile}). In the current version, the graph on the mobile is too narrow to fit, which results in multiple tasks overlapping. This makes it nearly impossible to open correct task. Instead, in the new web application, a special graph presentation mode was created. In this mode, the tasks are shown in the mode of a list, where tasks required to be completed before other tasks can be unlocked are shown first. This mode lacks information about different graph branches as seen on desktop version, but provides a viable compromise to usability on a mobile phone.
+Though, the most notable change can be seen when using the KSI web application on a mobile phone (\autoref{fig:graph-mobile}). In the current version, the graph on the mobile is too narrow to fit, which results in multiple tasks overlapping. This makes it nearly impossible to open correct task. Instead, in the new web application, a special graph presentation mode was created. In this mode, the tasks are shown in the mode of a list, where tasks required to be completed before other tasks can be unlocked are shown first. This mode lacks information about different graph branches as seen on desktop version, but provides a viable compromise to usability on a mobile phone.
 
-In the spirit of the third followed principle, all tasks in all modes are now rendered as HTML anchor points, instead of clickable canvas as in the current version. The advantage of this approach is that now every task can be searched by its name from within the web browser and multiple tasks can be opened in a new tab by pressing the middle button on the mouse.
+In the spirit of the third followed principle, all tasks in all modes are now rendered as HTML anchor points, instead of clickable canvas as in the current version. The advantage of this approach is that now every task can be quickly located by using the search function of a web browser and multiple tasks can be opened in a new tab by pressing the middle button on the mouse or saved for later, without having to be opened one at a time.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/graph_curr}
@@ -612,7 +610,7 @@ In the spirit of the third followed principle, all tasks in all modes are now re
 
 ### The task page
 
-The functionality of a KSI task page remains almost unchanged, mainly a design modifications were made. In the current version (\ref{fig:task-curr}), the task has a section selection in its begging, where it may feel disruptive and complicated. Most of the time, the participant does not need to see discussion or his evaluation before he had read and tried to solved the task. The new web application puts all controls after the tasks assignment, imitating a style of an internet news article which has first title, then author, date of publication and then the content of the article. The content of the article is followed by a link to a discussion about said article. This design choice, together with less bright background, aims to lower possible distractions from the text of the assignment. Both discussion and solution are opened as a modal dialog on desktop to keep the page's scroll position intact. In the mobile version, where there is not enough space to open modal with more content, the assignment is replaced with requested section.
+The functionality of a KSI task page remains almost unchanged, mainly a design modifications were made. In the current version (\autoref{fig:task-curr}), the task has a section selection in its begging, where it may feel disruptive and complicated. Most of the time, the participant does not need to see discussion or his evaluation before he had read and tried to solve the task. The new web application puts all controls after the tasks assignment, imitating a style of an internet news article which has first title, then author, date of publication and then the content of the article. The content of the article is followed by a link to a discussion about said article. This design choice, together with less bright background, aims to lower possible distractions from the text of the assignment. Both discussion and solution are opened as a modal dialog on desktop to keep the page's scroll position intact. In the mobile version, where there is not enough space to open modal with more content, the assignment is replaced with requested section.
 
 
 \begin{figure}
@@ -634,7 +632,7 @@ The discussion forum on KSI web consists of two pages -- first the selection of 
 
 #### Discussion selection
 
-The selection takes form of a table with a name of thread and its posts count. The most notable difference between the current (\ref{fig:discussroot-curr}) and new (\ref{fig:discussroot-new}) design is that the current version contains a third column with a count of unread posts inside the thread. This columns is always visible, even if all posts had been read. Moreover, it shows white text on orange background, which may be difficult to read. In the new design, the count of the unread posts is shown only if there are any and is shown as a bold text in the post count column, making it easier for quick navigation.
+The selection takes form of a table with a name of thread and its posts count. The most notable difference between the current (\autoref{fig:discussroot-curr}) and new (\autoref{fig:discussroot-new}) design is that the current version contains a third column with a count of unread posts inside the thread. This columns is always visible, even if all posts had been read. Moreover, it shows white text on orange background, which may be difficult to read. In the new design, the count of the unread posts is shown only if there are any and is shown as a bold text in the post count column, making it easier for quick navigation.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/discussionroot-curr}
@@ -650,7 +648,7 @@ The selection takes form of a table with a name of thread and its posts count. T
 
 #### Discussion posts
 
-In the current version (\ref{fig:discuss-curr}), the posts have no borders and responses to a previous post are differentiated by a larger offset. However, if the posts receives multiple replies, it may overflow the maximum offset, which makes identifying which posts responds to which a difficult task. The new design of the web applications addresses these issues by adding borders to posts and a rails that indicate which post is parent of which reply. If the level of replies is too deep, then an additional button to unpack and continue within the reply thread is shown. When a reply thread is unpacked, it becomes the topmost post, hiding every post with a lesser level. By preternaturally unpacking replies, the web application assures that the structure of posts will never overflow maximum offset and as such will always be easily readable. A new added feature is an unique link to each post, which makes it easier to share it more precisely, rather than having to share the whole discussion thread and then manually search for the post content.
+In the current version (\autoref{fig:discuss-curr}), the posts have no borders and responses to a previous post are differentiated by a larger offset. However, if the posts receives multiple replies, it may overflow the maximum offset, which makes identifying which posts responds to which a difficult task. The new design of the web applications addresses these issues by adding borders to posts and a rails that indicate which post is parent of which reply. If the level of replies is too deep, then an additional button to unpack and continue within the reply thread is shown. When a reply thread is unpacked, it becomes the topmost post, hiding every post with a lesser level. By manually unpacking replies, the web application assures that the structure of posts will never overflow maximum offset and as such will always be easily readable. A new added feature is an unique link to each post, which makes it easier to share it more precisely, rather than having to share the whole discussion thread and then manually search for the post content.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/discussion-curr}
@@ -690,7 +688,7 @@ Since the October 2021 the KSI organizers were encouraged to submit their feedba
 
 ### Questionare
 
-The questionare sent to the KSI participants consisted of three parts. In the first part, the participants were asked to provide their opinion on two new experimental UX features. The second section has consisted of questions about comparsion of the new and current KSI web frontend. The last section was made of free form questions about what do participants think that has improved with a new web and what was better on the current web frontend. As the answers, the participants were asked to choose a number between 1 and 5, where 1 is the best and 5 is the worst. A total of 21 participants have submitted the form.
+The questionare sent to the KSI participants consisted of three parts. In the first part, the participants were asked to provide their opinion on two new experimental UX features (capitalization of the tasks title and design of a sortable module). The second section has consisted of questions about comparsion of the new and current KSI web frontend. The last section was made of free form questions about what do participants think that has improved with a new web and what was better on the current web frontend. As the answers, the participants were asked to choose a number between 1 and 5, where 1 is the best and 5 is the worst. A total of 21 participants have submitted the form.
 
 #### Respondents and responsiveness
 
