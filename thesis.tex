@@ -121,37 +121,18 @@
 
 The Online Seminar of Informatics (KSI for short) is an annual online competition and also one of the activities of the Faculty of Informatics targeted at high school students. The central part of KSI takes place from September to April in four thematic waves. Each wave consists of at least a dozen tasks in which the participants can learn and then apply various informatics principles. Participants who earn a minimum of 60\% points for completing given tasks awarded throughout all four waves are suitable to be accepted to the Faculty of Informatics without taking entrance exams. Every year KSI has more than five hundred participants that come to solve the tasks on its current website located at https://ksi.fi.muni.cz/.
 
-The current website is created with an outdated framework, and only a fraction of the current organizers have a needed understanding of possible issues. Because of this, the main goal of this thesis is to create a new web application for KSI, while the main focuses of the new application are on easy and effective moderation in terms of long term support.
+The current website is created with an outdated framework with linked security implications, and only a fraction of the current organizers have a needed understanding of code. Because of this, the main goal of this thesis is to create a new web application for KSI, while the main focuses of the new application are on easy and effective maintenance in terms of long term support.
 
 Secondary goals of this thesis are for the new web application to make the website usable on mobile devices, present older tasks incompatible with the current website and to improve the overall user experience of the web page.
 
 As a part of this thesis, some related modifications are also made to the server part of the KSI infrastructure.
 
-The first two chapters are dedicated to researching other competitions similar to the KSI and their approach to their websites. The third chapter describes the KSI's server-side infrastructure. Chapter 4–6 illustrates the new implementation. Chapter 7 describes the completed application infrastructure. The resulting web application, which is a primary goal of this thesis, can be seen in use at https://ksi.fi.muni.cz/novy-web/.
+TODO: The first two chapters are dedicated to researching other competitions similar to the KSI and their approach to their websites. The third chapter describes the KSI's server-side infrastructure. Chapter 4–6 illustrates the new implementation. Chapter 7 describes the completed application infrastructure. The resulting web application, which is a primary goal of this thesis, can be seen in use at https://ksi.fi.muni.cz/novy-web/.
 
 \end{markdown*}
 
 \markright{\textsc{Introduction}}
 \addcontentsline{toc}{chapter}{Introduction}
-
-\mdchap{Current state of the web frontend of Online Seminar of Informatics}
-
-The current web frontend of the Online Seminar of Informatics (KSI for short) was written using the first version of the Ember.js framework. The last minor version of the first version of the Ember.js framework was released on the 12th of June 2015~[@ember-1]. The frontend stayed principally the same throughout the years because the first Ember.js version cannot be upgraded to a more recent and supported version with ease. Following the fact that Ember v1 was released in 2015, present seminar organizers face a few severe issues -- the foremost being security implications of using old and deprecated software and the secondary being the lack of volunteers with enough knowledge of this technology. In its current state, the frontend is singlehandedly managed by Ondřej Borýsek~[@ksi-web-frontend].
-
-Since the support of the utilized framework ended, the organizers have been aware of these issues. They have tried to migrate the used version to a current stable version of Ember, most notably inside a private project called web-frontend-ember3~[@ksi-web-frontend-ember3], but these attempts were not successful. The leading explanation for the prevalence of the current frontend is that all organizers are volunteers. With only a limited time available, the organizers decided to work on more imminent duties. However, this task has gained a significant priority as Ondřej Borýsek will finish his studies shortly, and, consequently, none of the team members will be capable of resolving issues or implementing new features.
-
-When deciding how to approach the development of the new version of the KSI frontend, I was faced with three viable alternatives. The first option was to adapt the web of any similarly focused seminar, which was deemed inappropriate because the KSI frontend has grown its backend with unique features not easily adaptable from other projects. The second possibility was to continue with a previous attempt to upgrade the frontend to the newer version of the Ember framework. This option was also discarded as there is a risk that the project would be eventually hard to manage, similarly to the current state. As per the Stack Overflow 2020 developer survey~[@stackoverflow-survey], the Ember framework is no longer used regularly and thus unsuitable for a long-lasting project.
-
-The last option was to develop a new project from scratch using one of the most used web frameworks. Besides jQuery, which is not a full-featured web framework, the most used ones are React.js and Angular~[@stackoverflow-survey].
-
-React~[@react-github], developed by Meta, is the most popular~[@stackoverflow-survey] full-featured web framework. It is focused on the fast development of responsive web applications while heavily depending on modularity and supporting it via external libraries. This modularity allows the developer to tailor the project's library set precisely for the project's needs. Since component logic in React.js is written in JavaScript instead of templates, it is easy to pass rich data through the applications and keep state out of the DOM~[@reactjs]. An added benefit of React.js is that it is taught on the Faculty of Informatics Masaryk University in a course Modern Markup Languages and Their Applications, which is compulsory for both
-Programming and Development~[@fi-pva] program and some specializations of Informatics~[@fi-inf]. Nevertheless, most of the current members of the organizer teams have no experience with web development whatsoever.
-
-Angular~[@angular], developed by Google, on the other hand, includes most of the frequently used features~[@angular-features] like routing, HTTP client, forms manipulation, and internalization. Therefore Angular allows the developers to get familiar with a new project more rapidly without needing to learn about new libraries used within a given project first.
-
-Because the team of seminar organizers changes quite frequently, it is crucial to minimize the entrance barrier for new developers to be capable of modifying the frontend. A lower entrance barrier can be achieved by using a well-established technology with minimal supplementary knowledge required. Concerning precisely that argumentation, Angular was chosen as more fitting and is utilized throughout this thesis.
-
-\end{markdown*}
 
 \mdchap{KSI Infrastrucute}
 
@@ -165,6 +146,27 @@ Kyzikos has no public access, because it is meant as a development server on whi
 The frontend~[@ksi-web-frontend] can be automatically deployed from its repository by building it using GitHub Actions and then copying the built web application on the desired server by calling an automated script on one of the organizers faculty accounts.
 
 The backend~[@ksi-web-backend] has no means for automatic deployment and updating. The process has to be performed manualy, by logging into target server, pulling from the source code repository and performing a manual restart. This is a desired workflow, because updates to the backend server are infrequent and a manual check of functionality after an update increases certanity that the server will work as desired even after the update.
+
+## Frontend
+
+### Maintenance of the current frontend
+
+The current web frontend of the Online Seminar of Informatics (KSI for short) was written using the first version of the Ember.js framework. The last minor version of the first version of the Ember.js framework was released on the 12th of June 2015~[@ember-1]. The frontend stayed principally the same throughout the years because the first Ember.js version cannot be upgraded to a more recent and supported version with ease. Following the fact that Ember v1 was released in 2015, present seminar organizers face a few severe issues -- the foremost being security implications of using old and deprecated software and the secondary being the lack of volunteers with enough knowledge of this technology. In its current state, the frontend is singlehandedly managed by Ondřej Borýsek~[@ksi-web-frontend].
+
+Since the support of the used framework ended, the organizers have been aware of these issues. They have tried to migrate the used version to a current stable version of Ember, most notably inside a private project called web-frontend-ember3~[@ksi-web-frontend-ember3], but these attempts were not successful. The leading explanation for the prevalence of the current frontend is that all organizers are volunteers. With only a limited time available, the organizers decided to work on more imminent duties. However, this task has gained a significant priority as Ondřej Borýsek will finish his studies shortly, and, consequently, none of the team members will be capable of resolving issues or implementing new features.
+
+### Possible solutions
+
+When deciding how to approach the development of the new version of the KSI frontend, I was faced with three viable alternatives. The first option was to adapt the web of any similarly focused seminar, which was deemed inappropriate because the KSI has development its backend with unique features not easily adaptable from other projects. The second possibility was to continue with a previous attempt to upgrade the frontend to the newer version of the Ember framework. This option was also discarded as there is a risk that the project would be eventually hard to manage, similarly to the current state. As per the Stack Overflow 2020 developer survey~[@stackoverflow-survey], the Ember framework is no longer used regularly and thus unsuitable for a long-lasting project.
+
+The last option was to develop a new project from scratch using one of the most used web frameworks. Besides jQuery, which is not a full-featured web framework, the most used ones are React.js and Angular~[@stackoverflow-survey].
+
+React.js~[@react-github], developed by Meta, is the most popular~[@stackoverflow-survey] full-featured web framework. It is focused on the fast development of responsive web applications while heavily depending on modularity and supporting it via external libraries. This modularity allows the developer to tailor the project's library set precisely for the project's needs. Since component logic in React.js is written in JavaScript instead of templates, it is easy to pass rich data through the applications and keep state out of the DOM~[@reactjs]. An added benefit of React.js is that it is taught on the Faculty of Informatics Masaryk University in a course Modern Markup Languages and Their Applications, which is compulsory for both
+Programming and Development~[@fi-pva] program and some specializations of Informatics~[@fi-inf]. Nevertheless, most of the current members of the organizer teams have no experience with web development whatsoever, hence choosing React.js is not fundamental.
+
+Angular~[@angular], developed by Google, on the other hand, includes most of the frequently used features~[@angular-features] like routing, HTTP client, forms manipulation, and internalization. Therefore Angular allows the developers to get familiar with a new project more rapidly without needing to learn about new third-party libraries used within a given project first.
+
+Because the team of seminar organizers changes quite frequently, it is crucial to minimize the entrance barrier for new developers to be capable of modifying the frontend. A lower entrance barrier can be achieved by using a well-established technology with minimal supplementary knowledge required. Concerning precisely that argumentation, Angular was chosen as more fitting and is utilized throughout this thesis.
 
 ## Backend
 
@@ -180,7 +182,96 @@ The KSI backend utilizes the Falcon~[@falcon] framework for handling all HTTP AP
 
 \end{markdown*}
 
-\mdchap{Swagger}
+\mdchap{Selecting framework for a new web application}
+
+Choosing the right framework, if any, largely impact the structure of the whole application. Because one of the main goals of this thesis is for it to be easily maintainable and quick to understand, the framework must be corresponding to these needs. Given the nature of the composition of the KSI organizers team, where most of the team members do have different skill sets, it is plausible that some of the next maintainers of the KSI web application will have only a basic knowledge about web development in general. Most of this general knowledge is likely to originate from the course PB138 Modern Markup Languages and Their Applications on the Faculty of Informatics Masaryk University. With that in mind, it is evident, that the selected framework needs to be fast to learn and easy to understand with as little background as possible.
+
+## Developing without framework
+
+Even though that it is possible to develop whole application without the use of any existing framework, this approach gains significant problems with the enlarging size of the application. Given that nearly every modern page consist at least of three components -- HTML file defining the elements, JavaScript file with functionality and CSS file used to style the look and placement of elements on the page, it would be possible to import JS and CSS files to different webpages to reuse code. However, this does not apply to HTML, which would have to be a separate file for every web page of the application, resulting in a large reuse of a code. It would be possible to implement a logic that would create complex HTML components from predefined source templates, but this approach would effectively create a new framework. This new framework would then suffer from additional issues like lack of external support and previously untested code.
+
+## Developing with a framework
+
+For reasons shown in the previous section, the development of a larger web application without a framework is not ideal. On the other hand, when a framework is used in the project and then later is the framework marked as obsolete, it can be a challenging task to continue with a maintenance of the project, perhaps best shown on the example of the current KSI web. To select the correct framework for a project, it is possible to investigate the most used ones as they are expected to be supported for a longer period of time. Stack Overflow, a company best known for its site for Q~\&~A regarding computer programming, publishes results of annual survey among developers. According to the 2020 survey~[@stackoverflow-survey] with 36~291 responses from professional developers, the most used web frameworks with at least 25\% of positive responses are jQuery~(43.3\%), React.js~(36.8\%), Angular~(26.5\%). These are the frameworks that I have considered for the new KSI web application.
+
+### jQuery
+
+The jQuery library~[@jquery] is not a full-featured web framework, instead it aims to make common tasks like event handling, animations and document manipulation simpler. As a simple presentation of its capabilities, consider following code with plain JavaScript and jQuery~[@jquery]:
+
+~~~JavaScript
+// JavaScript
+document.querySelector('button.continue').innerHTML = "Next Step ...";
+// jQuery
+\$("button.continue").html("Next Step...");
+~~~
+
+For its supposed different use case, the jQuery fully lacks advanced features like abstract component creation and styles encapsulation.
+
+### React.js
+
+React~[@reactjs] is a web framework that is being taught on the PB138 Modern Markup Languages and Their Applications course on the Faculty of Informatics Masaryk University. It introduces its own syntax called JSX~[@reactjs-main-concepts]. JSX is a syntax extension of JavaScript, which allows writing HTML template together with JavaScript logic:
+
+~~~JavaScript
+function formatName(user) {
+  return user.firstName + ' ' + user.lastName;
+}
+function getGreeting(user) {
+  if (user) return <h1>Hello, {formatName(user)}!</h1>;
+  else return <h1>Hello, Stranger.</h1>;
+}
+~~~
+
+The practise of putting JavaSript code and HTML DOM together is useful for the understanding of code by eliminating the need to look on multiple places, possibly split between files. The way of organizing code parts is completely in the hands of the developer.
+
+Main concepts of react are based upon creating components in a form of JavaScript function or ES6 class, which can then be used directly inside the JSX. Component-state management is implemented by saving the state locally and passing functions to child components, which can then propagate events by calling the passed functions as callback. This way of state management, especially when combined with components implemented as functions, makes it possible to produce a cleaner code with well visible dependencies.
+
+The bare React.js without any dependencies does not contain additional features such as CSS encapsulation, meaning that any style defined and imported anywhere in the app will affect even parent components that match its selector, though this feature can be achieved by using the officially supported tool for creating React.js applications.
+
+### Angular
+
+According to the previously mentioned survey, Angular~[@angular] is a third most used web framework. Much like React.js, Angular allows creation of abstract components. Instead of creating the code structure manually, Angular provides a command-line tool `ng`, which handles common tasks, for example generation of code elements.
+
+For faster development, the `ng` tool provides a sub-command `ng serve` which launches a web server presenting up-to-date version of the source code. When the source code of the application is modified, the web server automatically reloads the application without the need of developers interaction. However, this approach is not suitable for the production environment -- to prepare the application a sub-command `ng build` exists. This sub-command copies whole application code and assets into a sub-folder, replacing Angular-specific schematics with plain minimized JavaScript code. It also bundles multiple source code files together to lower the required number of requests to the web server from the client.
+
+#### Long-term support
+
+Angular publishes a new major release in a 6-months long cycle, while previous major releases will receive security patches for the next 12 moths, making an update necessary every 18 months~[@angular-releases]. To easy the process of updating between two version, Angular provides a [guide](https://update.angular.io/?l=2&v=12.0-13.0). The guide lets the developer choose the applications complexity and based upon that it will present the developer with a checklist of required steps to perform. For applications with medium complexity without a wide range of third party dependencies, such as this thesis, is applying the update to the newer Angular matter of tens of minutes.
+
+#### Component
+
+Angular component~[@angular-component], generated by executing `ng generate component \%component-name\%`, consists of three files -- `.html` file describing elements that will be placed inside this component when used inside DOM, `.scss` file for styling said HTML file and `.ts` file describing functions and code logic with the TypeScript language. Unlike React.js, Angular uses styles encapsulation by default, so that styles defined in one element do not interfere with styles from other elements. This allows for using shorter CSS class names, whereas without encapsulation, it would lead to collisions with other elements without specifying any prefix. It is possible for the `.html` file to reference variables and methods declared in the `.ts` code file - they can be used to display values, perform logic operations or loops or for passing data to children components. The methods can be used as a handler for events from user or from other components, or their return value can be used same as a variable.
+
+When a value of a variable changes, the new value is reflected also to its template by recomputing a re-rendering it. Because this operation can be computationally difficult, it is possible to change the change detection behaviour to only update when requested from a code. Angular also provides a so-called two-way data binding, which, when a variable is assigned to an `<input>` HTML element, synchronizes the value of the variable with the value of the user input. Though, both these concepts can be improved with reactive development style, they provide an easy to understand baseline.
+
+#### Services
+
+A service in Angular~[@angular-service] is a code structure, that can be injected into a component or other components. It can be generated by running `ng generate service \%service-name\%`. In its bare form, the service serves a purpose of sharing a code logic between multiple components. With default setting kept, only up to one instance of every defined service is created that is then shared by all component referencing to it.
+
+#### Modules
+
+Every Angular component needs to be declared inside an Angular module. This declaration specifies the real location of the component after the project is built, having components from different modules in different files. This feature is best exampled when used together with so called "lazy-loading"~[@angular-lazy-modules]. By default, all modules are loaded as soon as they are available to the connected client for download. On the other hand, when the module is marked for lazy-loading, it is downloaded only when requested by the client. This approach saves bandwidth, as the client does not always need all components of the applications -- for example normal user does not need to load administrative interfaces.
+
+
+#### Routing
+
+Because build an Angular project creates a single-page application~[@spa], it produces only a single web document. Without any additional implementation of the navigation, the application would be limited to a single path. The Angular provides a routing implementation as one of its core features~[@angular-routing]. With it the navigation is done by assigning an Angular component for a given route path. This component will be then displayed when user enters assigned path. This approach frequently needs additional cooperation from the web server from which it is server, as the server would presumably end with a `File not found` status code, because the requested path does not exist in the folder structure. This can be overcamed by instructing the web server to return the main file of the build Angular application every time it does not find requested path on the disc.
+
+
+#### Reactive development
+
+Even though not a direct part of Angular project, but rather its dependency is a RxJS library. Much like `Promise` in JavaScript, the RxJS library contains a class called `Observable`, which is based upon asynchronously executed code~[@learnRxJS]. Unlike `Promise` from JavaScript, the asynchronous code is not execute immediately after creation of the object, but rather only on demand. The second main difference between `Promise` and `Observable` is that the `Observable` can return value multiple times, the `Promise` only once. Because of the direct support of the RxJS library inside Angular, it is possible to assign an `Observable` directly inside component's template. The main advantage of this approach is that this can greatly improve performance by requiring re-computation and re-rendering only of a affected template parts.
+
+The RxJS library defines two main participants inside the flow of an `Observable` -- the *emitter*, who generates and event by providing a new values, and a *listener*, who wait for a new value to process it. One emitter can have multiple listeners. Also given the on-demand nature of the library, when an emitter has no listeners attached, the code logic of the Observable is newer executed. The emitted value can be also changed or filtered by using functions provided by the RxJS library.
+
+To demonstrate the power of these features, consider following example: The user wants to login to a web application, so he fills username and password and then clicks on the login button. This click emits an event to an observable `loginSuccessful`, which will take the value of username and password and send them to the backend server. If the server approves sent credentials as valid, the `loginSuccessful` observable will emit a value of `true` and `false` otherwise. A listener called `menuContent` waits for an emission of a new state from the `loginSuccessful` observable and then transforms the content of menu on web page based upon new state, requiring re-rendering of only a small portion of the whole page. Second listeners listens only for `true` emission from `loginSuccessful` by filtering emitted values and then shows a welcome dialog to a newly logged in user.
+
+As seen from the example, even basic the chaining of events can reduce code complexity and duplication, while simultaneously increasing application speed.
+
+\end{markdown*}
+
+\mdchap{Backend modifications}
+
+## Swagger
 
 OpenAPI, formerly known as Swagger~[@swagger-about], is a set of projects that together can ease the development process for clients connecting to the exposed backend APIs. This can be achieved by the backend exposing a JSON file documenting the structure of the APIs. This structure mainly includes:
 
@@ -197,21 +288,16 @@ The Swagger also supports advanced features such as defining accepted authorizat
 
 The client that is being implemented against this backend can take use of this information so that it precisely knowns what type of data to send and what type of the data to expect. This makes the development process easier, because it eliminates the possibility of miscommunication between the frontend and backend teams. Every time the API on the backend is changed all that it takes is to regenerate the `swagger.json` file and all the clients can download it and modify their requests according to the new specification.
 
-## swagger-codegen
+### swagger-codegen
 \label{chap:swagger-codegen}
 
 Another part of the set of OpenAPI projects is a project called `swagger-codegen`~[@swagger-codegen]. This tool is able to parse the `swagger.json` file and produce a code for given language that can be used for manipulating with the backend's API. This is a strong opportunity for the developer as this completely eliminates the need for manually checking how to send a requests, instead all required parameters are passed to a generated function which in turn returns the desired data. Furthermore, when used in conjunction with an explicitly typed language, such as TypeScript, the developer of the client application is immediately notified about an type error when a part of the API changes, allowing for a much faster and more secure development.
 
 Currently, the `swagger-codegen` supports generating code for 40 languages, where a `typescript-angular` and `typescript-fetch` are counted as two distinct languages, even though both use TypeScript as a base.
 
-## swagger-ui
+### swagger-ui
 
 The SmartBear Software also provides a tool called Swagger UI~[@swagger-ui]. This tool was developed to parse the `swagger.json` file and to present it in a easily readable form as a web page. The developer can see every described endpoint with its description, accepted method and expected input and output types. The Swagger UI also provides the possibility to directly call the endpoints from the web page by filling parameters into a form and then examining the result of the API call. The SmartBear Software also presents a [demonstration](https://petstore.swagger.io/#/) of the Swagger UI on its website, which can be used to analyze any `swagger.json` file by providing its URL.
-
-\end{markdown*}
-
-
-\mdchap{Backend modifications}
 
 ## Swagger proxy
 
@@ -336,94 +422,6 @@ The data of the backend server, together with the SQLite database file, are kept
 Because the container is running in a privileged mode with shared `/dev/fuse` for the `bindfs` tool, it is currently undesirable to execute production server inside the container, as it may pose a security risk. On the other hand, the container is fully suitable for usage during the development of the frontend application. Furthermore, the whole docker container can be packaged inside a `.tar` file and then transferred to another machine, making the process of creating another backend instance faster. This feature was used when deploying a temporary [testing server](https://ksi.ahlava.cz/api/years), which is available for all KSI organizers and is running inside the docker container.
 
 \end{markdown*}
-
-\mdchap{Selecting framework for a new web application}
-
-Choosing the right framework, if any, largely impact the structure of the whole application. Because one of the main goals of this thesis is for it to be easily maintainable and quick to understand, the framework must be corresponding to these needs. Given the nature of the composition of the KSI organizers team, where most of the team members do have different skill sets, it is plausible that some of the next maintainers of the KSI web application will have only a basic knowledge about web development in general. Most of this general knowledge is likely to originate from the course PB138 Modern Markup Languages and Their Applications on the Faculty of Informatics Masaryk University. With that in mind, it is evident, that the selected framework needs to be fast to learn and easy to understand with as little background as possible.
-
-## Developing without framework
-
-Even though that it is possible to develop whole application without the use of any existing framework, this approach gains significant problems with the enlarging size of the application. Given that nearly every modern page consist at least of three components -- HTML file defining the elements, JavaScript file with functionality and CSS file used to style the look and placement of elements on the page, it would be possible to import JS and CSS files to different webpages to reuse code. However, this does not apply to HTML, which would have to be a separate file for every web page of the application, resulting in a large reuse of a code. It would be possible to implement a logic that would create complex HTML components from predefined source templates, but this approach would effectively create a new framework. This new framework would then suffer from additional issues like lack of external support and previously untested code.
-
-## Developing with a framework
-
-For reasons shown in the previous section, the development of a larger web application without a framework is not ideal. On the other hand, when a framework is used in the project and then later is the framework marked as obsolete, it can be a challenging task to continue with a maintenance of the project, perhaps best shown on the example of the current KSI web. To select the correct framework for a project, it is possible to investigate the most used ones as they are expected to be supported for a longer period of time. Stack Overflow, a company best known for its site for Q~\&~A regarding computer programming, publishes results of annual survey among developers. According to the 2020 survey~[@stackoverflow-survey] with 36~291 responses from professional developers, the most used web frameworks with at least 25\% of positive responses are jQuery~(43.3\%), React.js~(36.8\%), Angular~(26.5\%). These are the frameworks that I have considered for the new KSI web application.
-
-### jQuery
-
-The jQuery library~[@jquery] is not a full-featured web framework, instead it aims to make common tasks like event handling, animations and document manipulation simpler. As a simple presentation of its capabilities, consider following code with plain JavaScript and jQuery~[@jquery]:
-
-~~~JavaScript
-// JavaScript
-document.querySelector('button.continue').innerHTML = "Next Step ...";
-// jQuery
-\$("button.continue").html("Next Step...");
-~~~
-
-For its supposed different use case, the jQuery fully lacks advanced features like abstract component creation and styles encapsulation.
-
-### React.js
-
-React~[@reactjs] is a web framework that is being taught on the PB138 Modern Markup Languages and Their Applications course on the Faculty of Informatics Masaryk University. It introduces its own syntax called JSX~[@reactjs-main-concepts]. JSX is a syntax extension of JavaScript, which allows writing HTML template together with JavaScript logic:
-
-~~~JavaScript
-function formatName(user) {
-  return user.firstName + ' ' + user.lastName;
-}
-function getGreeting(user) {
-  if (user) return <h1>Hello, {formatName(user)}!</h1>;
-  else return <h1>Hello, Stranger.</h1>;
-}
-~~~
-
-The practise of putting JavaSript code and HTML DOM together is useful for the understanding of code by eliminating the need to look on multiple places, possibly split between files. The way of organizing code parts is completely in the hands of the developer.
-
-Main concepts of react are based upon creating components in a form of JavaScript function or ES6 class, which can then be used directly inside the JSX. Component-state management is implemented by saving the state locally and passing functions to child components, which can then propagate events by calling the passed functions as callback. This way of state management, especially when combined with components implemented as functions, makes it possible to produce a cleaner code with well visible dependencies.
-
-The bare React.js without any dependencies does not contain additional features such as CSS encapsulation, meaning that any style defined and imported anywhere in the app will affect even parent components that match its selector, though this feature can be achieved by using the officially supported tool for creating React.js applications.
-
-### Angular
-
-According to the previously mentioned survey, Angular~[@angular] is a third most used web framework. Much like React.js, Angular allows creation of abstract components. Instead of creating the code structure manually, Angular provides a command-line tool `ng`, which handles common tasks, for example generation of code elements.
-
-For faster development, the `ng` tool provides a sub-command `ng serve` which launches a web server presenting up-to-date version of the source code. When the source code of the application is modified, the web server automatically reloads the application without the need of developers interaction. However, this approach is not suitable for the production environment -- to prepare the application a sub-command `ng build` exists. This sub-command copies whole application code and assets into a sub-folder, replacing Angular-specific schematics with plain minimized JavaScript code. It also bundles multiple source code files together to lower the required number of requests to the web server from the client.
-
-#### Long-term support
-
-Angular publishes a new major release in a 6-months long cycle, while previous major releases will receive security patches for the next 12 moths, making an update necessary every 18 months~[@angular-releases]. To easy the process of updating between two version, Angular provides a [guide](https://update.angular.io/?l=2&v=12.0-13.0). The guide lets the developer choose the applications complexity and based upon that it will present the developer with a checklist of required steps to perform. For applications with medium complexity without a wide range of third party dependencies, such as this thesis, is applying the update to the newer Angular matter of tens of minutes.
-
-#### Component
-
-Angular component~[@angular-component], generated by executing `ng generate component \%component-name\%`, consists of three files -- `.html` file describing elements that will be placed inside this component when used inside DOM, `.scss` file for styling said HTML file and `.ts` file describing functions and code logic with the TypeScript language. Unlike React.js, Angular uses styles encapsulation by default, so that styles defined in one element do not interfere with styles from other elements. This allows for using shorter CSS class names, whereas without encapsulation, it would lead to collisions with other elements without specifying any prefix. It is possible for the `.html` file to reference variables and methods declared in the `.ts` code file - they can be used to display values, perform logic operations or loops or for passing data to children components. The methods can be used as a handler for events from user or from other components, or their return value can be used same as a variable.
-
-When a value of a variable changes, the new value is reflected also to its template by recomputing a re-rendering it. Because this operation can be computationally difficult, it is possible to change the change detection behaviour to only update when requested from a code. Angular also provides a so-called two-way data binding, which, when a variable is assigned to an `<input>` HTML element, synchronizes the value of the variable with the value of the user input. Though, both these concepts can be improved with reactive development style, they provide an easy to understand baseline.
-
-#### Services
-
-A service in Angular~[@angular-service] is a code structure, that can be injected into a component or other components. It can be generated by running `ng generate service \%service-name\%`. In its bare form, the service serves a purpose of sharing a code logic between multiple components. With default setting kept, only up to one instance of every defined service is created that is then shared by all component referencing to it.
-
-#### Modules
-
-Every Angular component needs to be declared inside an Angular module. This declaration specifies the real location of the component after the project is built, having components from different modules in different files. This feature is best exampled when used together with so called "lazy-loading"~[@angular-lazy-modules]. By default, all modules are loaded as soon as they are available to the connected client for download. On the other hand, when the module is marked for lazy-loading, it is downloaded only when requested by the client. This approach saves bandwidth, as the client does not always need all components of the applications -- for example normal user does not need to load administrative interfaces.
-
-
-#### Routing
-
-Because build an Angular project creates a single-page application~[@spa], it produces only a single web document. Without any additional implementation of the navigation, the application would be limited to a single path. The Angular provides a routing implementation as one of its core features~[@angular-routing]. With it the navigation is done by assigning an Angular component for a given route path. This component will be then displayed when user enters assigned path. This approach frequently needs additional cooperation from the web server from which it is server, as the server would presumably end with a `File not found` status code, because the requested path does not exist in the folder structure. This can be overcamed by instructing the web server to return the main file of the build Angular application every time it does not find requested path on the disc.
-
-
-#### Reactive development
-
-Even though not a direct part of Angular project, but rather its dependency is a RxJS library. Much like `Promise` in JavaScript, the RxJS library contains a class called `Observable`, which is based upon asynchronously executed code~[@learnRxJS]. Unlike `Promise` from JavaScript, the asynchronous code is not execute immediately after creation of the object, but rather only on demand. The second main difference between `Promise` and `Observable` is that the `Observable` can return value multiple times, the `Promise` only once. Because of the direct support of the RxJS library inside Angular, it is possible to assign an `Observable` directly inside component's template. The main advantage of this approach is that this can greatly improve performance by requiring re-computation and re-rendering only of a affected template parts.
-
-The RxJS library defines two main participants inside the flow of an `Observable` -- the *emitter*, who generates and event by providing a new values, and a *listener*, who wait for a new value to process it. One emitter can have multiple listeners. Also given the on-demand nature of the library, when an emitter has no listeners attached, the code logic of the Observable is newer executed. The emitted value can be also changed or filtered by using functions provided by the RxJS library.
-
-To demonstrate the power of these features, consider following example: The user wants to login to a web application, so he fills username and password and then clicks on the login button. This click emits an event to an observable `loginSuccessful`, which will take the value of username and password and send them to the backend server. If the server approves sent credentials as valid, the `loginSuccessful` observable will emit a value of `true` and `false` otherwise. A listener called `menuContent` waits for an emission of a new state from the `loginSuccessful` observable and then transforms the content of menu on web page based upon new state, requiring re-rendering of only a small portion of the whole page. Second listeners listens only for `true` emission from `loginSuccessful` by filtering emitted values and then shows a welcome dialog to a newly logged in user.
-
-As seen from the example, even basic the chaining of events can reduce code complexity and duplication, while simultaneously increasing application speed.
-
-\end{markdown*}
-
 
 \mdchap{Final web application}
 
