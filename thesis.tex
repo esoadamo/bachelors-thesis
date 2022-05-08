@@ -119,15 +119,15 @@
 
 \mdstart
 
-The Online Seminar of Informatics (ESI for short) is an annual online competition and also one of the activities of the Faculty of Informatics targeted at high school students. The central part of ESI takes place from September to April in four thematic waves. Each wave consists of at least a dozen tasks in which the participants can learn and then apply various informatics principles. Participants who earn a minimum of 60\% points for completing given tasks awarded throughout all four waves are suitable to be accepted to the Faculty of Informatics without taking entrance exams. Every year ESI has more than five hundred participants that come to solve the tasks on its current website located at https://ksi.fi.muni.cz/.
+The Online Seminar of Informatics (ESI for short) is an annual online competition and also one of the activities of the Faculty of Informatics targeted at high school students. The central part of KSI takes place from September to April in four thematic waves. Each wave consists of at least a dozen tasks in which the participants can learn and then apply various informatics principles. Participants who earn a minimum of 60\% points for completing given tasks awarded throughout all four waves are suitable to be accepted to the Faculty of Informatics without taking entrance exams. Every year KSI has more than five hundred participants that come to solve the tasks on its current website located at https://ksi.fi.muni.cz/.
 
-The current website is created with an outdated framework, and only a fraction of the current organizers have a needed understanding of possible issues. Because of this, the main goal of this thesis is to create a new web application for ESI, while the main focuses of the new application are on easy and effective moderation in terms of long term support.
+The current website is created with an outdated framework, and only a fraction of the current organizers have a needed understanding of possible issues. Because of this, the main goal of this thesis is to create a new web application for KSI, while the main focuses of the new application are on easy and effective moderation in terms of long term support.
 
 Secondary goals of this thesis are for the new web application to make the website usable on mobile devices, present older tasks incompatible with the current website and to improve the overall user experience of the web page.
 
-As a part of this thesis, some related modifications are also made to the server part of the ESI infrastructure.
+As a part of this thesis, some related modifications are also made to the server part of the KSI infrastructure.
 
-The first two chapters are dedicated to researching other competitions similar to the ESI and their approach to their websites. The third chapter describes the ESI's server-side infrastructure. Chapter 4–6 illustrates the new implementation. Chapter 7 describes the completed application infrastructure. The resulting web application, which is a primary goal of this thesis, can be seen in use at https://ksi.fi.muni.cz/novy-web/.
+The first two chapters are dedicated to researching other competitions similar to the KSI and their approach to their websites. The third chapter describes the KSI's server-side infrastructure. Chapter 4–6 illustrates the new implementation. Chapter 7 describes the completed application infrastructure. The resulting web application, which is a primary goal of this thesis, can be seen in use at https://ksi.fi.muni.cz/novy-web/.
 
 \end{markdown*}
 
@@ -136,11 +136,11 @@ The first two chapters are dedicated to researching other competitions similar t
 
 \mdchap{Current state of the web frontend of Online Seminar of Informatics}
 
-The current web frontend of the Online Seminar of Informatics (ESI for short) was written using the first version of the Ember.js framework. The last minor version of the first version of the Ember.js framework was released on the 12th of June 2015~[@ember-1]. The frontend stayed principally the same throughout the years because the first Ember.js version cannot be upgraded to a more recent and supported version with ease. Following the fact that Ember v1 was released in 2015, present seminar organizers face a few severe issues -- the foremost being security implications of using old and deprecated software and the secondary being the lack of volunteers with enough knowledge of this technology. In its current state, the frontend is singlehandedly managed by Ondřej Borýsek~[@ksi-web-frontend].
+The current web frontend of the Online Seminar of Informatics (KSI for short) was written using the first version of the Ember.js framework. The last minor version of the first version of the Ember.js framework was released on the 12th of June 2015~[@ember-1]. The frontend stayed principally the same throughout the years because the first Ember.js version cannot be upgraded to a more recent and supported version with ease. Following the fact that Ember v1 was released in 2015, present seminar organizers face a few severe issues -- the foremost being security implications of using old and deprecated software and the secondary being the lack of volunteers with enough knowledge of this technology. In its current state, the frontend is singlehandedly managed by Ondřej Borýsek~[@ksi-web-frontend].
 
 Since the support of the utilized framework ended, the organizers have been aware of these issues. They have tried to migrate the used version to a current stable version of Ember, most notably inside a private project called web-frontend-ember3~[@ksi-web-frontend-ember3], but these attempts were not successful. The leading explanation for the prevalence of the current frontend is that all organizers are volunteers. With only a limited time available, the organizers decided to work on more imminent duties. However, this task has gained a significant priority as Ondřej Borýsek will finish his studies shortly, and, consequently, none of the team members will be capable of resolving issues or implementing new features.
 
-When deciding how to approach the development of the new version of the ESI frontend, I was faced with three viable alternatives. The first option was to adapt the web of any similarly focused seminar, which was deemed inappropriate because the ESI frontend has grown its backend with unique features not easily adaptable from other projects. The second possibility was to continue with a previous attempt to upgrade the frontend to the newer version of the Ember framework. This option was also discarded as there is a risk that the project would be eventually hard to manage, similarly to the current state. As per the Stack Overflow 2020 developer survey~[@stackoverflow-survey], the Ember framework is no longer used regularly and thus unsuitable for a long-lasting project.
+When deciding how to approach the development of the new version of the KSI frontend, I was faced with three viable alternatives. The first option was to adapt the web of any similarly focused seminar, which was deemed inappropriate because the KSI frontend has grown its backend with unique features not easily adaptable from other projects. The second possibility was to continue with a previous attempt to upgrade the frontend to the newer version of the Ember framework. This option was also discarded as there is a risk that the project would be eventually hard to manage, similarly to the current state. As per the Stack Overflow 2020 developer survey~[@stackoverflow-survey], the Ember framework is no longer used regularly and thus unsuitable for a long-lasting project.
 
 The last option was to develop a new project from scratch using one of the most used web frameworks. Besides jQuery, which is not a full-featured web framework, the most used ones are React.js and Angular~[@stackoverflow-survey].
 
@@ -153,9 +153,9 @@ Because the team of seminar organizers changes quite frequently, it is crucial t
 
 \end{markdown*}
 
-\mdchap{ESI Infrastrucute}
+\mdchap{KSI Infrastrucute}
 
-ESI's organizers manage two virtual servers hosted on faculty's Open Nebula platform, both running Debian OS. One of these servers is for production, the second is for testing. Both share the same format - an Apache web server, which server the frontend and reverse proxies the backend.
+KSI's organizers manage two virtual servers hosted on faculty's Open Nebula platform, both running Debian OS. One of these servers is for production, the second is for testing. Both share the same format - an Apache web server, which server the frontend and reverse proxies the backend.
 The production server is called `kleobis` and the development `kyzikos` and I will refer to them troughout this thesis as such.
 
 Kleobis has assigned two domains -- [ksi.fi.muni.cz](https://ksi.fi.muni.cz) for access to the frontend and [rest.ksi.fi.muni.cz](https://rest.ksi.fi.muni.cz) for calling backend endpoints.
@@ -168,15 +168,15 @@ The backend~[@ksi-web-backend] has no means for automatic deployment and updatin
 
 ## Backend
 
-The backend server~[@ksi-web-backend] is written as a Python 3 project and acts mainly as a middle-ware between the user and the database. A heavily utilized part of the backend is its capability to execute untrusted code sandboxed, which is a crucial part of the ESI. The backend is also capable of manipulating with a git repository containing data of solvable tasks.
+The backend server~[@ksi-web-backend] is written as a Python 3 project and acts mainly as a middle-ware between the user and the database. A heavily utilized part of the backend is its capability to execute untrusted code sandboxed, which is a crucial part of the KSI. The backend is also capable of manipulating with a git repository containing data of solvable tasks.
 
 ### Code sandboxing
 
-To sandbox untrusted code, mainly originating from participants task evaluations, ESI uses `isolate`~[@isolate] project. This project was developed for the needs of programming contests, so it perfectly fits ESI's needs. It uses so-called boxes, in which an executed command has only a limited, but fully defined, set of capabilies. This can mitigate the risk of overloading the host's system by a program stuck in nevereding loop, using the hosts network as a point of entry for an attacker, or even gaining direct access to the hosts system.
+To sandbox untrusted code, mainly originating from participants task evaluations, KSI uses `isolate`~[@isolate] project. This project was developed for the needs of programming contests, so it perfectly fits KSI's needs. It uses so-called boxes, in which an executed command has only a limited, but fully defined, set of capabilies. This can mitigate the risk of overloading the host's system by a program stuck in nevereding loop, using the hosts network as a point of entry for an attacker, or even gaining direct access to the hosts system.
 
 ### Python web framework
 
-The ESI backend utilizes the Falcon~[@falcon] framework for handling all HTTP API calls, which is used by companies like PayPal and LinkedIn~[@falcon-usage]. This framework is optimized for creating RESTful~[@rest] API and as such is better suitable for larger volume of incoming requests. Every endpoint is defined as a class, which has an implemented method for every supported HTTP method of this endpoint. This methods are given two parameters -- `request` and `response`. This simplicity of the framework design allows for easy and quick implementation of new endpoints and also for steep learning curve for new project maintainers.
+The KSI backend utilizes the Falcon~[@falcon] framework for handling all HTTP API calls, which is used by companies like PayPal and LinkedIn~[@falcon-usage]. This framework is optimized for creating RESTful~[@rest] API and as such is better suitable for larger volume of incoming requests. Every endpoint is defined as a class, which has an implemented method for every supported HTTP method of this endpoint. This methods are given two parameters -- `request` and `response`. This simplicity of the framework design allows for easy and quick implementation of new endpoints and also for steep learning curve for new project maintainers.
 
 \end{markdown*}
 
@@ -217,13 +217,13 @@ The SmartBear Software also provides a tool called Swagger UI~[@swagger-ui]. Thi
 
 ### Possible approaches
 
-Because the OSI backend is written with a Python Falkon framework without any specified typing and that request inputs and outputs may span across multiple functions and methods, obtaining this information automatically does not seem as a possible course of action, so the information for the creation of the `swagger.json` file need to be generated from the scratch by manually describing every possible endpoint. It was possible to add the documentation directly to the backend project by using [swaggerit wrapper](https://github.com/dutradda/swaggerit) -- the recommended alternative to a now discontinuied falcon-swagger~[@falcon-swagger], but this approach would require a manual typing of all required fields. Another possibility was to describe the backend API with a TypeScript language by using TypeScript OpenAPI~[@tsoa]. This approach has a significant advantage that it uses a TypeScript interfaces to describe expected inputs and outputs. TypeScript interfaces can also be inherited, making it useful to prevent code duplication and its linked threats.
+Because the KSI backend is written with a Python Falkon framework without any specified typing and that request inputs and outputs may span across multiple functions and methods, obtaining this information automatically does not seem as a possible course of action, so the information for the creation of the `swagger.json` file need to be generated from the scratch by manually describing every possible endpoint. It was possible to add the documentation directly to the backend project by using [swaggerit wrapper](https://github.com/dutradda/swaggerit) -- the recommended alternative to a now discontinuied falcon-swagger~[@falcon-swagger], but this approach would require a manual typing of all required fields. Another possibility was to describe the backend API with a TypeScript language by using TypeScript OpenAPI~[@tsoa]. This approach has a significant advantage that it uses a TypeScript interfaces to describe expected inputs and outputs. TypeScript interfaces can also be inherited, making it useful to prevent code duplication and its linked threats.
 
 ### Implemented solution
 
 A new project was created as a part of this thesis, web-backend-swagger~[@ksi-web-backend-swagger]. It uses TypeScript OpenAPI to describe the backend API with a similar file structure to the backend project. 
 
-For comparison, consider following shortened code from the OSI's backend for handling an update request to a forum post:
+For comparison, consider following shortened code from the KSI's backend for handling an update request to a forum post:
 
 \newpage
 ~~~python
@@ -319,9 +319,9 @@ Because the definition of the API is stored within a separate project, this coul
 
 ## Docker container
 
-The only public instance of the OSI backend is for the production environment. The second instance, created for testing purposes, is only available from inside of the faculty network, which makes it inappropriate for wide testing by all OSI organizers, given that not every organizer is also student of the FI. This makes the need for another backend instance obvious. Furthermore, being able to easily create multiple instances for local testing during development decreases a chance of a larger issues, because of their local scope.
+The only public instance of the KSI backend is for the production environment. The second instance, created for testing purposes, is only available from inside of the faculty network, which makes it inappropriate for wide testing by all KSI organizers, given that not every organizer is also student of the FI. This makes the need for another backend instance obvious. Furthermore, being able to easily create multiple instances for local testing during development decreases a chance of a larger issues, because of their local scope.
 
-The backend project itself has only a few external dependencies -- except for Python 3 environment, it needs a [`isolate`](https://github.com/ioi/isolate/) project executable for sandboxing untrusted participants code and a database to connect to. By selecting a base Docker image of Python 3 based on [Debian buster](https://hub.docker.com/_/python) it is possible to create an environment simmilar to the OSI production server. Almost every required modification to the backend project can be done directly inside the [Dockerfile](https://github.com/fi-ksi/web-backend/blob/master/.docker/Dockerfile), namely:
+The backend project itself has only a few external dependencies -- except for Python 3 environment, it needs a [`isolate`](https://github.com/ioi/isolate/) project executable for sandboxing untrusted participants code and a database to connect to. By selecting a base Docker image of Python 3 based on [Debian buster](https://hub.docker.com/_/python) it is possible to create an environment simmilar to the KSI production server. Almost every required modification to the backend project can be done directly inside the [Dockerfile](https://github.com/fi-ksi/web-backend/blob/master/.docker/Dockerfile), namely:
 
 - because `isolate` is not available as a Debian package, it has to be compiled manually. The Dockerfile downloads the built version from my personal Debain package repository
 - for easier manipulation with the database, an SQLite database file will be used instead of MariaDB server used on production. This decision has a few implications:
@@ -333,13 +333,13 @@ The backend project itself has only a few external dependencies -- except for Py
 
 The data of the backend server, together with the SQLite database file, are kept externally and are only bind mounted to the container, so that rebuilding the docker image does not erase them. Only when the entrypoint of the container is executed the data is mounted into appropriate location. To prevent insufficient permission when accessing to the data by the unprivileged `ksi` user inside the container, the real owner is masked by using `bindfs` tool.
 
-Because the container is running in a privileged mode with shared `/dev/fuse` for the `bindfs` tool, it is currently undesirable to execute production server inside the container, as it may pose a security risk. On the other hand, the container is fully suitable for usage during the development of the frontend application. Furthermore, the whole docker container can be packaged inside a `.tar` file and then transferred to another machine, making the process of creating another backend instance faster. This feature was used when deploying a temporary [testing server](https://ksi.ahlava.cz/api/years), which is available for all OSI organizers and is running inside the docker container.
+Because the container is running in a privileged mode with shared `/dev/fuse` for the `bindfs` tool, it is currently undesirable to execute production server inside the container, as it may pose a security risk. On the other hand, the container is fully suitable for usage during the development of the frontend application. Furthermore, the whole docker container can be packaged inside a `.tar` file and then transferred to another machine, making the process of creating another backend instance faster. This feature was used when deploying a temporary [testing server](https://ksi.ahlava.cz/api/years), which is available for all KSI organizers and is running inside the docker container.
 
 \end{markdown*}
 
 \mdchap{Selecting framework for a new web application}
 
-Choosing the right framework, if any, largely impact the structure of the whole application. Because one of the main goals of this thesis is for it to be easily maintainable and quick to understand, the framework must be corresponding to these needs. Given the nature of the composition of the OSI organizers team, where most of the team members do have different skill sets, it is plausible that some of the next maintainers of the OSI web application will have only a basic knowledge about web development in general. Most of this general knowledge is likely to originate from the course PB138 Modern Markup Languages and Their Applications on the Faculty of Informatics Masaryk University. With that in mind, it is evident, that the selected framework needs to be fast to learn and easy to understand with as little background as possible.
+Choosing the right framework, if any, largely impact the structure of the whole application. Because one of the main goals of this thesis is for it to be easily maintainable and quick to understand, the framework must be corresponding to these needs. Given the nature of the composition of the KSI organizers team, where most of the team members do have different skill sets, it is plausible that some of the next maintainers of the KSI web application will have only a basic knowledge about web development in general. Most of this general knowledge is likely to originate from the course PB138 Modern Markup Languages and Their Applications on the Faculty of Informatics Masaryk University. With that in mind, it is evident, that the selected framework needs to be fast to learn and easy to understand with as little background as possible.
 
 ## Developing without framework
 
@@ -347,7 +347,7 @@ Even though that it is possible to develop whole application without the use of 
 
 ## Developing with a framework
 
-For reasons shown in the previous section, the development of a larger web application without a framework is not ideal. On the other hand, when a framework is used in the project and then later is the framework marked as obsolete, it can be a challenging task to continue with a maintenance of the project, perhaps best shown on the example of the current OSI web. To select the correct framework for a project, it is possible to investigate the most used ones as they are expected to be supported for a longer period of time. Stack Overflow, a company best known for its site for Q~\&~A regarding computer programming, publishes results of annual survey among developers. According to the 2020 survey~[@stackoverflow-survey] with 36~291 responses from professional developers, the most used web frameworks with at least 25\% of positive responses are jQuery~(43.3\%), React.js~(36.8\%), Angular~(26.5\%). These are the frameworks that I have considered for the new OSI web application.
+For reasons shown in the previous section, the development of a larger web application without a framework is not ideal. On the other hand, when a framework is used in the project and then later is the framework marked as obsolete, it can be a challenging task to continue with a maintenance of the project, perhaps best shown on the example of the current KSI web. To select the correct framework for a project, it is possible to investigate the most used ones as they are expected to be supported for a longer period of time. Stack Overflow, a company best known for its site for Q~\&~A regarding computer programming, publishes results of annual survey among developers. According to the 2020 survey~[@stackoverflow-survey] with 36~291 responses from professional developers, the most used web frameworks with at least 25\% of positive responses are jQuery~(43.3\%), React.js~(36.8\%), Angular~(26.5\%). These are the frameworks that I have considered for the new KSI web application.
 
 ### jQuery
 
@@ -447,7 +447,7 @@ Same as Angular defaults, the source directory contains `app` subdirectory for w
 
 The application files are split into subdirectories based upon their Angular type (`component`, `model`, `pipe` and `service`). Next split is upon their module (`achievements`, `discussion`, `news`, `profile`, `results`, `root`, `tasks` and `shared`). The modules (except for module `shared`) are respective to their relative application path -- e. g. components that are inside `news` module will have a path starting with `/news/`. This splitting is done both for more rational file placement and faster loading times by utilizing lazy modules (\autoref{chap:faster}). The shared module contains items that are shared across multiple other modules, for example the loading spinner, which is included in almost every page. Models, services and pipes all contain in their root an `index.ts` file, which exports all their members from their subdirectories, for possible future easier refactoring.
 
-The `styles` directory contains global variables to be imported in components, SCSS mixins for common style adjustments, color palette definition and theme variables (\autoref{chap:theming}). The color palette is generated as shades from [internal OSI colors](https://github.com/fi-ksi/grafika). To make color replacement for other projects derived from this thesis as simple as possible, almost no other colors are used in the entire application, with the only exception being colors retrieved from project's third party dependencies.
+The `styles` directory contains global variables to be imported in components, SCSS mixins for common style adjustments, color palette definition and theme variables (\autoref{chap:theming}). The color palette is generated as shades from [internal KSI colors](https://github.com/fi-ksi/grafika). To make color replacement for other projects derived from this thesis as simple as possible, almost no other colors are used in the entire application, with the only exception being colors retrieved from project's third party dependencies.
 
 Lastly, inside the `util` are defined static utility classes that are not part of single Angular type, but still used in multiple of them. These utility classes handle tasks like rewriting an asset URL retrieved from backed for the current web application to the location of the same assets inside the new application.
 
@@ -479,7 +479,7 @@ The new web applications supports switching between so called light (\autoref{fi
 ### Translations
 \label{chap:translations}
 
-To make translations of this project or adjustments of texts for other project derived from this thesis, as simple as possible, almost all text strings are separated from the main code, the only exception to this rule being the page titled About OSI, which is expected to be full replaced with another page in other projects. The rest of the texts is placed inside a JSON file `assets/i18n/cs.json`. This file has a dictionary structure, in which are the string referenced by their qualified name -- for example, given the following `en.json` structure and Angular HTML component template
+To make translations of this project or adjustments of texts for other project derived from this thesis, as simple as possible, almost all text strings are separated from the main code, the only exception to this rule being the page titled About KSI, which is expected to be full replaced with another page in other projects. The rest of the texts is placed inside a JSON file `assets/i18n/cs.json`. This file has a dictionary structure, in which are the string referenced by their qualified name -- for example, given the following `en.json` structure and Angular HTML component template
 
 ```JavaScript
 // en.json
@@ -504,11 +504,11 @@ When an process of automatic deployment is triggered the web application is auto
 
 #### GitHub Actions
 
-Because both current and web OSI web applications exists as project on GitHub, they can take advantage of the GitHub Actions feature. The GitHub Actions are a sequence of steps and commands that are to be executed in a virtual machine. They are defined as a YAML files inside project's `.github/workflows` subdirectory and can reference other projects as modules -- e. g. to create a new release of a GitHub project.
+Because both current and web KSI web applications exists as project on GitHub, they can take advantage of the GitHub Actions feature. The GitHub Actions are a sequence of steps and commands that are to be executed in a virtual machine. They are defined as a YAML files inside project's `.github/workflows` subdirectory and can reference other projects as modules -- e. g. to create a new release of a GitHub project.
 
 #### Current automatic deployment process
 
-Currently, when a push actions is performed on one of watched branches, an automatic process is triggered. The process consists of building the web application and then copying the distribution files over SSH connection to student's home directory inside FI network. From there, the files are once again copied to the target server. The distribution files cannot be copied to the target server directly, because of security precautions from the FI which block SSH traffic to the OSI servers coming from outside the FI network. The main disadvantage of this process is that it requires an active student account. Also no tests are executed during the deployment process and a faulty code can result in a production downtime.
+Currently, when a push actions is performed on one of watched branches, an automatic process is triggered. The process consists of building the web application and then copying the distribution files over SSH connection to student's home directory inside FI network. From there, the files are once again copied to the target server. The distribution files cannot be copied to the target server directly, because of security precautions from the FI which block SSH traffic to the KSI servers coming from outside the FI network. The main disadvantage of this process is that it requires an active student account. Also no tests are executed during the deployment process and a faulty code can result in a production downtime.
 
 #### New deployment process
 
@@ -534,7 +534,7 @@ Whenever user changes preferred colour theme or logs in or out, the information 
 ### Improved loading times
 \label{chap:faster}
 
-To improve loading times, all modules (except for `shared` module) are imported as Angular lazy modules~[@angular-lazy]. This assures that on the first load the application will load the minimal subset of code required to render content. Additional code from different modules is downloaded automatically when the user requests it, typically when navigating to another subpage. Furthermore, Angular provides a simple way to convert the application in a so-called Progressive Web Application, PWA for short. PWA relies on a Service worker technology, that works as a proxy for all network requests made by the application~[@angular-pwa]. As such, it can intercept the requests and instead of passing it through, return a version saved in cache. Most modern browsers support service workers, so the web application is cached automatically after first load. Subsequent call will be returned from cache, making loading pages instantaneous. On the background, the service worker checks if the code of the application was changed, then it is silently downloaded and applied upon next load of the application, making the transition between versions seamless. In the future, this behaviour could be a prerequisite for fully offline available OSI web application, though it would require backend modification and possibly break its compatibility with the current web application.
+To improve loading times, all modules (except for `shared` module) are imported as Angular lazy modules~[@angular-lazy]. This assures that on the first load the application will load the minimal subset of code required to render content. Additional code from different modules is downloaded automatically when the user requests it, typically when navigating to another subpage. Furthermore, Angular provides a simple way to convert the application in a so-called Progressive Web Application, PWA for short. PWA relies on a Service worker technology, that works as a proxy for all network requests made by the application~[@angular-pwa]. As such, it can intercept the requests and instead of passing it through, return a version saved in cache. Most modern browsers support service workers, so the web application is cached automatically after first load. Subsequent call will be returned from cache, making loading pages instantaneous. On the background, the service worker checks if the code of the application was changed, then it is silently downloaded and applied upon next load of the application, making the transition between versions seamless. In the future, this behaviour could be a prerequisite for fully offline available KSI web application, though it would require backend modification and possibly break its compatibility with the current web application.
 
 ## UI Design
 
@@ -547,35 +547,35 @@ During the development of the application, I have followed following principles:
 5. update smaller chunks of components instead of whole
 6. cache mainly static but frequently accessed information
 
-Because the design of the current still looks good enough nowadays, the overall look of the webpage is unchanged. The colour pattern was generated as shades defined from main OSI colours and all icons were reused from the current web application.
+Because the design of the current still looks good enough nowadays, the overall look of the webpage is unchanged. The colour pattern was generated as shades defined from main KSI colours and all icons were reused from the current web application.
 
 All text resources are either loaded directly from backend or from the `cs.json` resource file. This makes changing texts easier and also enables for easy translation to another language, as only a change of one file is required.
 
 ### Landing page
 
-The landing page is referenced on every propagation media and as such is a first element of the OSI web application that possible participants will most likely see. The current landing page~( \ref{fig:welcome-curr}) uses a signification portion of space for large icons and long text blocks. It also presents a clickable button in the middle of an image, which is a disturbing design pattern. To address these issues, the new landing page~(\ref{fig:welcome-new}) splits the content into two rows so that newest information are visible without any scrolling required. The longer texts have been hidden behind carousel which is shown when the user clicks on one of the key OSI points in the middle of screen.
+The landing page is referenced on every propagation media and as such is a first element of the KSI web application that possible participants will most likely see. The current landing page~( \ref{fig:welcome-curr}) uses a signification portion of space for large icons and long text blocks. It also presents a clickable button in the middle of an image, which is a disturbing design pattern. To address these issues, the new landing page~(\ref{fig:welcome-new}) splits the content into two rows so that newest information are visible without any scrolling required. The longer texts have been hidden behind carousel which is shown when the user clicks on one of the key KSI points in the middle of screen.
 
 A second most notable design choice that differs from the current web application is the width and color of the navigation bar. In the current version, the navigation bar is located near the middle, whereas in the new application it covers full width of the screen with unified colours. This approach gives more breathable feel and is also easier to scale on different resolutions.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/welcome_curr}
-\caption{The current OSI landing page on desktop}
+\caption{The current KSI landing page on desktop}
 \label{fig:welcome-curr}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/welcome_new}
-\caption{The new OSI landing page on desktop}
+\caption{The new KSI landing page on desktop}
 \label{fig:welcome-new}
 \end{figure}
 
 ### Tasks graph page
 
-The main point of OSI is a page with all tasks available to participants. The tasks are presented trough the form of acyclic graph, which can precisely represent which tasks are required to be completed before proceeding to the next ones.
+The main point of KSI is a page with all tasks available to participants. The tasks are presented trough the form of acyclic graph, which can precisely represent which tasks are required to be completed before proceeding to the next ones.
 
-The current version of the web frontend (\ref{fig:graph-curr}) shows a legend explaining the different graph node colors on the left, which moves whole graph slightly to the right side. Moreover, with a progress of a year, the graph could get more complicated and unclear. The new web frontend (\ref{fig:graph-new}) tries to take a maximum advantage of available page width. This is done by moving the legend into a modal dialog (\ref{fig:graph-new-settings}) accessible by a help button in the top right corner of the page. Given that the legend is mostly used by only new users of OSI web application, there is a little need to keep it visible all the time. Furthermore, to increase the clarity of the task graph, it is possible for the user to turn splitting the whole graph into multiple smaller graphs by grouping them into their thematic waves (\ref{fig:graph-split}). In this mode, the user can then keep open only the relevant parts of graph, presumably only the currently active OSI task wave.
+The current version of the web frontend (\ref{fig:graph-curr}) shows a legend explaining the different graph node colors on the left, which moves whole graph slightly to the right side. Moreover, with a progress of a year, the graph could get more complicated and unclear. The new web frontend (\ref{fig:graph-new}) tries to take a maximum advantage of available page width. This is done by moving the legend into a modal dialog (\ref{fig:graph-new-settings}) accessible by a help button in the top right corner of the page. Given that the legend is mostly used by only new users of KSI web application, there is a little need to keep it visible all the time. Furthermore, to increase the clarity of the task graph, it is possible for the user to turn splitting the whole graph into multiple smaller graphs by grouping them into their thematic waves (\ref{fig:graph-split}). In this mode, the user can then keep open only the relevant parts of graph, presumably only the currently active KSI task wave.
 
-Though, the most notable change can be seen when using the OSI web application on a mobile phone (\ref{fig:graph-mobile}). In the current version, the graph on the mobile is too narrow to fit, which results in multiple tasks overlapping. This makes it nearly impossible to open correct task. Instead, in the new web application, a special graph presentation mode was created. In this mode, the tasks are shown in the mode of a list, where tasks required to be completed before other tasks can be unlocked are shown first. This mode lacks information about different graph branches as seen on desktop version, but provides a viable compromise to usability on a mobile phone.
+Though, the most notable change can be seen when using the KSI web application on a mobile phone (\ref{fig:graph-mobile}). In the current version, the graph on the mobile is too narrow to fit, which results in multiple tasks overlapping. This makes it nearly impossible to open correct task. Instead, in the new web application, a special graph presentation mode was created. In this mode, the tasks are shown in the mode of a list, where tasks required to be completed before other tasks can be unlocked are shown first. This mode lacks information about different graph branches as seen on desktop version, but provides a viable compromise to usability on a mobile phone.
 
 In the spirit of the third followed principle, all tasks in all modes are now rendered as HTML anchor points, instead of clickable canvas as in the current version. The advantage of this approach is that now every task can be searched by its name from within the web browser and multiple tasks can be opened in a new tab by pressing the middle button on the mouse.
 
@@ -612,25 +612,25 @@ In the spirit of the third followed principle, all tasks in all modes are now re
 
 ### The task page
 
-The functionality of a OSI task page remains almost unchanged, mainly a design modifications were made. In the current version (\ref{fig:task-curr}), the task has a section selection in its begging, where it may feel disruptive and complicated. Most of the time, the participant does not need to see discussion or his evaluation before he had read and tried to solved the task. The new web application puts all controls after the tasks assignment, imitating a style of an internet news article which has first title, then author, date of publication and then the content of the article. The content of the article is followed by a link to a discussion about said article. This design choice, together with less bright background, aims to lower possible distractions from the text of the assignment. Both discussion and solution are opened as a modal dialog on desktop to keep the page's scroll position intact. In the mobile version, where there is not enough space to open modal with more content, the assignment is replaced with requested section.
+The functionality of a KSI task page remains almost unchanged, mainly a design modifications were made. In the current version (\ref{fig:task-curr}), the task has a section selection in its begging, where it may feel disruptive and complicated. Most of the time, the participant does not need to see discussion or his evaluation before he had read and tried to solved the task. The new web application puts all controls after the tasks assignment, imitating a style of an internet news article which has first title, then author, date of publication and then the content of the article. The content of the article is followed by a link to a discussion about said article. This design choice, together with less bright background, aims to lower possible distractions from the text of the assignment. Both discussion and solution are opened as a modal dialog on desktop to keep the page's scroll position intact. In the mobile version, where there is not enough space to open modal with more content, the assignment is replaced with requested section.
 
 
 \begin{figure}
 \includegraphics[width=.9\textwidth]{assets/img/task-curr}
-\caption{The current look of a OSI task}
+\caption{The current look of a KSI task}
 \label{fig:task-curr}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/task-new}
-\caption{The new design of a OSI task}
+\caption{The new design of a KSI task}
 \label{fig:task-new}
 \end{figure}
 
 
 ### Discussion page
 
-The discussion forum on OSI web consists of two pages -- first the selection of discussion subject thread and then posts within the tread.
+The discussion forum on KSI web consists of two pages -- first the selection of discussion subject thread and then posts within the tread.
 
 #### Discussion selection
 
@@ -638,13 +638,13 @@ The selection takes form of a table with a name of thread and its posts count. T
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/discussionroot-curr}
-\caption{The current look of a OSI discussion selection page}
+\caption{The current look of a KSI discussion selection page}
 \label{fig:discussroot-curr}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/discussionroot-new}
-\caption{The new design of a OSI discussion selection page}
+\caption{The new design of a KSI discussion selection page}
 \label{fig:discussroot-new}
 \end{figure}
 
@@ -654,19 +654,19 @@ In the current version (\ref{fig:discuss-curr}), the posts have no borders and r
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/discussion-curr}
-\caption{The current look of a OSI discussion posts}
+\caption{The current look of a KSI discussion posts}
 \label{fig:discuss-curr}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/discussion-new}
-\caption{The new design of a OSI discussion posts}
+\caption{The new design of a KSI discussion posts}
 \label{fig:discuss-new}
 \end{figure}
 
 ## The second instance
 
-During the spring semester 2022, the OSI organizer team was contacted by representative of the FI MU about creating a new online seminar for the newly accepted students with same basic structure as OSI. Participants will procedurally solve tasks about various subjects related to the informatics field and the environment of the university in general. Because the new web application was development with modularity in mind, it was selected as a main frontend for the new online seminar. The main tasks were changing used color pallet from OSI's to the one used by official FI MU website and rewriting occurences of OSI to the name of the new seminar, together with renaming affected path names. Because all these information are kept in separated files, which are then referenced, the process of modifying the values to desired outcome is not a time consuming process. Furthermore, following updates applied to the parent project can be applied to the [second instalment](https://github.com/fi-naskoc/web-frontend-angular) as well, by simply rebasing the patch commits on top of the new main branch of the parent project. The new online seminar, called [Jump-start the FI](https://naskoc.fi.muni.cz/), is set to begin at the end of May 2022.
+During the spring semester 2022, the KSI organizer team was contacted by representative of the FI MU about creating a new online seminar for the newly accepted students with same basic structure as KSI. Participants will procedurally solve tasks about various subjects related to the informatics field and the environment of the university in general. Because the new web application was development with modularity in mind, it was selected as a main frontend for the new online seminar. The main tasks were changing used color pallet from KSI's to the one used by official FI MU website and rewriting occurences of KSI to the name of the new seminar, together with renaming affected path names. Because all these information are kept in separated files, which are then referenced, the process of modifying the values to desired outcome is not a time consuming process. Furthermore, following updates applied to the parent project can be applied to the [second instalment](https://github.com/fi-naskoc/web-frontend-angular) as well, by simply rebasing the patch commits on top of the new main branch of the parent project. The new online seminar, called [Jump-start the FI](https://naskoc.fi.muni.cz/), is set to begin at the end of May 2022.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/naskoc-na-fi}
@@ -674,23 +674,23 @@ During the spring semester 2022, the OSI organizer team was contacted by represe
 \label{fig:naskoc-na-fi}
 \end{figure}
 
-## Restoring historic OSI tasks
+## Restoring historic KSI tasks
 
-Before OSI was transformed into an online competition, all assignments were sent to the participants through traditional mail. As such, the tasks were written as \LaTeX files, which were then built into a final PDF for printing. This format is incompatible with current tasks which are written as markdown files and then converted to HTML on the backend. Still, these historic tasks have undeniable education value, so making them easily accessible online	was set as one of the secondary goals of this thesis.
+Before KSI was transformed into an online competition, all assignments were sent to the participants through traditional mail. As such, the tasks were written as \LaTeX files, which were then built into a final PDF for printing. This format is incompatible with current tasks which are written as markdown files and then converted to HTML on the backend. Still, these historic tasks have undeniable education value, so making them easily accessible online	was set as one of the secondary goals of this thesis.
 
-Because the backend converts internally the tasks written in markdown to HTML, it is possible to convert the \LaTeX to HTML directly with a tool [`latex2html`](https://www.latex2html.org/), which can be later inserted into the database directly. Whenever `latex2html` encounters a part of a file that it is unable to translate into HTML, instead it renders it as a PNG or SVG image and attaches it to the final HTML file. This operation is also performed on blocks with Tex mathematics and source code, both for which the OSI web has support. The original Tex original mathematic content is obtained from alternative text of respective image from HTML. Additionally, most SVG images created by the tool contain a large transparent margin, which has to be removed. Finally, to contain all assets inside a single HTML file, all images are inserted into the HTML code.
+Because the backend converts internally the tasks written in markdown to HTML, it is possible to convert the \LaTeX to HTML directly with a tool [`latex2html`](https://www.latex2html.org/), which can be later inserted into the database directly. Whenever `latex2html` encounters a part of a file that it is unable to translate into HTML, instead it renders it as a PNG or SVG image and attaches it to the final HTML file. This operation is also performed on blocks with Tex mathematics and source code, both for which the KSI web has support. The original Tex original mathematic content is obtained from alternative text of respective image from HTML. Additionally, most SVG images created by the tool contain a large transparent margin, which has to be removed. Finally, to contain all assets inside a single HTML file, all images are inserted into the HTML code.
 
-After all tasks are converted into their HTML variants, it is possible to generate a SQL script, which will insert the tasks into the database. The script divides the tasks by their year and wave, while maintaining their relative order by using OSI prerequisites. If the source task was assigned a number of points, a module for submitting solution with correct points will be shown.
+After all tasks are converted into their HTML variants, it is possible to generate a SQL script, which will insert the tasks into the database. The script divides the tasks by their year and wave, while maintaining their relative order by using KSI prerequisites. If the source task was assigned a number of points, a module for submitting solution with correct points will be shown.
 
-Currently, the tasks are accessible only through the public development OSI instance -- for example the task ["Atlas"](https://ksi.ahlava.cz/ulohy/183) from the fifth wave of the 2009 year. Before deploying these historic tasks on the production server a larger discussion with the OSI organizers teams is needed, as follow up tasks, such as creating icons, may be required first. This discussion is planned on the summer or 2022. The source code of this converter is [publicly available](https://github.com/fi-ksi/seminar-till-2014-converter).
+Currently, the tasks are accessible only through the public development KSI instance -- for example the task ["Atlas"](https://ksi.ahlava.cz/ulohy/183) from the fifth wave of the 2009 year. Before deploying these historic tasks on the production server a larger discussion with the KSI organizers teams is needed, as follow up tasks, such as creating icons, may be required first. This discussion is planned on the summer or 2022. The source code of this converter is [publicly available](https://github.com/fi-ksi/seminar-till-2014-converter).
 
 ## Evaluating the new web application
 
-Since the October 2021 the OSI organizers were encouraged to submit their feedback on the state of the new web frontend. The new frontned was scheduled to be made public with a release of the last wave of the OSI year 2021/2022. Up until that date, the organizers have submitted through designated form 9 bug reports and 10 feature suggestions. With the release of the last fourth wave of the OSI year 2021/2022, the feedback was opened also to the participants, together with a questionnaire for them to fill. The participants were motivated to fill the questionnaire by awarding a trophy to everyone who submits it.
+Since the October 2021 the KSI organizers were encouraged to submit their feedback on the state of the new web frontend. The new frontned was scheduled to be made public with a release of the last wave of the KSI year 2021/2022. Up until that date, the organizers have submitted through designated form 9 bug reports and 10 feature suggestions. With the release of the last fourth wave of the KSI year 2021/2022, the feedback was opened also to the participants, together with a questionnaire for them to fill. The participants were motivated to fill the questionnaire by awarding a trophy to everyone who submits it.
 
 ### Questionare
 
-The questionare sent to the OSI participants consisted of three parts. In the first part, the participants were asked to provide their opinion on two new experimental UX features. The second section has consisted of questions about comparsion of the new and current OSI web frontend. The last section was made of free form questions about what do participants think that has improved with a new web and what was better on the current web frontend. As the answers, the participants were asked to choose a number between 1 and 5, where 1 is the best and 5 is the worst. A total of 21 participants have submitted the form.
+The questionare sent to the KSI participants consisted of three parts. In the first part, the participants were asked to provide their opinion on two new experimental UX features. The second section has consisted of questions about comparsion of the new and current KSI web frontend. The last section was made of free form questions about what do participants think that has improved with a new web and what was better on the current web frontend. As the answers, the participants were asked to choose a number between 1 and 5, where 1 is the best and 5 is the worst. A total of 21 participants have submitted the form.
 
 #### Respondents and responsiveness
 
@@ -704,7 +704,7 @@ Most participants who submitted the questionare have tested the new web on both 
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/questionare/faster}
-\caption{Questionare: I find the new OSI web faster than the current}
+\caption{Questionare: I find the new KSI web faster than the current}
 \label{fig:q-speed}
 \end{figure}
 
@@ -715,25 +715,25 @@ Even though most participants agree that the UX and UI on the desktop is better 
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/questionare/pc-ux}
-\caption{Questionare: My experience with the new OSI web on desktop is better}
+\caption{Questionare: My experience with the new KSI web on desktop is better}
 \label{fig:q-ux-pc}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/questionare/mobile-ux}
-\caption{Questionare: My experience with the new OSI web on mobile is better}
+\caption{Questionare: My experience with the new KSI web on mobile is better}
 \label{fig:q-ux-mobile}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/questionare/pc-ui}
-\caption{Questionare: The design of the new OSI web interface on desktop is better}
+\caption{Questionare: The design of the new KSI web interface on desktop is better}
 \label{fig:q-ui-pc}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/questionare/mobile-ui}
-\caption{Questionare: The design of the new OSI web interface on mobile is better}
+\caption{Questionare: The design of the new KSI web interface on mobile is better}
 \label{fig:q-ui-mobile}
 \end{figure}
 
