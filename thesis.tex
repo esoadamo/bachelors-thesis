@@ -696,6 +696,16 @@ During the spring semester 2022, the OSI organizer team was contacted by represe
 \label{fig:naskoc-na-fi}
 \end{figure}
 
+## Restoring historic OSI tasks
+
+Before OSI was transformed into an online competition, all assignments were sent to the participants through traditional mail. As such, the tasks were written as \LaTeX files, which were then built into a final PDF for printing. This format is incompatible with current tasks which are written as markdown files and then converted to HTML on the backend. Still, these historic tasks have undeniable education value, so making them easily accessible online	was set as one of the secondary goals of this thesis.
+
+Because the backend converts internally the tasks written in markdown to HTML, it is possible to convert the \LaTeX to HTML directly with a tool [`latex2html`](https://www.latex2html.org/), which can be later inserted into the database directly. Whenever `latex2html` encounters a part of a file that it is unable to translate into HTML, instead it renders it as a PNG or SVG image and attaches it to the final HTML file. This operation is also performed on blocks with Tex mathematics and source code, both for which the OSI web has support. The original Tex original mathematic content is obtained from alternative text of respective image from HTML. Additionally, most SVG images created by the tool contain a large transparent margin, which has to be removed. Finally, to contain all assets inside a single HTML file, all images are inserted into the HTML code.
+
+After all tasks are converted into their HTML variants, it is possible to generate a SQL script, which will insert the tasks into the database. The script divides the tasks by their year and wave, while maintaining their relative order by using OSI prerequisites. If the source task was assigned a number of points, a module for submitting solution with correct points will be shown.
+
+Currently, the tasks are accessible only through the public development OSI instance -- for example the task ["Atlas"](https://ksi.ahlava.cz/ulohy/183) from the fifth wave of the 2009 year. Before deploying these historic tasks on the production server a larger discussion with the OSI organizers teams is needed, as follow up tasks, such as creating icons, may be required first. This discussion is planned on the summer or 2022. The source code of this converter is [publicly available](https://github.com/fi-ksi/seminar-till-2014-converter).
+
 \end{markdown*}
 
 
