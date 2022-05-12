@@ -481,7 +481,7 @@ Lastly, inside the `util` are defined static utility classes that are not part o
 #### Utilities directory
 \label{chap:utils}
 
-The project's root `util` subdirectory contains shell scripts for automatizing tasks. The PWA (for explanation see \autoref{chap:faster}) requires icon to be of exact size, while the new web applications uses an SVG icon, the `gen-icons.sh` script takes the main SVG icon and converts into multiple icons with fixed resolution for the PWA. The `gen-api.sh` script automatically downloads the correct version of `swagger-codegen` tool (\autoref{chap:swagger-codegen}) and executes it to generate API code inside the `src/api` directory. It also attempts to fix the code that was generated in a faulty way -- for example by correcting the type of recursive array and replacing incorrectly typed function for downloading file from the backend.
+The project's root `util` subdirectory contains shell scripts for automatizing tasks. The PWA (for explanation see \autoref{chap:faster}) requires icon to be of exact size, while the new web applications uses an SVG icon, the `gen-icons.sh` script takes the main SVG icon and converts into multiple icons with fixed resolution for the PWA. The `gen-api.sh` script automatically downloads the correct version of `swagger-codegen` tool (\autoref{chap:swagger-codegen}) and executes it to generate API code inside the `src/api` directory. It also attempts to fix the code that was generated in a faulty way -- for example by correcting the type of recursive array or by unescaping HTML text (`'&lt;'` is replaced for `'<'`; `'&gt;'` with `'>'`) and modifying incorrectly typed function for downloading file from the backend.
 
 The `gen-scss-theme.sh` is further explained in \autoref{chap:theming}, `gen-changelog.sh` in \autoref{chap:changelog}. All utility scripts have their respective alias inside `package.json` file for convenience -- `npm run gen.icons`, `npm run gen.api`, `npm run gen.theme` and `npm run gen.changelog`. 
 
@@ -724,7 +724,7 @@ Most participants who submitted the questionare have tested the new web on both 
 
 \begin{figure}
 \includegraphics[width=.5\textwidth]{assets/img/questionare/device}
-\caption{Questionare: Used devices }
+\caption{Questionare: Used devices devices}
 \label{fig:q-device}
 \end{figure}
 
