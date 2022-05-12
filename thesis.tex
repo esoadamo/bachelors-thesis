@@ -22,7 +22,7 @@
            %% use at least 120 g/m² paper to prevent show-through.
   lof,     %% The `lof` option prints the List of Figures. Replace
            %% with `nolof` to hide the List of Figures.
-  lot,     %% The `lot` option prints the List of Tables. Replace
+  nolot,     %% The `lot` option prints the List of Tables. Replace
            %% with `nolot` to hide the List of Tables.
 ]{fithesis4}
 %% The following section sets up the locales used in the thesis.
@@ -119,7 +119,7 @@
 
 \mdstart
 
-The Online Seminar of Informatics (KSI for short) is an annual online competition and also one of the activities of the Faculty of Informatics targeted at high school students. The central part of KSI takes place from September to April in four thematic waves. Each wave consists of at least a dozen tasks in which the participants can learn and then apply various informatics principles. Participants who earn a minimum of 60\% points for completing given tasks awarded throughout all four waves are suitable to be accepted to the Faculty of Informatics without taking entrance exams. Every year KSI has more than five hundred participants that come to solve the tasks on its current website located at https://ksi.fi.muni.cz/.
+The Online Seminar of Informatics (KSI for short) is an annual online competition and also one of the activities of the Faculty of Informatics targeted at high school students. The central part of KSI takes place from September to April in four thematic waves. Each wave consists of at least a dozen tasks in which the participants can learn and then apply various informatics principles. Participants who earn a minimum of 60\% points for completing given tasks awarded throughout all four waves are suitable to be accepted to the Faculty of Informatics without taking entrance exams. Every year KSI has more than five hundred participants that come to solve the tasks on its current website located at [ksi.fi.muni.cz](https://ksi.fi.muni.cz/).
 
 The current website is created with an outdated framework with linked security implications, and only a fraction of the current organizers have a needed understanding of code. Because of this, the main goal of this thesis is to create a new web application for KSI, while the main focuses of the new application are on easy and effective maintenance in terms of long term support.
 
@@ -127,12 +127,47 @@ Secondary goals of this thesis are for the new web application to make the websi
 
 As a part of this thesis, some related modifications are also made to the server part of the KSI infrastructure.
 
-TODO: The first two chapters are dedicated to researching other competitions similar to the KSI and their approach to their websites. The third chapter describes the KSI's server-side infrastructure. Chapter 4–6 illustrates the new implementation. Chapter 7 describes the completed application infrastructure. The resulting web application, which is a primary goal of this thesis, can be seen in use at https://ksi.fi.muni.cz/novy-web/.
+The first chapter describes what requirements are laid upon the KSI web application. The second chapter depicts the current KSI infrastructure, both frontend and backend. The third chapter discusses possible approaches to the development of new web application. Chapters 4 and 5 presents the newly created projects for manipulation with backend and the new web application respectively. The final web application, which is a primary goal of this thesis,  is already [publicly deployed](https://ksi.fi.muni.cz/novy-web/).
 
 \end{markdown*}
 
 \markright{\textsc{Introduction}}
 \addcontentsline{toc}{chapter}{Introduction}
+
+\mdchap{Contents of the KSI web application}
+
+Given that a web frontend for KSI already exists and this thesis is aimed to be a revitalization of the KSI frontend, it is expected for the new web frontend to implement the same features as can be found in the current one. These features are discussed in separate sub-chapters.
+
+#### Learning task
+
+The KSI participants will spend most of their time of pages containing tasks. Every task does have an assigment text, in which the subject of given tasks is explained first and then examined in so called modules. Modules can take following forms:
+
+- text input question
+- programming task
+- single choice question
+- multiple choice question
+- correct sorting task
+- uploading a file
+
+Every module has a certain number of points which are awarded to the participant based on his solutions and a single task can have multiple modules. Moreover, every task has its own discussion thread in which participants can submit their questions and also a original solution which is made available to the participant after successful submission of the task.
+
+All tasks are grouped into tic units -- waves -- which gradually explain a single subject to the participant. Because often a task requires knowledge of content from another task, the tasks can be ordered in such way that to unlock one task a participant has to solve all previous tasks. This prerequisites are best represented as an acyclic oriented graph, which has to be visible to the participants for easier orientation.
+
+#### Discussion
+
+Even though every tasks has its own discussion attached, some questions that participants may have are not related to a single task. For this reason a separate general discussion is required, where anyone can create a new discussion thread.
+
+#### Results
+
+The participants are sorted based upon their earned number of points on a results page. The KSI differentiates between participants from high school and others. If the participant gains at least 60 \% of all available points from all tasks, he is awarded the title of a successful participant. Such participant needs to have different color in the results table.
+
+#### General features
+
+Because KSI is an annual competition, the frontend needs to present option for selecting which year should be displayed to the user. The web application should also support logging in for already registered users and registering new users. Every registered user should have a public profile with part of the information visible only after logging in.
+
+A pages with information about the online seminar itself and about news in the current year are also to be included. Furthermore, every user can be granted an achievement trophy for completing a special assignment. Every such trophy needs a page with its description and icon.
+
+\end{markdown*}
 
 \mdchap{KSI Infrastrucute}
 
@@ -448,7 +483,7 @@ Lastly, inside the `util` are defined static utility classes that are not part o
 #### Utilities directory
 \label{chap:utils}
 
-The project's root `util` subdirectory contains shell scripts for automatizing tasks. The PWA requires icon to be of exact size, while the new web applications uses an SVG icon, the `gen-icons.sh` script takes the main SVG icon and converts into multiple icons with fixed resolution for the PWA. The `gen-api.sh` script automatically downloads the correct version of `swagger-codegen` tool (\autoref{chap:swagger-codegen}) and executes it to generate API code inside the `src/api` directory. It also attempts to fix the code that was generated in a faulty way -- for example by correcting the type of recursive array and replacing incorrectly typed function for downloading file from the backend.
+The project's root `util` subdirectory contains shell scripts for automatizing tasks. The PWA (for explanation see \autoref{chap:faster}) requires icon to be of exact size, while the new web applications uses an SVG icon, the `gen-icons.sh` script takes the main SVG icon and converts into multiple icons with fixed resolution for the PWA. The `gen-api.sh` script automatically downloads the correct version of `swagger-codegen` tool (\autoref{chap:swagger-codegen}) and executes it to generate API code inside the `src/api` directory. It also attempts to fix the code that was generated in a faulty way -- for example by correcting the type of recursive array and replacing incorrectly typed function for downloading file from the backend.
 
 The `gen-scss-theme.sh` is further explained in \autoref{chap:theming}, `gen-changelog.sh` in \autoref{chap:changelog}. All utility scripts have their respective alias inside `package.json` file for convenience -- `npm run gen.icons`, `npm run gen.api`, `npm run gen.theme` and `npm run gen.changelog`. 
 
@@ -727,6 +762,8 @@ Even though most participants agree that the UX and UI on the desktop is better 
 \caption{Questionare: The design of the new KSI web interface on mobile is better}
 \label{fig:q-ui-mobile}
 \end{figure}
+
+# Conclusion
 
 
 
