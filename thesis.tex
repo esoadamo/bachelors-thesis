@@ -130,7 +130,7 @@ The first chapter describes what requirements are laid upon the KSI web applicat
 \markright{\textsc{Introduction}}
 \addcontentsline{toc}{chapter}{Introduction}
 
-\mdchap{Contents of the KSI web application}
+\mdchap{Components of the KSI web application}
 
 Given that a web frontend for KSI already exists and this thesis is aimed to be a revitalization of the KSI frontend, it is expected for the new web frontend to implement the same features as can be found in the current one. These features are discussed in separate sub-chapters.
 
@@ -770,12 +770,23 @@ Even though most participants agree that the UX and UI on the desktop is better 
 
 # Conclusion
 
-The primary task of this thesis was to create a new web application for the Online Seminar of Informatics. The new web application was supposed to be 
+The primary goal of this thesis was to create a new web application for the Online Seminar of Informatics, together with eventual modifications to its backend. This goal was to be completed with the focus on long-term maintainability and easy modifiability. The secondary goals of this thesis were to make the the new web application at least partially available on mobile devices, overall UX improvements and republishing historic KSI tasks which were previously incompatible with the current KSI infrastructure.
+
+First, I have analyzed from what components is the KSI frontend made of and then described the current state development and technological state of both frontend and backend. Next, I have outlined possible advantages and drawbacks about commonly used frameworks, that were considered for the implementation part of this thesis, with regards to the capabilities of the KSI organizers team and long-term support.
+
+Before the development of the new web frontend, changes were made to the KSI backend to ensure more robust process that tries to minimize possible risks of miscommunication when passing requests between these two projects. After the backend changes were completed, I have described specific changes and decisions behind application architecture and user interface.
+
+Throughout the development process, the KSI organizer team members have submitted multiple enhancement ideas and discovered bugs, which were either already incorporated or require further discussion. To evaluate the final web application a questinare about experience with the application was sent to the KSI participants. The responses to the questinare were positive, most notably with regard to the mobile version of the web application, which is now fully usable with all features on desktop available.
+
+At the final meeting of the KSI organizers teams was decided that the new web application will replace the current one with the start of the KSI year 2022/2023 in September. In the meantime, the new web application is already being used in a new online activity from the Faculty of Informatics Masaryk Univerzity, which is set to launch on the 25th May 2022. For this new activity, the web application's color schema and internationalization texts were modified to meet activity's requirements, underlining the goal of easy modifiability.
+
+In the future, the new web application is expected to be further actively developed. This next development is going to reflect breaking changes that are to be made to the KSI backend, which will make the current web frontend unusable and is scheduled on the summer of 2022. These changes could not be performed before, because it was deemed unsafe to perform breaking changes while the KSI year was in progress. Furthermore, the historic KSI tasks, which are now available on the public KSI testing server, are to be merged with the production database after additional steps like creating icons for them to better fit in with the rest of the tasks. All these tasks also require heavy cooperation of multiple people, which is why it was scheduled outside the university semester.
+
+Because all projects created as part of this thesis are published under [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/#), they may be freely used by anyone.
 
 \end{markdown*}
 
 \shorthandon{-}
-
   \printbibliography[heading=bibintoc] %% Print the bibliography.
 
   \makeatletter\thesis@blocks@clear\makeatother
