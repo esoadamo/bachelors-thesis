@@ -280,7 +280,7 @@ A service in Angular~[@angular-service] is a code structure, that can be injecte
 
 #### Modules
 
-Every Angular component needs to be declared inside an Angular module. This declaration specifies the real location of the component after the project is built, having components from different modules in different files. This feature is best exampled when used together with so called "lazy-loading"~[@angular-lazy-modules]. By default, all modules are loaded as soon as they are available to the connected client for download. On the other hand, when the module is marked for lazy-loading, it is downloaded only when requested by the client. This approach saves bandwidth, as the client does not always need all components of the applications -- for example normal user does not need to load administrative interfaces.
+Angular module can be compared to a C header file -- every Angular component needs to be declared inside an Angular module. After building an Angular application, every module is located in its own JavaScript files. These files then have to be downloaded to allow the part of the application that uses them to work properly. This feature is best exampled when used together with so called "lazy-loading"~[@angular-lazy-modules]. By default, all modules are loaded as soon as they are available to the connected client for download. On the other hand, when the module is marked for lazy-loading, it is downloaded only when requested by the client. This approach saves bandwidth, as the client does not always need all components of the applications -- for example user that does only want to read the news does not need to download all task module types.
 
 
 #### Routing
