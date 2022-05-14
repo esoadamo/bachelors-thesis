@@ -487,7 +487,7 @@ The `gen-scss-theme.sh` is further explained in \autoref{chap:theming}, `gen-cha
 ### Theming
 \label{chap:theming}
 
-The new web applications supports switching between so called light (\autoref{fig:light-mode}) and dark (\autoref{fig:dark-mode}) modes. Internally, the modes are implemented as CSS variables, which get overriden by adding a `theme-dark` class to the page's `body` element. All CSS variables are defined inside `src/app/styles/theme.scss` with the name of their main occurrence, though they are reused as much as possible, to minimize required changes for other projects derived from this thesis. The CSS are not to be used directly in other styles, rather they are used as an input for `gen-scss-theme` utility script (\autoref{chap:utils}), which wraps all CSS variables as SCSS variables at the end of the file. The main advantage of this approach is that if a variable was removed or renamed, then an error during compilation will be shown for a missing SCSS variable, instead of silently ignoring missing CSS variable.
+The new web applications supports switching between so-called light (\autoref{fig:light-mode}) and dark (\autoref{fig:dark-mode}) modes. Internally, the modes are implemented as CSS variables, which get overridden by adding a `theme-dark` class to the page's `body` element. All CSS variables are defined inside `src/app/styles/theme.scss` with the name of their main occurrence, though they are reused as much as possible to minimize required changes for other projects derived from this thesis. The CSS is not to be used directly in other styles; rather, they are used as an input for the `gen-scss-theme` utility script (\autoref{chap:utils}), which wraps all CSS variables as SCSS variables at the end of the file. The main advantage of this approach is that if a variable was removed or renamed, then an error during compilation will be shown for a missing SCSS variable instead of silently ignoring the missing CSS variable.
 
 \begin{figure}
 \includegraphics[width=.8\textwidth]{assets/img/light-mode}
@@ -504,7 +504,7 @@ The new web applications supports switching between so called light (\autoref{fi
 ### Internationalization
 \label{chap:translations}
 
-To make translations of this project or adjustments of texts for other project derived from this thesis, as simple as possible, almost all text strings are separated from the main code, the only exception to this rule being the page titled About KSI, which is expected to be full replaced with another page in other projects. The rest of the texts is placed inside a JSON file `assets/i18n/cs.json`. This file has a dictionary structure, in which are the string referenced by their qualified name -- for example, given the following `en.json` structure and Angular HTML component template
+To make translations of this project or adjustments of texts for other projects derived from this thesis as simple as possible, almost all text strings are separated from the main code, the only exception to this rule being the page titled About KSI, which is expected to be replaced entirely with another page in other projects. The rest of the texts are placed inside a JSON file `assets/i18n/cs.json`. This file has a dictionary structure, in which are the string referenced by their qualified name -- for example, given the following `en.json` structure and Angular HTML component template
 
 ```JavaScript
 // en.json
@@ -518,9 +518,9 @@ To make translations of this project or adjustments of texts for other project d
 <h1>{{'main-page.title'|translate}}</h1>
 ```
 
-the result on the results page will be `<h1>Example title</h1>`. Also, by having all texts inside a JSON file, we are able to switch translations and target language by simply providing another JSON file during runtime of the application, as the `translate` pipe is implemented as a RxJS observable. Furthermore, because the qualified name format is used, it is possible to create gender-specific texts by appending e. g. `.male` or `.female` to the name, which is useful for Czech language.
+the result on the results page will be `<h1>Example title</h1>`. Also, by having all texts inside a JSON file, we can switch translations and target language by simply providing another JSON file during the application's runtime, as the `translate` pipe is implemented as an RxJS observable. Furthermore, because the qualified name format is used, it is possible to create gender-specific texts by appending e. g. `.male` or `.female` to the name, practical for the Czech language.
 
-In addition to translating the texts inside the application, the path names are also localized, however this localization is only applied during the build process of the application. The path names are defined inside the `src/routes` directory, where are files implementing `IRoutes` interface from project's models. Furthermore, by referencing routes through this interface rather than by path name, it is possible to rename application routes without multiple changes to application components.
+In addition to translating the texts inside the application, the path names are also localized. However, this localization is only applied during the application's build process. The pathnames are defined inside the `src/routes` directory, where files implement the `IRoutes` interface from the project's models. Furthermore, referencing routes through this interface rather than by pathname makes it possible to rename application routes without multiple changes to application components.
 
 ### Automatic deployment
 \label{chap:autodeploy}
