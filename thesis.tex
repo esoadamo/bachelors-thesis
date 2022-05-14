@@ -563,22 +563,20 @@ All modules (except for the `shared` module) are imported as Angular lazy module
 
 ## UI Design
 
-During the development of the application, following principles were maintained:
+During the development of the application, the following principles were maintained:
 
-1. everything has to be accessible on mobile phone
-2. provide an unique link whenever possible
+1. everything has to be accessible on a mobile phone
+2. provide a unique link whenever possible
 3. prefer asynchronous operations
 4. cache mainly static but frequently accessed information
 
-Because the design of the current web still looks good enough nowadays, the overall new look of the webpage is similar -- the colour pattern was generated as shades defined from main KSI colours and all icons were reused from the current web application.
-
-All text resources are either loaded directly from backend or from the `cs.json` resource file. This makes changing texts easier and also enables for easy translation to another language, as only a change of one file is required.
+Because the current web design still appears sufficient nowadays, the overall new look of the web page is similar -- the colour pattern was generated as shades defined from primary KSI colours, and all icons were reused from the current web application.
 
 ### Landing page
 
-The landing page is referenced on every propagation media and as such is a first element of the KSI web application that possible participants will most likely see. The current landing page~( \autoref{fig:welcome-curr}) uses a signification portion of space for large icons and long text blocks. It also presents a clickable button in the middle of an image, which is a disturbing design pattern. To address these issues, the new landing page~(\autoref{fig:welcome-new}) splits the content into two rows so that newest information are visible without any scrolling required. The longer texts have been hidden behind carousel which is shown when the user clicks on one of the key KSI points in the middle of screen.
+The landing page is referenced on every propagation media and, as such, is the first element of the KSI web application that possible participants will most likely see. The current landing page~( \autoref{fig:welcome-curr}) uses a signification portion of space for large icons and long text blocks. It also presents a clickable button in the middle of an image, which is a disturbing design pattern. To address these issues, the new landing page~(\autoref{fig:welcome-new}) splits the content into two rows so that the newest information is visible without any scrolling required. The longer texts have been hidden behind the carousel, which is shown when the user clicks on one of the key KSI points in the middle of the screen.
 
-A second most notable design choice that differs from the current web application is the width and color of the navigation bar. In the current version, the navigation bar is located near the middle, whereas in the new application it covers full width of the screen with unified colours. This approach gives more breathable feel and is also easier to scale on different resolutions.
+A second most notable design choice that differs from the current web application is the width and colour of the navigation bar. In the current version, the navigation bar is located near the middle, whereas the new application covers the entire width of the screen with unified colours. This approach gives a more breathable feel and makes it easier to scale on different resolutions.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/welcome_curr}
@@ -594,13 +592,13 @@ A second most notable design choice that differs from the current web applicatio
 
 ### Tasks graph page
 
-The main point of KSI is a page with all tasks available to participants. The tasks are presented trough the form of acyclic graph, which can precisely represent which tasks are required to be completed before proceeding to the next ones.
+The main point of KSI is a page with all tasks available to participants. The tasks are presented in the form of a directed acyclic graph, which can precisely represent which tasks are required to be completed before proceeding to the next ones.
 
-The current version of the web frontend (\autoref{fig:graph-curr}) shows a legend explaining the different graph node colors on the left, which moves whole graph slightly to the right side. Moreover, as new tasks are added with a progress of a year, the graph could get more complicated and unclear. The new web frontend (\autoref{fig:graph-new}) tries to take a maximum advantage of available page width. This is done by moving the legend into a modal dialog (\autoref{fig:graph-new-settings}) accessible by a help button in the top right corner of the page. Given that the legend is mostly used by only new users of KSI web application, there is a little need to keep it visible all the time. Furthermore, to increase the clarity of the task graph, it is possible for the user to turn splitting the whole graph into multiple smaller graphs by grouping them into their thematic waves (\autoref{fig:graph-split}). In this mode, the user can then keep open only the relevant parts of graph, presumably only the currently active KSI task wave.
+The current version of the web frontend (\autoref{fig:graph-curr}) shows a legend explaining the different graph node colours on the left, which moves the whole graph slightly to the right side. Moreover, the graph could get more complicated and unclear as new tasks are added with a year's progress. The new web frontend (\autoref{fig:graph-new}) tries to take maximum advantage of the available page width. This is done by moving the legend into a modal dialogue (\autoref{fig:graph-new-settings}) accessible by a help button in the top right corner of the page. Given that the legend is mainly used by only new users of the KSI web application, there is a little need to keep it visible all the time. Furthermore, to increase the clarity of the task graph, the user can turn splitting the whole graph into multiple smaller graphs by grouping them into their thematic waves (\autoref{fig:graph-split}). In this mode, the user can then keep open only the relevant parts of the graph, presumably only the currently active KSI task wave.
 
-Though, the most notable change can be seen when using the KSI web application on a mobile phone (\autoref{fig:graph-mobile}). In the current version, the graph on the mobile is too narrow to fit, which results in multiple tasks overlapping. This makes it nearly impossible to open correct task. Instead, in the new web application, a special graph presentation mode was created. In this mode, the tasks are shown in the mode of a list, where tasks required to be completed before other tasks can be unlocked are shown first. This mode lacks information about different graph branches as seen on desktop version, but provides a viable compromise to usability on a mobile phone.
+Though, the most notable change can be seen when using the KSI web application on a mobile phone (\autoref{fig:graph-mobile}). In the current version, the graph on the mobile is too narrow to fit, which results in multiple tasks overlapping. This makes it nearly impossible to open the correct task. Instead, a special graph presentation mode was created in the new web application. In this mode, the tasks are shown in the mode of a list, where tasks required to be completed before other tasks can be unlocked shown first. This mode lacks information about different graph branches as seen on the desktop version but provides a viable compromise to usability on a mobile phone.
 
-In the spirit of the third followed principle, all tasks in all modes are now rendered as HTML anchor points, instead of clickable canvas as in the current version. The advantage of this approach is that now every task can be quickly located by using the search function of a web browser and multiple tasks can be opened in a new tab by pressing the middle button on the mouse or saved for later, without having to be opened one at a time.
+In the spirit of the third followed principle, all tasks in all modes are now rendered as HTML anchor points instead of clickable canvas as in the current version. The advantage of this approach is that now every task can be quickly located by using the search function of a web browser, and multiple tasks can be opened in a new tab by pressing the middle button on the mouse or saved for later without having to be opened one at a time.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/graph_curr}
@@ -632,11 +630,9 @@ In the spirit of the third followed principle, all tasks in all modes are now re
 \label{fig:graph-mobile}
 \end{figure}
 
-
 ### The task page
 
-The functionality of a KSI task page remains almost unchanged, mainly a design modifications were made. In the current version (\autoref{fig:task-curr}), the task has a section selection in its begging, where it may feel disruptive and complicated. Most of the time, the participant does not need to see discussion or his evaluation before he had read and tried to solve the task. The new web application puts all controls after the tasks assignment, imitating a style of an internet news article which has first title, then author, date of publication and then the content of the article. The content of the article is followed by a link to a discussion about said article. This design choice, together with less bright background, aims to lower possible distractions from the text of the assignment. Both discussion and solution are opened as a modal dialog on desktop to keep the page's scroll position intact. In the mobile version, where there is not enough space to open modal with more content, the assignment is replaced with requested section.
-
+The functionality of a KSI task page remains almost unchanged. Mainly, design modifications were made. In the current version (\autoref{fig:task-curr}), the task has a section selection in its begging, where it may feel disruptive and complicated. Most of the time, the participant does not need to see a discussion or solution before reading and trying to solve the task. The new web application puts all controls after the task assignment, imitating a style of an internet news article with the title first, then the author, the date of publication, and then the article's content. The article's content is followed by a link to a discussion about the said article. This design choice, together with a less bright background, aims to lower possible distractions from the assignment's text. Both discussion and solution are opened as a modal dialogue on the desktop to keep the page's scroll position intact. In the mobile version, where there is insufficient space to open a modal with more content, the assignment is replaced with the requested section.
 
 \begin{figure}
 \includegraphics[width=.9\textwidth]{assets/img/task-curr}
