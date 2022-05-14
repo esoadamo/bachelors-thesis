@@ -115,7 +115,7 @@
 
 \mdstart
 
-The Online Seminar of Informatics (KSI for short) is an annual online competition and also one of the activities of the Faculty of Informatics targeted at high school students. The central part of KSI takes place from September to April in four thematic waves. Each wave consists of at least a dozen tasks in which the participants can learn and then apply various informatics principles. Participants who earn a minimum of 60\% points for completing given tasks awarded throughout all four waves are suitable to be accepted to the Faculty of Informatics without taking entrance exams. Every year KSI has more than five hundred participants who solve the tasks on its current website located at \fnurl{ksi.fi.muni.cz}{https://ksi.fi.muni.cz/}.
+The Online Seminar of Informatics (KSI for short) is an annual online competition and also one of the activities of the Faculty of Informatics targeted at high school students. The central part of KSI takes place from September to April in four thematic waves. Each wave consists of at least a dozen tasks in which the participants can learn and then apply various informatics principles. Participants who earn a minimum of 60\% points for completing given tasks awarded throughout all four waves are suitable to be accepted to the Faculty of Informatics without taking entrance exams. Every year KSI has more than five hundred participants who solve the tasks on its current website located at \href{https://ksi.fi.muni.cz}{ksi.fi.muni.cz}.
 
 The current website is created with an outdated framework with linked security implications, and only a fraction of the current organizers have a needed understanding of code. Because of this, the main goal of this thesis is to create a new web application for KSI, while the main focuses of the new application are on easy and effective maintenance in terms of long term support.
 
@@ -170,7 +170,7 @@ Pages with information about the online seminar itself and about news in the cur
 KSI's organizers manage two virtual servers hosted on faculty's Open Nebula platform, both running Debian OS. One of these servers is for production, the second is for testing. Both share the same format -- an Apache web server, which server the frontend and reverse proxies the backend.
 The production server is called `kleobis` and the development `kyzikos` and I will refer to them troughout this thesis as such.
 
-Kleobis has assigned two domains -- \fnurl{ksi.fi.muni.cz}{https://ksi.fi.muni.cz} for access to the frontend and \fnurl{rest.ksi.fi.muni.cz}{https://rest.ksi.fi.muni.cz} for calling backend endpoints.
+Kleobis has assigned two domains -- \href{https://ksi.fi.muni.cz}{ksi.fi.muni.cz} for access to the frontend and \href{https://rest.ksi.fi.muni.cz}{rest.ksi.fi.muni.cz} for calling backend endpoints.
 
 Kyzikos has no public access, because it is meant as a development server on which the organizers can test their possibly breaking modification without interfering with the production instance.
 
