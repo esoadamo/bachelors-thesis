@@ -138,30 +138,30 @@ Given that a web frontend for KSI already exists and this thesis aims to be a re
 
 The KSI participants will spend most of their time on pages containing tasks. Every task does have an assignment text, in which the subject of given tasks is explained first and then examined in so-called modules. Modules can take the following forms:
 
-- text input question
-- programming task
 - single choice question
 - multiple choice question
-- correct sorting task
-- uploading a file
+- text input question (the participant must write the correct answer)
+- programming task (the participant has to write a code that passes hidden tests)
+- sorting task (the participant is tasked with rearranging code blocks into correct order)
+- uploading a file (primarily used for tasks that are manually reviewed and evaluated)
 
-Every module has a certain number of points awarded to the participant based on his solutions, and a single task can have multiple modules. Moreover, every task has its discussion thread in which participants can submit their questions and also an original solution which is made available to the participant after successful submission of the task.
+Every module has a certain number of points awarded to the participant based on his answers, and a single task can have multiple modules. Moreover, every task has its discussion thread in which participants can submit their questions. An original solution to the task is made available to the participant after the successful submission of the task.
 
-All tasks are grouped into tic units -- waves -- which gradually explain a single subject to the participant. Because a task often requires knowledge of content from another task, the tasks can be ordered so that, to unlock one task, the participant has to solve all previous tasks. This prerequisite is best represented as an acyclic oriented graph, which must be visible to the participants for easier orientation.
+All tasks are grouped into thematic units -- waves -- which gradually explain a single subject to the participant. Because a task often requires knowledge of content from other tasks, the tasks can be ordered so that, to unlock one task, the participant has to solve all previous tasks. This prerequisite is best represented as a directed acyclic graph, which must be visible to the participants for easier orientation.
 
 #### Discussion
 
-Even though every task has its discussion attached, some participants' questions are not related to a single task. For this reason, a separate general discussion is required, where anyone can create a new discussion thread.
+Unlike the discussion attached to every task, a general discussion with custom-named threads is required because some participants' questions are not related to a single task. Any registered user can create a new thread in this general discussion.
 
 #### Results
 
-The participants are sorted based on their earned number of points on a results page. The KSI differentiates participants from high school and others. If the participant gains at least 60 \% of all available points from all tasks, he is awarded the title of a successful participant. Such participant needs to have a different colour in the results table.
+The participants are sorted based on their earned number of points on a results page. The KSI differentiates participants from high school and others. If the participant gains at least 60 \% of all available points from all tasks, he is awarded the title of a successful participant. Such participant needs to have a different colour in the results table. Furthermore, every user can be granted an achievement trophy for completing a particular assignment. Every such trophy needs a page with its description and icon.
 
 #### General features
 
-Because KSI is an annual competition, the frontend needs to present an option for selecting which year should be displayed to the user. The web application should also support logging in for already registered users and registering new users. Every registered user should have a public profile with part of the information visible only after logging in.
+Because KSI is an annual competition, the frontend needs to present an option for selecting which year should be displayed to the user. The web application should also support logging in for already registered users and registering new users. Every registered user should have a public profile with part of the information visible only after logging in (for example, the user's email should not be visible in the public version of his profile).
 
-Pages with information about the online seminar itself and about news in the current year are also to be included. Furthermore, every user can be granted an achievement trophy for completing a particular assignment. Every such trophy needs a page with its description and icon.
+Pages with information about the online seminar itself and about news in the current year are also to be included.
 
 \end{markdown*}
 
