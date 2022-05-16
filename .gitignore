@@ -18,6 +18,9 @@ thesis.run.xml
 thesis.synctex.gz
 thesis.toc
 thesis.fls
+thesis.acn
+thesis.glo
+thesis.ist
 *.bak
 *.swp
 *_latexmk
