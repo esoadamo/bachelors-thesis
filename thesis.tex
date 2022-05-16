@@ -428,6 +428,7 @@ Internally, this function will handle authorization and possible exceptions so t
 Because the definition of the \acrshort{API} is stored within a separate project, this could in the future lead to a de-synchronization between the definition of the \acrshort{API} and the backend code itself. Nevertheless, this threat would be present in some form unless the `swagger.json` can be generated directly from the backend code. If no technology like OpenAPI is used, then every time a backend endpoint changes, all frontend usages of such endpoint have to be manually reviewed. The separate project is a compromise, which minimizes the risk of de-synchronization by using a simple to use syntax for the backend developers and easy changes implementation by regenerating the code from the Swagger definition for the frontend developers.
 
 ## Docker container
+\label{chap:docker}
 
 The only public instance of the \acrshort{KSI} backend is for the production environment. The second instance, created for testing purposes, is only available from inside the faculty network, which makes it inappropriate for comprehensive testing by all \acrshort{KSI} organizers. Not every organizer is also a student of the \acrshort{FI}. This makes the need for another backend instance obvious. Furthermore, being able to create multiple instances for local testing during development efficiently decreases the chance of more significant issues because of their local scope.
 
@@ -799,7 +800,7 @@ Because all projects created as part of this thesis are published under \fnurl{G
 
 \mdstart
 
-The implementation of this thesis is submitted to the archive as a `.tar.gz` archive, which contains all three projects as root folders -- the web application frontend, the Swagger backend proxy project and the project for the conversion of \LaTeX{} tasks to the SQL statement. The archive, and every contained project's directory, contains a `README.md` file, which describes the structure and requirements for starting the project.
+The implementation of this thesis is submitted to the archive as a `.tar.gz` archive file, which contains all three projects created as part of this thesis as root folders -- the web application frontend, the Swagger backend proxy project and the project for the conversion of \LaTeX{} tasks to the SQL statement. A fourth included project in the archive file is a \acrshort{KSI} backend, which was only partially modified as part of this thesis rather than entirely created, primary with relation to the \autoref{chap:docker}. The archive file, and every contained project's directory, contains a `README.md` file, which describes the structure and requirements for starting the project.
 
 \end{markdown*}
 
