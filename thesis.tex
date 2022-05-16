@@ -112,6 +112,8 @@
 %% Unlike \chapter, \chapter* does not update the headings and does not
 %% enter the chapter to the table of contents. I we want correct
 %% headings and a table of contents entry, we must add them manually:
+\markright{\textsc{Introduction}}
+\addcontentsline{toc}{chapter}{Introduction}
 
 \mdstart
 
@@ -126,9 +128,6 @@ As a part of this thesis, related modifications are also made to the server part
 The first chapter describes what requirements are laid upon the \acrshort{KSI} web application. The second chapter depicts the current \acrshort{KSI} infrastructure, both frontend and backend. The third chapter discusses possible approaches to the development of new web application. Chapters 4 and 5 present the newly created projects for manipulation with the backend and the new web application, respectively. The final web application, which is the primary goal of this thesis, is already publicly deployed both for \fnurl{KSI}{https://ksi.fi.muni.cz/novy-web/} and a new online seminar \fnurl{Jump-start the \acrshort{FI}}{https://naskoc.fi.muni.cz/}.
 
 \end{markdown*}
-
-\markright{\textsc{Introduction}}
-\addcontentsline{toc}{chapter}{Introduction}
 
 \mdchap{Components of the \acrshort{KSI} web application}
 
@@ -781,7 +780,14 @@ Because all projects created as part of this thesis are published under \fnurl{G
 \end{markdown*}
 
 \shorthandon{-}
-  \printbibliography[heading=bibintoc] %% Print the bibliography.
+\chapter*{Bibliography}
+\markright{\textsc{Bibliography}}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+{
+  \emergencystretch 3em 
+  \printbibliography[heading=none] %% Print the bibliography.
+}
 
   \makeatletter\thesis@blocks@clear\makeatother
 %  \phantomsection %% Print the index and insert it into the
