@@ -1,6 +1,7 @@
 all: pdf open
 
 pdf:
+	rm thesis.pdf
 	pdflatex --shell-escape -synctex=1 -interaction=nonstopmode thesis
 	biber thesis
 	pdflatex --shell-escape -synctex=1 -interaction=nonstopmode thesis
