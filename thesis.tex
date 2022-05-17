@@ -394,11 +394,11 @@ With the types of inputs and outputs of the endpoint defined, the endpoint itsel
 export class EndpointPosts {
 // a login is required to access this endpoint
     @Security('ksi')
-// this endpoint accepts POST request with a single parameter inside \acrshort{URL} path named postId
+// this endpoint accepts POST request with a single parameter inside URL path named postId
     @Put('{postsId}')
 // this endpoint should be uniquely reffered to as postEditSingle
     public async postsEditSingle(
-// the postId parameter inside \acrshort{URL} path is a number
+// the postId parameter inside ULR path is a number
         @Path() postsId: number,
 // the endpoint expects data of a type PostsEditRequest 
         @Body() postsUpdateRequest: PostsEditRequest,
