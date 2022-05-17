@@ -135,13 +135,13 @@ Given that a web frontend for \acrshort{KSI} already exists and this thesis aims
 
 #### Learning task
 
-The \acrshort{KSI} participants will spend most of their time on pages containing tasks. Every task has an assignment text, in which the subject of a given task is first explained and then examined in so-called modules. Modules can take the following forms:
+The \acrshort{KSI} participant spends most of their time on pages containing tasks. Every task has an assignment text, in which the subject of a given task is first explained and then examined in so-called modules. Modules can take the following forms:
 
 - single choice question
 - multiple choice question
 - text input question (the participant must write the correct answer)
 - programming task (the participant has to write a code that passes hidden tests)
-- sorting task (the participant is tasked with rearranging code blocks into correct order)
+- sorting task (the participant is tasked with rearranging code blocks into a correct order)
 - uploading a file (primarily used for tasks that are manually reviewed and evaluated)
 
 Every module has a certain number of points awarded to the participant based on user's answers, and a single task can have multiple modules. Moreover, every task has its discussion thread in which participants can submit their questions. An original solution to the task is made available to the participant after the successful submission of the task.
@@ -164,24 +164,24 @@ Pages with information about the online seminar itself and about news in the cur
 
 \end{markdown*}
 
-\mdchap{KSI Infrastrucute}
+\mdchap{\acrshort{KSI} Infrastrucute}
 
-KSI's organizers manage two virtual servers hosted on faculty's Open Nebula platform, both running Debian OS. One of these servers is for production, the second is for testing. Both share the same format -- an Apache web server, which server the frontend and reverse proxies the backend.
-The production server is called `kleobis` and the development `kyzikos` and I will refer to them troughout this thesis as such.
+\acrshort{KSI}'s organizers manage two virtual servers hosted on faculty's Open Nebula platform, both running \fnurl{Debian OS}{https://www.debian.org/}. One of these servers is for production, the second is for testing. Both share the same format -- an Apache web server, which serves the frontend and reverse-proxies the backend.
+The production server is called `kleobis` and the development `kyzikos`. I will refer to them throughout this thesis as such.
 
 Kleobis has assigned two domains -- \href{https://ksi.fi.muni.cz}{ksi.fi.muni.cz} for access to the frontend and \href{https://rest.ksi.fi.muni.cz}{rest.ksi.fi.muni.cz} for calling backend endpoints.
 
-Kyzikos has no public access, because it is meant as a development server on which the organizers can test their possibly breaking modification without interfering with the production instance.
+Kyzikos has no public access because it is meant as a development server on which the organizers can test their possibly breaking modification without interfering with the production instance.
 
-The frontend~[@ksi-web-frontend] can be automatically deployed from its repository by building it using GitHub Actions and then copying the built web application on the desired server by calling an automated script on one of the organizers faculty accounts.
+The frontend~[@ksi-web-frontend] can be automatically deployed from its repository by building it using GitHub Actions and then copying the built web application on the desired server by calling an automated script on one of the organizer's faculty accounts.
 
-The backend~[@ksi-web-backend] has no means for automatic deployment and updating. The process has to be performed manualy, by logging into target server, pulling from the source code repository and performing a manual restart. This is a desired workflow, because updates to the backend server are infrequent and a manual check of functionality after an update increases certanity that the server will work as desired even after the update.
+The backend~[@ksi-web-backend] has no means for automatic deployment and updating. The process must be performed manually by logging into the target server, pulling from the source code repository and performing a manual restart. This is the desired workflow because updates to the backend server are infrequent. A manual check of functionality after an update increases the certainty that the server will work as desired even after the update.
 
 ## Frontend
 
 ### Maintenance of the current frontend
 
-The current web frontend of the Online Seminar of Informatics (KSI for short) was written using the first version of the Ember.js framework. The last minor version of the first version of the Ember.js framework was released on the 12th of June 2015~[@ember-1]. The frontend stayed principally the same throughout the years because the first Ember.js version cannot be upgraded to a more recent and supported version with ease. Following the fact that Ember v1 was released in 2015, present seminar organizers face a few severe issues -- the foremost being security implications of using old and deprecated software and the second being the lack of volunteers with enough knowledge of this technology. In its current state, the frontend is singlehandedly managed by Ondřej Borýsek~[@ksi-web-frontend].
+The current \acrshort{KSI} web frontend was written using the first version of the Ember.js framework. The last minor version of the first version of the Ember.js framework was released on the 12th of June 2015~[@ember-1]. The frontend stayed principally the same throughout the years because the first Ember.js version cannot be upgraded to a more recent and supported version with ease. Following the fact that Ember v1 was released in 2015, present seminar organizers face a few severe issues -- the foremost being security implications of using old and deprecated software and the second being the lack of volunteers with enough knowledge of this technology. In its current state, the frontend is singlehandedly managed by Ondřej Borýsek~[@ksi-web-frontend].
 
 Since the support of the used framework ended, the organizers have been aware of these issues. They have tried to migrate the used version to a current stable version of Ember, most notably inside a private project called web-frontend-ember3~[@ksi-web-frontend-ember3], but these attempts were not successful. The leading explanation for the prevalence of the current frontend is that all organizers are volunteers. With only a limited amount of time available, the organizers decided to work on more imminent duties. However, this task has gained a significant priority as Ondřej Borýsek will finish his studies shortly. Consequently, none of the team members will be capable of resolving issues or implementing new features.
 
@@ -191,7 +191,7 @@ When deciding how to approach the development of the new version of the \acrshor
 
 The last option was to develop a new project from scratch using one of the most used web frameworks. Besides jQuery, which is not a full-featured web framework, the most used ones are React.js and Angular~[@stackoverflow-survey].
 
-React.js~[@react-github], developed by Meta, is the most popular~[@stackoverflow-survey] full-featured web framework. It is focused on the fast development of responsive web applications while heavily depending on modularity and supporting it via external libraries. This modularity allows the developer to tailor the project's library set precisely for the project's needs. Since component logic in React.js is written in JavaScript instead of templates, it is easy to pass rich data through the applications and keep the state out of the DOM~[@reactjs]. An added benefit of React.js is that it is taught on the Faculty of Informatics at Masaryk University in a course called Modern Markup Languages and Their Applications, which is compulsory for both
+React.js~[@react-github], developed by Meta, is the most popular~[@stackoverflow-survey] full-featured web framework. It is focused on the fast development of responsive web applications while heavily depending on modularity and supporting it via external libraries. This modularity allows the developer to tailor the project's library set precisely for the project's needs. Since component logic in React.js is written in JavaScript instead of templates, it is easy to pass rich data through the applications and keep the state out of the \acrshort{DOM}~[@reactjs]. An added benefit of React.js is that it is taught on the Faculty of Informatics at Masaryk University in a course called Modern Markup Languages and Their Applications, which is compulsory for both
 Programming and Development~[@fi-pva] program and some specializations of Informatics~[@fi-inf]. Nevertheless, most of the current members of the organizer teams have no experience with web development whatsoever; hence choosing React.js is not fundamental.
 
 Angular~[@angular], developed by Google, on the other hand, includes most of the frequently used features~[@angular-features] like routing, \acrshort{HTTP} client, forms manipulation, and internalization. Therefore Angular allows the developers to get familiar with a new project more rapidly without needing to learn about new third-party libraries used within a given project.
@@ -218,11 +218,11 @@ Choosing the proper framework, if any, broadly impacts the whole application's s
 
 ## Developing without framework
 
-Even though it is possible to develop a whole application without using any existing framework, this approach gains significant problems with the enlarging size of the application. Given that nearly every modern page consists at least of three files -- HTML file defining the elements, a JavaScript file with functionality and a \acrshort{CSS} file used to style the look and placement of elements on the page, it would be possible to import JS and \acrshort{CSS} files to different webpages to reuse code. However, this does not apply to HTML, which would have to be a separate file for every web page of the application, resulting in significant code duplication. It would be possible to implement a logic that would create complex HTML components from predefined source templates, but this approach would effectively create a new framework. This new framework would then suffer from additional issues like lack of external support and previously untested code.
+Even though it is possible to develop a whole application without using any existing framework, this approach gains significant problems with the enlarging size of the application. Given that nearly every modern page consists at least of three files -- \acrshort{HTML} file defining the elements, a JavaScript file with functionality and a \acrshort{CSS} file used to style the look and placement of elements on the page, it would be possible to import JS and \acrshort{CSS} files to different webpages to reuse code. However, this does not apply to \acrshort{HTML}, which would have to be a separate file for every web page of the application, resulting in significant code duplication. It would be possible to implement a logic that would create complex \acrshort{HTML} components from predefined source templates, but this approach would effectively create a new framework. This new framework would then suffer from additional issues like lack of external support and previously untested code.
 
 ## Developing with a framework
 
-For the reasons shown in the previous section, developing a more complex web application without a framework is not ideal. On the other hand, when a framework is used in the project, and then later the framework becomes obsolete, it can be challenging to continue with the project's maintenance, perhaps best shown on the example of the current \acrshort{KSI} web. To select the proper framework for a project, it is possible to investigate the most used ones as they are expected to be supported for an extended period. Stack Overflow, a company best known for its site for Q~\&~A regarding computer programming, publishes annual survey results among developers. According to the 2020 survey~[@stackoverflow-survey] with 36~291 responses from professional developers, the most used web frameworks with at least 25\% of positive responses are jQuery~(43.3\%), React.js~(36.8\%), Angular~(26.5\%). These are the frameworks I have considered for the new \acrshort{KSI} web application.
+For the reasons shown in the previous section, developing a more complex web application without a framework is not ideal. On the other hand, when a framework is used in the project, and then later the framework becomes obsolete, it can be challenging to continue with the project's maintenance, perhaps best shown on the example of the current \acrshort{KSI} web. To select the proper framework for a project, it is possible to investigate the most used ones as they are expected to be supported for an extended period. Stack Overflow, a company best known for its site for \acrshort{QaA} regarding computer programming, publishes annual survey results among developers. According to the 2020 survey~[@stackoverflow-survey] with 36~291 responses from professional developers, the most used web frameworks with at least 25\% of positive responses are jQuery~(43.3\%), React.js~(36.8\%), Angular~(26.5\%). These are the frameworks I have considered for the new \acrshort{KSI} web application.
 
 ### jQuery
 
@@ -239,7 +239,7 @@ For its supposed use case, which is different from creating complex applications
 
 ### React.js
 
-React.js~[@reactjs] is a web framework that introduces its own syntax called JSX~[@reactjs-main-concepts]. JSX is a syntax extension of JavaScript, which allows writing HTML templates together with JavaScript logic:
+React.js~[@reactjs] is a web framework that introduces its own syntax called JSX~[@reactjs-main-concepts]. JSX is a syntax extension of JavaScript, which allows writing \acrshort{HTML} templates together with JavaScript logic:
 
 ~~~JavaScript
 function formatName(user) {
@@ -251,7 +251,7 @@ function getGreeting(user) {
 }
 ~~~
 
-Putting JavaSript code and HTML DOM together is helpful for understanding code by eliminating the need to look at multiple places, possibly split between files. The way of organizing code parts is entirely in the hands of the developer.
+Putting JavaSript code and \acrshort{HTML} \acrshort{DOM} together is helpful for understanding code by eliminating the need to look at multiple places, possibly split between files. The way of organizing code parts is entirely in the hands of the developer.
 
 React.js's central concepts are based on creating components in the form of JavaScript functions or classes, which can then be used directly inside the JSX. Component-state management is implemented by saving the state locally and passing functions to child components, which can then propagate events by calling the passed functions as a callback. This way of state management, especially when combined with components implemented as functions, makes it possible to produce a cleaner code with clearly visible dependencies.
 
@@ -269,9 +269,9 @@ Angular publishes a new major release in a 6-months long cycle, while previous m
 
 #### Component
 
-Angular component~[@angular-component], generated by executing `ng generate` with parameters `component \%component-name\%`, consists of three files -- `html` file describing elements that will be placed inside this component when used inside DOM, `scss` file for styling said HTML file and `ts` file describing functions and code logic with the TypeScript language. Unlike React.js, Angular uses style encapsulation by default so that styles defined in one element do not interfere with styles from other elements. This allows for using shorter \acrshort{CSS} class names, whereas, without encapsulation, it would lead to collisions with other elements without specifying any prefix. The `.html` file can reference variables and methods declared in the `.ts` code file - they can be used to display values, perform logic operations or loops, or pass data to children components. The methods can be used as a handler for events from the user or other components, or their return value can be used the same as a variable.
+Angular component~[@angular-component], generated by executing `ng generate` with parameters `component \%component-name\%`, consists of three files -- `html` file describing elements that will be placed inside this component when used inside \acrshort{DOM}, `scss` file for styling said \acrshort{HTML} file and `ts` file describing functions and code logic with the TypeScript language. Unlike React.js, Angular uses style encapsulation by default so that styles defined in one element do not interfere with styles from other elements. This allows for using shorter \acrshort{CSS} class names, whereas, without encapsulation, it would lead to collisions with other elements without specifying any prefix. The `.html` file can reference variables and methods declared in the `.ts` code file - they can be used to display values, perform logic operations or loops, or pass data to children components. The methods can be used as a handler for events from the user or other components, or their return value can be used the same as a variable.
 
-When a value of variable changes, the new value is also reflected in its template by recomputing a re-rendering it. Because this operation can be computationally demanding, it is possible to change the change detection behaviour to only update when requested from a code. Angular also provides a so-called two-way data binding. When a variable is assigned to an `<input>` HTML element, it synchronizes the variable's value with the value of the user input. Though these concepts can be improved with a reactive development style, they provide an easy to understand baseline.
+When a value of variable changes, the new value is also reflected in its template by recomputing and re-rendering it. Because this operation can be computationally demanding, it is possible to change the change detection behaviour to only update when requested from a code. Angular also provides a so-called two-way data binding. When a variable is assigned to an `<input>` \acrshort{HTML} element, it synchronizes the variable's value with the value of the user input. Though these concepts can be improved with a reactive development style, they provide an easy to understand baseline.
 
 #### Services
 
@@ -479,7 +479,7 @@ Lastly, inside the `util` are defined static utility classes that are not part o
 #### Utilities directory
 \label{chap:utils}
 
-The project's root `util` subdirectory contains shell scripts for automatizing tasks. The \acrshort{PWA} (for an explanation, see \autoref{chap:faster}) requires the icon to be of the exact size, while the new web application uses an \acrshort{SVG} icon, the `gen-icons.sh` script takes the main \acrshort{SVG} icon and converts into multiple icons with a fixed resolution for the \acrshort{PWA}. The `gen-api.sh` script automatically downloads the correct version of `swagger-codegen` tool (\autoref{chap:swagger-codegen}) and executes it to generate \acrshort{API} code inside the `src/api` directory. It also attempts to fix the code that was generated incorrectly -- for example, by correcting the type of recursive array or by unescaping HTML text (`'&lt;'` is replaced for `'<'`; `'&gt;'` with `'>'`) and modifying incorrectly typed function for downloading a file from the backend.
+The project's root `util` subdirectory contains shell scripts for automatizing tasks. The \acrshort{PWA} (for an explanation, see \autoref{chap:faster}) requires the icon to be of the exact size, while the new web application uses an \acrshort{SVG} icon, the `gen-icons.sh` script takes the main \acrshort{SVG} icon and converts into multiple icons with a fixed resolution for the \acrshort{PWA}. The `gen-api.sh` script automatically downloads the correct version of `swagger-codegen` tool (\autoref{chap:swagger-codegen}) and executes it to generate \acrshort{API} code inside the `src/api` directory. It also attempts to fix the code that was generated incorrectly -- for example, by correcting the type of recursive array or by unescaping \acrshort{HTML} text (`'&lt;'` is replaced for `'<'`; `'&gt;'` with `'>'`) and modifying incorrectly typed function for downloading a file from the backend.
 
 The `gen-scss-theme.sh` is further explained in \autoref{chap:theming}, `gen-changelog.sh` in \autoref{chap:changelog}. All utility scripts have their respective alias inside `package.json` file for convenience -- `npm run` `gen.icons`, `gen.api`, `gen.theme` and `gen.changelog`. 
 
@@ -503,7 +503,7 @@ The new web applications supports switching between so-called light (\autoref{fi
 ### Internationalization
 \label{chap:translations}
 
-To make translations of this project or adjustments of texts for other projects derived from this thesis as simple as possible, almost all text strings are separated from the main code, the only exception to this rule being the page titled About \acrshort{KSI}, which is expected to be replaced entirely with another page in other projects. The rest of the texts are placed inside a \acrshort{JSON} file `assets/i18n/cs.json`. This file has a dictionary structure, in which are the string referenced by their qualified name -- for example, given the following `en.json` structure and Angular HTML component template
+To make translations of this project or adjustments of texts for other projects derived from this thesis as simple as possible, almost all text strings are separated from the main code, the only exception to this rule being the page titled About \acrshort{KSI}, which is expected to be replaced entirely with another page in other projects. The rest of the texts are placed inside a \acrshort{JSON} file `assets/i18n/cs.json`. This file has a dictionary structure, in which are the string referenced by their qualified name -- for example, given the following `en.json` structure and Angular \acrshort{HTML} component template
 
 ```JavaScript
 // en.json
@@ -597,7 +597,7 @@ The current version of the web frontend (\autoref{fig:graph-curr}) shows a legen
 
 Though, the most notable change can be seen when using the \acrshort{KSI} web application on a mobile phone (\autoref{fig:graph-mobile}). In the current version, the graph on the mobile is too narrow to fit, which results in multiple tasks overlapping. This makes it nearly impossible to open the correct task. Instead, a special graph presentation mode was created in the new web application. In this mode, the tasks are shown in the mode of a list, where tasks required to be completed before other tasks can be unlocked shown first. This mode lacks information about different graph branches as seen on the desktop version but provides a viable compromise to usability on a mobile phone.
 
-In the spirit of the third followed principle, all tasks in all modes are now rendered as HTML anchor points instead of clickable canvas as in the current version. The advantage of this approach is that now every task can be quickly located by using the search function of a web browser, and multiple tasks can be opened in a new tab by pressing the middle button on the mouse or saved for later without having to be opened one at a time.
+In the spirit of the third followed principle, all tasks in all modes are now rendered as \acrshort{HTML} anchor points instead of clickable canvas as in the current version. The advantage of this approach is that now every task can be quickly located by using the search function of a web browser, and multiple tasks can be opened in a new tab by pressing the middle button on the mouse or saved for later without having to be opened one at a time.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/graph_curr}
@@ -694,13 +694,13 @@ During the spring semester of 2022, the \acrshort{KSI} organizer team was contac
 
 ## Restoring historic \acrshort{KSI} tasks
 
-Before \acrshort{KSI} was transformed into an online competition, all assignments were sent to the participants through traditional mail. As such, the tasks were written as \LaTeX{} files, which were then built into a final \acrshort{PDF} for printing. This format is incompatible with current tasks written as markdown files and then converted to HTML on the backend. Still, these historic tasks have undeniable educational value, so making them easily accessible online	was set as one of the secondary goals of this thesis.
+Before \acrshort{KSI} was transformed into an online competition, all assignments were sent to the participants through traditional mail. As such, the tasks were written as \LaTeX{} files, which were then built into a final \acrshort{PDF} for printing. This format is incompatible with current tasks written as markdown files and then converted to \acrshort{HTML} on the backend. Still, these historic tasks have undeniable educational value, so making them easily accessible online	was set as one of the secondary goals of this thesis.
 
-Because the backend converts internally the tasks written in markdown to HTML, it is possible to convert the \LaTeX{} to HTML directly with a tool \fnurl{`latex2html`}{https://www.latex2html.org/}, which can be later inserted into the database directly. Whenever `latex2html` encounters a part of a file that it cannot translate into HTML, it renders it as a \acrshort{PNG} or \acrshort{SVG} image and attaches it to the final HTML file. This operation is also performed on blocks with TeX mathematics and source code, both for which the \acrshort{KSI} web has direct support.
+Because the backend converts internally the tasks written in markdown to \acrshort{HTML}, it is possible to convert the \LaTeX{} to \acrshort{HTML} directly with a tool \fnurl{`latex2html`}{https://www.latex2html.org/}, which can be later inserted into the database directly. Whenever `latex2html` encounters a part of a file that it cannot translate into \acrshort{HTML}, it renders it as a \acrshort{PNG} or \acrshort{SVG} image and attaches it to the final \acrshort{HTML} file. This operation is also performed on blocks with TeX mathematics and source code, both for which the \acrshort{KSI} web has direct support.
 
-To improve the user's experience, as part of the postprocessing of the generated HTML, the original TeX math content is obtained from the alternative text of the respective image from HTML. Additionally, most \acrshort{SVG} images created by the tool contain a large transparent margin that must be removed. Finally, all images are embedded into the HTML code to contain all assets inside a single HTML file.
+To improve the user's experience, as part of the postprocessing of the generated \acrshort{HTML}, the original TeX math content is obtained from the alternative text of the respective image from \acrshort{HTML}. Additionally, most \acrshort{SVG} images created by the tool contain a large transparent margin that must be removed. Finally, all images are embedded into the \acrshort{HTML} code to contain all assets inside a single \acrshort{HTML} file.
 
-After all tasks are converted into their HTML variants, it is possible to generate a SQL script, which will insert the tasks into the database. The script divides the tasks by their year and wave while maintaining their relative order by using \acrshort{KSI} prerequisites. A module for submitting a solution with correct points will be shown if the source task was assigned a number of points.
+After all tasks are converted into their \acrshort{HTML} variants, it is possible to generate a SQL script, which will insert the tasks into the database. The script divides the tasks by their year and wave while maintaining their relative order by using \acrshort{KSI} prerequisites. A module for submitting a solution with correct points will be shown if the source task was assigned a number of points.
 
 Currently, the tasks are accessible only through the public development \acrshort{KSI} instance -- for example, the task \fnurl{"Atlas"}{https://ksi.ahlava.cz/ulohy/183} from the fifth wave of the 2009 year. Before deploying these historic tasks on the production server, a more extensive discussion with the \acrshort{KSI} organizers teams is needed, as follow up tasks, such as creating icons, may be required first. This discussion is planned for the summer of 2022. The source code of this converter is \fnurl{publicly available}{https://github.com/fi-ksi/seminar-till-2014-converter}.
 
