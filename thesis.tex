@@ -398,7 +398,7 @@ export class EndpointPosts {
     @Put('{postsId}')
 // this endpoint should be uniquely reffered to as postEditSingle
     public async postsEditSingle(
-// the postId parameter inside ULR path is a number
+// the postId parameter inside URL path is a number
         @Path() postsId: number,
 // the endpoint expects data of a type PostsEditRequest 
         @Body() postsUpdateRequest: PostsEditRequest,
