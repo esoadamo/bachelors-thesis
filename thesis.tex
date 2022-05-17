@@ -208,7 +208,7 @@ To sandbox untrusted code, mainly originating from participant's task evaluation
 
 ### Python web framework
 
-The \acrshort{KSI} backend utilizes the Falcon~[@falcon] framework for handling all \acrshort{HTTP} \acrshort{API} calls, which companies like PayPal and LinkedIn~[@falcon-usage] use. This framework is optimized for creating RESTful~[@rest] API and is better suitable for a larger volume of incoming requests. Every endpoint is defined as a class that has an implemented method for every supported \acrshort{HTTP} method. This Python class method is given two parameters -- `request` and `response`. This simplicity of the framework design allows for easy and quick implementation of new endpoints and a steep learning curve for new project maintainers.
+The \acrshort{KSI} backend utilizes the Falcon~[@falcon] framework for handling all \acrshort{HTTP} \acrshort{API} calls, which companies like PayPal and LinkedIn~[@falcon-usage] use. This framework is optimized for creating RESTful~[@rest] \acrshort{API} and is better suitable for a larger volume of incoming requests. Every endpoint is defined as a class that has an implemented method for every supported \acrshort{HTTP} method. This Python class method is given two parameters -- `request` and `response`. This simplicity of the framework design allows for easy and quick implementation of new endpoints and a steep learning curve for new project maintainers.
 
 \end{markdown*}
 
@@ -553,7 +553,7 @@ To keep the users of the web application informed about development progress, a 
 
 ### Login status and theme synchronization
 
-Whenever the user changes the preferred colour theme or logs in or out, the information about this action is synchronized across all opened tabs through \fnurl{`BroadcastChannel`}{https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel} API. This feature dramatically improves \acrshort{UX} in such cases when the user opens multiple tasks that require logging in at once without logging in. By simply entering user's credentials in one of the opened tabs, the status will be propagated across all tabs without any additional input from the user.
+Whenever the user changes the preferred colour theme or logs in or out, the information about this action is synchronized across all opened tabs through \fnurl{`BroadcastChannel`}{https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel} \acrshort{API}. This feature dramatically improves \acrshort{UX} in such cases when the user opens multiple tasks that require logging in at once without logging in. By simply entering user's credentials in one of the opened tabs, the status will be propagated across all tabs without any additional input from the user.
 
 ### Improved loading times
 \label{chap:faster}
