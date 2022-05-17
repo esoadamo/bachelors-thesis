@@ -135,13 +135,13 @@ Given that a web frontend for \acrshort{KSI} already exists and this thesis aims
 
 #### Learning task
 
-The \acrshort{KSI} participants will spend most of their time on pages containing tasks. Every task has an assignment text, in which the subject of a given task is first explained and then examined in so-called modules. Modules can take the following forms:
+The \acrshort{KSI} participants spend most of their time on pages containing tasks. Every task has an assignment text, in which the subject of a given task is first explained and then examined in so-called modules. Modules can take the following forms:
 
 - single choice question
 - multiple choice question
 - text input question (the participant must write the correct answer)
 - programming task (the participant has to write a code that passes hidden tests)
-- sorting task (the participant is tasked with rearranging code blocks into correct order)
+- sorting task (the participant is tasked with rearranging code blocks into a correct order)
 - uploading a file (primarily used for tasks that are manually reviewed and evaluated)
 
 Every module has a certain number of points awarded to the participant based on user's answers, and a single task can have multiple modules. Moreover, every task has its discussion thread in which participants can submit their questions. An original solution to the task is made available to the participant after the successful submission of the task.
@@ -164,24 +164,24 @@ Pages with information about the online seminar itself and about news in the cur
 
 \end{markdown*}
 
-\mdchap{KSI Infrastrucute}
+\mdchap{\acrshort{KSI} Infrastrucute}
 
-KSI's organizers manage two virtual servers hosted on faculty's Open Nebula platform, both running Debian OS. One of these servers is for production, the second is for testing. Both share the same format -- an Apache web server, which server the frontend and reverse proxies the backend.
-The production server is called `kleobis` and the development `kyzikos` and I will refer to them troughout this thesis as such.
+\acrshort{KSI}'s organizers manage two virtual servers hosted on faculty's Open Nebula platform, both running \fnurl{Debian OS}{https://www.debian.org/}. One of these servers is for production, the second is for testing. Both share the same format -- an Apache web server, which serves the frontend and reverse-proxies the backend.
+The production server is called `kleobis` and the development `kyzikos`. I will refer to them throughout this thesis as such.
 
 Kleobis has assigned two domains -- \href{https://ksi.fi.muni.cz}{ksi.fi.muni.cz} for access to the frontend and \href{https://rest.ksi.fi.muni.cz}{rest.ksi.fi.muni.cz} for calling backend endpoints.
 
-Kyzikos has no public access, because it is meant as a development server on which the organizers can test their possibly breaking modification without interfering with the production instance.
+Kyzikos has no public access because it is meant as a development server on which the organizers can test their possibly breaking modification without interfering with the production instance.
 
-The frontend~[@ksi-web-frontend] can be automatically deployed from its repository by building it using GitHub Actions and then copying the built web application on the desired server by calling an automated script on one of the organizers faculty accounts.
+The frontend~[@ksi-web-frontend] can be automatically deployed from its repository by building it using GitHub Actions and then copying the built web application on the desired server by calling an automated script on one of the organizer's faculty accounts.
 
-The backend~[@ksi-web-backend] has no means for automatic deployment and updating. The process has to be performed manualy, by logging into target server, pulling from the source code repository and performing a manual restart. This is a desired workflow, because updates to the backend server are infrequent and a manual check of functionality after an update increases certanity that the server will work as desired even after the update.
+The backend~[@ksi-web-backend] has no means for automatic deployment and updating. The process must be performed manually by logging into the target server, pulling from the source code repository and performing a manual restart. This is the desired workflow because updates to the backend server are infrequent. A manual check of functionality after an update increases the certainty that the server will work as desired even after the update.
 
 ## Frontend
 
 ### Maintenance of the current frontend
 
-The current web frontend of the Online Seminar of Informatics (KSI for short) was written using the first version of the Ember.js framework. The last minor version of the first version of the Ember.js framework was released on the 12th of June 2015~[@ember-1]. The frontend stayed principally the same throughout the years because the first Ember.js version cannot be upgraded to a more recent and supported version with ease. Following the fact that Ember v1 was released in 2015, present seminar organizers face a few severe issues -- the foremost being security implications of using old and deprecated software and the second being the lack of volunteers with enough knowledge of this technology. In its current state, the frontend is singlehandedly managed by Ondřej Borýsek~[@ksi-web-frontend].
+The current \acrshort{KSI} web frontend was written using the first version of the Ember.js framework. The last minor version of the first version of the Ember.js framework was released on the 12th of June 2015~[@ember-1]. The frontend stayed principally the same throughout the years because the first Ember.js version cannot be upgraded to a more recent and supported version with ease. Following the fact that Ember v1 was released in 2015, present seminar organizers face a few severe issues -- the foremost being security implications of using old and deprecated software and the second being the lack of volunteers with enough knowledge of this technology. In its current state, the frontend is singlehandedly managed by Ondřej Borýsek~[@ksi-web-frontend].
 
 Since the support of the used framework ended, the organizers have been aware of these issues. They have tried to migrate the used version to a current stable version of Ember, most notably inside a private project called web-frontend-ember3~[@ksi-web-frontend-ember3], but these attempts were not successful. The leading explanation for the prevalence of the current frontend is that all organizers are volunteers. With only a limited amount of time available, the organizers decided to work on more imminent duties. However, this task has gained a significant priority as Ondřej Borýsek will finish his studies shortly. Consequently, none of the team members will be capable of resolving issues or implementing new features.
 
@@ -191,7 +191,7 @@ When deciding how to approach the development of the new version of the \acrshor
 
 The last option was to develop a new project from scratch using one of the most used web frameworks. Besides jQuery, which is not a full-featured web framework, the most used ones are React.js and Angular~[@stackoverflow-survey].
 
-React.js~[@react-github], developed by Meta, is the most popular~[@stackoverflow-survey] full-featured web framework. It is focused on the fast development of responsive web applications while heavily depending on modularity and supporting it via external libraries. This modularity allows the developer to tailor the project's library set precisely for the project's needs. Since component logic in React.js is written in JavaScript instead of templates, it is easy to pass rich data through the applications and keep the state out of the DOM~[@reactjs]. An added benefit of React.js is that it is taught on the Faculty of Informatics at Masaryk University in a course called Modern Markup Languages and Their Applications, which is compulsory for both
+React.js~[@react-github], developed by Meta, is the most popular~[@stackoverflow-survey] full-featured web framework. It is focused on the fast development of responsive web applications while heavily depending on modularity and supporting it via external libraries. This modularity allows the developer to tailor the project's library set precisely for the project's needs. Since component logic in React.js is written in JavaScript instead of templates, it is easy to pass rich data through the applications and keep the state out of the \acrshort{DOM}~[@reactjs]. An added benefit of React.js is that it is taught on the Faculty of Informatics at Masaryk University in a course called Modern Markup Languages and Their Applications, which is compulsory for both
 Programming and Development~[@fi-pva] program and some specializations of Informatics~[@fi-inf]. Nevertheless, most of the current members of the organizer teams have no experience with web development whatsoever; hence choosing React.js is not fundamental.
 
 Angular~[@angular], developed by Google, on the other hand, includes most of the frequently used features~[@angular-features] like routing, \acrshort{HTTP} client, forms manipulation, and internalization. Therefore Angular allows the developers to get familiar with a new project more rapidly without needing to learn about new third-party libraries used within a given project.
@@ -208,7 +208,7 @@ To sandbox untrusted code, mainly originating from participant's task evaluation
 
 ### Python web framework
 
-The \acrshort{KSI} backend utilizes the Falcon~[@falcon] framework for handling all \acrshort{HTTP} \acrshort{API} calls, which companies like PayPal and LinkedIn~[@falcon-usage] use. This framework is optimized for creating RESTful~[@rest] API and is better suitable for a larger volume of incoming requests. Every endpoint is defined as a class that has an implemented method for every supported \acrshort{HTTP} method. This Python class method is given two parameters -- `request` and `response`. This simplicity of the framework design allows for easy and quick implementation of new endpoints and a steep learning curve for new project maintainers.
+The \acrshort{KSI} backend utilizes the Falcon~[@falcon] framework for handling all \acrshort{HTTP} \acrshort{API} calls, which companies like PayPal and LinkedIn~[@falcon-usage] use. This framework is optimized for creating RESTful~[@rest] \acrshort{API} and is better suitable for a larger volume of incoming requests. Every endpoint is defined as a class that has an implemented method for every supported \acrshort{HTTP} method. This Python class method is given two parameters -- `request` and `response`. This simplicity of the framework design allows for easy and quick implementation of new endpoints and a steep learning curve for new project maintainers.
 
 \end{markdown*}
 
@@ -218,11 +218,11 @@ Choosing the proper framework, if any, broadly impacts the whole application's s
 
 ## Developing without framework
 
-Even though it is possible to develop a whole application without using any existing framework, this approach gains significant problems with the enlarging size of the application. Given that nearly every modern page consists at least of three files -- HTML file defining the elements, a JavaScript file with functionality and a \acrshort{CSS} file used to style the look and placement of elements on the page, it would be possible to import JS and \acrshort{CSS} files to different webpages to reuse code. However, this does not apply to HTML, which would have to be a separate file for every web page of the application, resulting in significant code duplication. It would be possible to implement a logic that would create complex HTML components from predefined source templates, but this approach would effectively create a new framework. This new framework would then suffer from additional issues like lack of external support and previously untested code.
+Even though it is possible to develop a whole application without using any existing framework, this approach gains significant problems with the enlarging size of the application. Given that nearly every modern page consists at least of three files -- \acrshort{HTML} file defining the elements, a JavaScript file with functionality and a \acrshort{CSS} file used to style the look and placement of elements on the page, it would be possible to import JavaScript and \acrshort{CSS} files to different webpages to reuse code. However, this does not apply to \acrshort{HTML}, which would have to be a separate file for every web page of the application, resulting in significant code duplication. It would be possible to implement a logic that would create complex \acrshort{HTML} components from predefined source templates, but this approach would effectively create a new framework. This new framework would then suffer from additional issues like lack of external support and previously untested code.
 
 ## Developing with a framework
 
-For the reasons shown in the previous section, developing a more complex web application without a framework is not ideal. On the other hand, when a framework is used in the project, and then later the framework becomes obsolete, it can be challenging to continue with the project's maintenance, perhaps best shown on the example of the current \acrshort{KSI} web. To select the proper framework for a project, it is possible to investigate the most used ones as they are expected to be supported for an extended period. Stack Overflow, a company best known for its site for Q~\&~A regarding computer programming, publishes annual survey results among developers. According to the 2020 survey~[@stackoverflow-survey] with 36~291 responses from professional developers, the most used web frameworks with at least 25\% of positive responses are jQuery~(43.3\%), React.js~(36.8\%), Angular~(26.5\%). These are the frameworks I have considered for the new \acrshort{KSI} web application.
+For the reasons shown in the previous section, developing a more complex web application without a framework is not ideal. On the other hand, when a framework is used in the project, and then later the framework becomes obsolete, it can be challenging to continue with the project's maintenance, perhaps best shown on the example of the current \acrshort{KSI} web. To select the proper framework for a project, it is possible to investigate the most used ones as they are expected to be supported for an extended period. Stack Overflow, a company best known for its site for \acrshort{QaA} regarding computer programming, publishes annual survey results among developers. According to the 2020 survey~[@stackoverflow-survey] with 36~291 responses from professional developers, the most used web frameworks with at least 25\% of positive responses are jQuery~(43.3\%), React.js~(36.8\%), Angular~(26.5\%). These are the frameworks I have considered for the new \acrshort{KSI} web application.
 
 ### jQuery
 
@@ -239,7 +239,7 @@ For its supposed use case, which is different from creating complex applications
 
 ### React.js
 
-React.js~[@reactjs] is a web framework that introduces its own syntax called JSX~[@reactjs-main-concepts]. JSX is a syntax extension of JavaScript, which allows writing HTML templates together with JavaScript logic:
+React.js~[@reactjs] is a web framework that introduces its own syntax called JSX~[@reactjs-main-concepts]. JSX is a syntax extension of JavaScript, which allows writing \acrshort{HTML} templates together with JavaScript logic:
 
 ~~~JavaScript
 function formatName(user) {
@@ -251,7 +251,7 @@ function getGreeting(user) {
 }
 ~~~
 
-Putting JavaSript code and HTML DOM together is helpful for understanding code by eliminating the need to look at multiple places, possibly split between files. The way of organizing code parts is entirely in the hands of the developer.
+Putting JavaSript code and \acrshort{HTML} \acrshort{DOM} together is helpful for understanding code by eliminating the need to look at multiple places, possibly split between files. The way of organizing code parts is entirely in the hands of the developer.
 
 React.js's central concepts are based on creating components in the form of JavaScript functions or classes, which can then be used directly inside the JSX. Component-state management is implemented by saving the state locally and passing functions to child components, which can then propagate events by calling the passed functions as a callback. This way of state management, especially when combined with components implemented as functions, makes it possible to produce a cleaner code with clearly visible dependencies.
 
@@ -269,9 +269,9 @@ Angular publishes a new major release in a 6-months long cycle, while previous m
 
 #### Component
 
-Angular component~[@angular-component], generated by executing `ng generate` with parameters `component \%component-name\%`, consists of three files -- `html` file describing elements that will be placed inside this component when used inside DOM, `scss` file for styling said HTML file and `ts` file describing functions and code logic with the TypeScript language. Unlike React.js, Angular uses style encapsulation by default so that styles defined in one element do not interfere with styles from other elements. This allows for using shorter \acrshort{CSS} class names, whereas, without encapsulation, it would lead to collisions with other elements without specifying any prefix. The `.html` file can reference variables and methods declared in the `.ts` code file - they can be used to display values, perform logic operations or loops, or pass data to children components. The methods can be used as a handler for events from the user or other components, or their return value can be used the same as a variable.
+Angular component~[@angular-component], generated by executing `ng generate` with parameters `component \%component-name\%`, consists of three files -- `html` file describing elements that will be placed inside this component when used inside \acrshort{DOM}, `scss` file for styling said \acrshort{HTML} file and `ts` file describing functions and code logic with the TypeScript language. Unlike React.js, Angular uses style encapsulation by default so that styles defined in one element do not interfere with styles from other elements. This allows for using shorter \acrshort{CSS} class names, whereas, without encapsulation, it would lead to collisions with other elements without specifying any prefix. The `.html` file can reference variables and methods declared in the `.ts` code file - they can be used to display values, perform logic operations or loops, or pass data to children components. The methods can be used as a handler for events from the user or other components, or their return value can be used the same as a variable.
 
-When a value of variable changes, the new value is also reflected in its template by recomputing a re-rendering it. Because this operation can be computationally demanding, it is possible to change the change detection behaviour to only update when requested from a code. Angular also provides a so-called two-way data binding. When a variable is assigned to an `<input>` HTML element, it synchronizes the variable's value with the value of the user input. Though these concepts can be improved with a reactive development style, they provide an easy to understand baseline.
+When a value of variable changes, the new value is also reflected in its template by recomputing and re-rendering it. Because this operation can be computationally demanding, it is possible to change the change detection behaviour to only update when requested from a code. Angular also provides a so-called two-way data binding. When a variable is assigned to an `<input>` \acrshort{HTML} element, it synchronizes the variable's value with the value of the user input. Though these concepts can be improved with a reactive development style, they provide an easy to understand baseline.
 
 #### Services
 
@@ -301,7 +301,7 @@ The example shows that even the basic chaining of events can reduce code complex
 
 ## OpenAPI
 
-OpenAPI, formerly known as Swagger~[@swagger-about], is a set of projects that can ease the development process for clients connecting to the backend APIs. This can be achieved by the backend exposing a \acrshort{JSON} file documenting the structure of the APIs. This structure mainly includes:
+OpenAPI, formerly known as Swagger~[@swagger-about], is a set of projects that can ease the development process for clients connecting to the backend \acrshort{API}s. This can be achieved by the backend exposing a \acrshort{JSON} file documenting the structure of the \acrshort{API}s. This structure mainly includes:
 
 - relative paths to the endpoint inside the application
 - expected \acrshort{HTTP} method
@@ -309,7 +309,7 @@ OpenAPI, formerly known as Swagger~[@swagger-about], is a set of projects that c
     - header
     - parameter
     - form
-    - JSON body content
+    - \acrshort{JSON} body content
 - return code and values
 
 The Swagger also supports advanced features such as defining accepted authorization means such as \acrshort{API} keys or 0auth tokens.
@@ -325,7 +325,7 @@ Currently, the `swagger-codegen` supports generating code for 40 languages, wher
 
 ### swagger-ui
 
-The SmartBear Software also provides a tool called Swagger \acrshort{UI}~[@swagger-ui]. This tool was developed to parse the `swagger.json` file and present it in an easily readable form as a web page. The developer can see every described endpoint with its description, accepted method and expected input and output types. The Swagger \acrshort{UI} also provides the possibility to directly call the endpoints from the web page by filling parameters into a form and then examining the result of the \acrshort{API} call. The SmartBear Software also presents a \fnurl{demonstration}{https://petstore.swagger.io/} of the Swagger \acrshort{UI} on its website, which can analyze any `swagger.json` file by providing its URL.
+The SmartBear Software also provides a tool called Swagger \acrshort{UI}~[@swagger-ui]. This tool was developed to parse the `swagger.json` file and present it in an easily readable form as a web page. The developer can see every described endpoint with its description, accepted method and expected input and output types. The Swagger \acrshort{UI} also provides the possibility to directly call the endpoints from the web page by filling parameters into a form and then examining the result of the \acrshort{API} call. The SmartBear Software also presents a \fnurl{demonstration}{https://petstore.swagger.io/} of the Swagger \acrshort{UI} on its website, which can analyze any `swagger.json` file by providing its \acrshort{URL}.
 
 ## Swagger proxy
 
@@ -398,7 +398,7 @@ export class EndpointPosts {
     @Put('{postsId}')
 // this endpoint should be uniquely reffered to as postEditSingle
     public async postsEditSingle(
-// the postId parameter inside URL path is a number
+// the postId parameter inside ULR path is a number
         @Path() postsId: number,
 // the endpoint expects data of a type PostsEditRequest 
         @Body() postsUpdateRequest: PostsEditRequest,
@@ -407,7 +407,7 @@ export class EndpointPosts {
     {  /* ... code to process the request ... */  }
 ~~~
 
-From this information, the TypeScript OpenAPI can generate the `swagger.json` endpoint description, which can be visualized by Swagger \acrshort{UI}, as seen in figure \autoref{fig:swagger-ui}.
+From this information, the TypeScript OpenAPI can generate the `swagger.json` endpoint description, which can be visualized by Swagger \acrshort{UI}, as seen in \autoref{fig:swagger-ui}.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/swagger-ui}
@@ -432,7 +432,7 @@ Because the definition of the \acrshort{API} is stored within a separate project
 
 The only public instance of the \acrshort{KSI} backend is for the production environment. The second instance, created for testing purposes, is only available from inside the faculty network, which makes it inappropriate for comprehensive testing by all \acrshort{KSI} organizers. Not every organizer is also a student of the \acrshort{FI}. This makes the need for another backend instance obvious. Furthermore, being able to create multiple instances for local testing during development efficiently decreases the chance of more significant issues because of their local scope.
 
-The backend project itself has only a few external dependencies -- except for Python 3 environment, it needs a \fnurl{`isolate`}{https://github.com/ioi/isolate/} project executable for sandboxing untrusted participants' code and a database to connect to. Selecting a base Docker image of Python 3 based on \fnurl{Debian buster}{https://hub.docker.com/_/python} makes it possible to create an environment similar to the \acrshort{KSI} production server. Almost every required modification to the backend project can be done directly inside the \fnurl{Dockerfile}{https://github.com/fi-ksi/web-backend/blob/master/.docker/Dockerfile}, namely:
+The backend project itself has only a few external dependencies -- except for Python 3 environment, it needs a \fnurl{`isolate`}{https://github.com/ioi/isolate/} project executable for sandboxing untrusted participants' code and a database to connect to. Selecting a base Docker image of Python 3 based on \fnurl{Debian Buster}{https://hub.docker.com/_/python} makes it possible to create an environment similar to the \acrshort{KSI} production server. Almost every required modification to the backend project can be done directly inside the \fnurl{Dockerfile}{https://github.com/fi-ksi/web-backend/blob/master/.docker/Dockerfile}, namely:
 
 - because `isolate` is not available as a Debian package, it must be compiled manually. The Dockerfile downloads the built version from my personal Debian package repository
 - for easier manipulation with the database, an SQLite database file will be used instead of the MariaDB server used on production. This decision has a few implications:
@@ -468,18 +468,18 @@ The project's file tree is a crucial architecture design choice as it will impac
 
 #### Source directory
 
-Same as Angular defaults, the source directory contains the `app` subdirectory for web application code, `assets` for holding static files that are not a direct part of the code and `environments` that define constants specific for every instance (for example URL for the backend server). The `api` directory holds all code generated by the `swagger-codegen` tool (\autoref{chap:swagger-codegen}). Inside the `cgi-bin` directory is located the script required for automatic deployment (\autoref{chap:autodeploy}).
+Same as Angular defaults, the source directory contains the `app` subdirectory for web application code, `assets` for holding static files that are not a direct part of the code and `environments` that define constants specific for every instance (for example \acrshort{URL} for the backend server). The `api` directory holds all code generated by the `swagger-codegen` tool (\autoref{chap:swagger-codegen}). Inside the `cgi-bin` directory is located the script required for automatic deployment (\autoref{chap:autodeploy}).
 
 The application files are split into subdirectories based on their Angular type (`component`, `model`, `pipe` and `service`). Next split is upon their module (`achievements`, `discussion`, `news`, `profile`, `results`, `root`, `tasks` and `shared`). The modules (except for module `shared`) are respective to their relative application path -- e. g. components that are inside the `news` module will have a path starting with `/news/`. This splitting is done both for more rational file placement and faster loading times by utilizing lazy modules (\autoref{chap:faster}). The shared module contains items shared across multiple other modules, for example, the loading spinner, which is included on almost every page. Models, services and pipes all contain in their root an `index.ts` file, which exports all their members from their subdirectories for possible future easier refactoring.
 
 The `styles` directory contains global variables to be imported in components, \fnurl{SCSS mixins}{https://www.koderhq.com/tutorial/sass/mixin/} for common style adjustments, color palette definition and theme variables (\autoref{chap:theming}). The colour palette is generated as shades from \fnurl{internal \acrshort{KSI} colours}{https://github.com/fi-ksi/grafika}. To make the colour replacement for other projects derived from this thesis as simple as possible, almost no other colours are used in the entire application, with the only exception being colours retrieved from the project's third-party dependencies.
 
-Lastly, inside the `util` are defined static utility classes that are not part of a single Angular type but are still used in multiple of them. These utility classes handle tasks like rewriting an asset URL retrieved from backed for the current web application to the location of the same assets inside the new application.
+Lastly, inside the `util` directory are defined static utility classes that are not part of a single Angular type but are still used in multiple of them. These utility classes handle tasks like rewriting an asset \acrshort{URL} retrieved from backed for the current web application to the location of the same assets inside the new application.
 
 #### Utilities directory
 \label{chap:utils}
 
-The project's root `util` subdirectory contains shell scripts for automatizing tasks. The \acrshort{PWA} (for an explanation, see \autoref{chap:faster}) requires the icon to be of the exact size, while the new web application uses an \acrshort{SVG} icon, the `gen-icons.sh` script takes the main \acrshort{SVG} icon and converts into multiple icons with a fixed resolution for the \acrshort{PWA}. The `gen-api.sh` script automatically downloads the correct version of `swagger-codegen` tool (\autoref{chap:swagger-codegen}) and executes it to generate \acrshort{API} code inside the `src/api` directory. It also attempts to fix the code that was generated incorrectly -- for example, by correcting the type of recursive array or by unescaping HTML text (`'&lt;'` is replaced for `'<'`; `'&gt;'` with `'>'`) and modifying incorrectly typed function for downloading a file from the backend.
+The project's root `util` subdirectory contains shell scripts for automatizing tasks. The \acrshort{PWA} (for an explanation, see \autoref{chap:faster}) requires the icon to be of the exact size, while the new web application uses an \acrshort{SVG} icon, the `gen-icons.sh` script takes the main \acrshort{SVG} icon and converts into multiple icons with a fixed resolution for the \acrshort{PWA}. The `gen-api.sh` script automatically downloads the correct version of `swagger-codegen` tool (\autoref{chap:swagger-codegen}) and executes it to generate \acrshort{API} code inside the `src/api` directory. It also attempts to fix the code that was generated incorrectly -- for example, by correcting the type of recursive array or by unescaping \acrshort{HTML} text (`'&lt;'` is replaced for `'<'`; `'&gt;'` with `'>'`) and modifying incorrectly typed function for downloading a file from the backend.
 
 The `gen-scss-theme.sh` is further explained in \autoref{chap:theming}, `gen-changelog.sh` in \autoref{chap:changelog}. All utility scripts have their respective alias inside `package.json` file for convenience -- `npm run` `gen.icons`, `gen.api`, `gen.theme` and `gen.changelog`. 
 
@@ -503,7 +503,7 @@ The new web applications supports switching between so-called light (\autoref{fi
 ### Internationalization
 \label{chap:translations}
 
-To make translations of this project or adjustments of texts for other projects derived from this thesis as simple as possible, almost all text strings are separated from the main code, the only exception to this rule being the page titled About \acrshort{KSI}, which is expected to be replaced entirely with another page in other projects. The rest of the texts are placed inside a \acrshort{JSON} file `assets/i18n/cs.json`. This file has a dictionary structure, in which are the string referenced by their qualified name -- for example, given the following `en.json` structure and Angular HTML component template
+To make translations of this project or adjustments of texts for other projects derived from this thesis as simple as possible, almost all text strings are separated from the main code, the only exception to this rule being the page titled About \acrshort{KSI}, which is expected to be replaced entirely with another page in other projects. The rest of the texts are placed inside a \acrshort{JSON} file `assets/i18n/cs.json`. This file has a dictionary structure, in which are the string referenced by their qualified name -- for example, given the following `en.json` structure and Angular \acrshort{HTML} component template
 
 ```JavaScript
 // en.json
@@ -536,7 +536,7 @@ Currently, when a push action is performed on one of the watched branches, an au
 
 #### New deployment process
 
-The new automatic deployment process is also triggered upon a push to a watched branch. First, all requirements are installed, and then the application is built for the selected environment. During the build process, the code is checked for type safety, and if any typing error is found, the deployment is cancelled, and the user whose push has triggered the process is notified about its failure. A GitHub project release containing the file `built.tar` with complete distribution files is created if the build process is successful. The file `build.tar` has a unique address, which is passed to a deployment \acrshort{CGI} script (`src/cgi-bin/dist-update.sh` inside the project's source tree, this script must be manually saved on the target server before the first automatic deployment) by calling it over \acrshort{HTTP}. The notified \acrshort{CGI} script then downloads the `build.tar` release and overwrites current files by the content of the `build.tar` package. A final step of the build process is to delete the created temporary release.
+The new automatic deployment process is also triggered upon a push to a watched branch. First, all requirements are installed, and then the application is built for the selected environment. During the build process, the code is checked for type safety, and if any typing error is found, the deployment is cancelled, and the user whose push has triggered the process is notified about its failure. A GitHub project release containing the file `built.tar` with complete distribution files is created if the build process is successful. The file `build.tar` has a unique address, which is passed to a deployment \acrshort{CGI} script (`src/cgi-bin/dist-update.sh` inside the project's source tree, this script must be manually saved on the target server before the first automatic deployment) by calling it over \acrshort{HTTP}. The notified \acrshort{CGI} script then downloads the `build.tar` release and overwrites current files with the content of the `build.tar` package. A final step of the build process is to delete the created temporary release.
 
 This new deployment process does not rely on any specific person to participate. The only requirement is the existence of the called \acrshort{CGI} script on the target server. To mitigate security concerns about downloading an untrusted `tar` file and blindly replacing its own files with its content, the \acrshort{CGI} script contains various protection methods. Foremost, the script is supposed to be accessible only when a correct authorization is performed to the webserver beforehand, which, together with a strong password (saved as project's secret inside GitHub's project settings), will mitigate most attack attempts, as the webserver will handle those and the script will not be executed. If the attacker was to gain access by guessing the correct password, then the script itself will check that the owner and repository of the `build.tar` match with expected values and, if not, refuse to perform the action. Finally, the \acrshort{CGI} script is executed in a sandboxed environment with write access only to the distribution files to prevent accidental file modification.
 
@@ -553,12 +553,12 @@ To keep the users of the web application informed about development progress, a 
 
 ### Login status and theme synchronization
 
-Whenever the user changes the preferred colour theme or logs in or out, the information about this action is synchronized across all opened tabs through \fnurl{`BroadcastChannel`}{https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel} API. This feature dramatically improves \acrshort{UX} in such cases when the user opens multiple tasks that require logging in at once without logging in. By simply entering user's credentials in one of the opened tabs, the status will be propagated across all tabs without any additional input from the user.
+Whenever the user changes the preferred colour theme or logs in or out, the information about this action is synchronized across all opened tabs through \fnurl{`BroadcastChannel`}{https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel} \acrshort{API}. This feature dramatically improves \acrshort{UX} in such cases when the user opens multiple tasks that require logging in at once without logging in. By simply entering user's credentials in one of the opened tabs, the status will be propagated across all tabs without any additional input from the user.
 
 ### Improved loading times
 \label{chap:faster}
 
-All modules (except for the `shared` module) are imported as Angular lazy modules~[@angular-lazy] to improve loading times. This assures that the application will load the minimal subset of code required to render content on the first load. Additional code from different modules is downloaded automatically when the user requests it, typically when navigating to another subpage. Furthermore, Angular provides a simple way to convert the application into a so-called Progressive Web Application, \acrshort{PWA} for short. \acrshort{PWA} relies on a Service worker technology that works as a proxy for all network requests made by the application~[@angular-pwa]. As such, it can intercept the requests and return a version saved in the cache instead of passing it through to the server. Most modern browsers support service workers, so the web application is cached automatically after the first load. The subsequent call will be returned from the cache, making loading pages instantaneous. In the background, the service worker checks if the application's code was changed. If so, the new version is then silently downloaded and applied upon the next load of the application, making the transition between versions seamless. In the future, this behaviour could be a prerequisite for a fully offline available \acrshort{KSI} web application. However, it would require backend modification and possibly break its compatibility with the current web application.
+All modules (except for the `shared` module) are imported as Angular lazy modules~[@angular-lazy-modules] to improve loading times. This assures that the application will load the minimal subset of code required to render content on the first load. Additional code from different modules is downloaded automatically when the user requests it, typically when navigating to another subpage. Furthermore, Angular provides a simple way to convert the application into a so-called Progressive Web Application, \acrshort{PWA} for short. \acrshort{PWA} relies on a Service worker technology that works as a proxy for all network requests made by the application~[@angular-pwa]. As such, it can intercept the requests and return a version saved in the cache instead of passing it through to the server. Most modern browsers support service workers, so the web application is cached automatically after the first load. The subsequent call will be returned from the cache, making loading pages instantaneous. In the background, the service worker checks if the application's code was changed. If so, the new version is then silently downloaded and applied upon the next load of the application, making the transition between versions seamless. In the future, this behaviour could be a prerequisite for a fully offline available \acrshort{KSI} web application. However, it would require backend modification and possibly break its compatibility with the current web application.
 
 ## UI Design
 
@@ -595,9 +595,9 @@ The main point of \acrshort{KSI} is a page with all tasks available to participa
 
 The current version of the web frontend (\autoref{fig:graph-curr}) shows a legend explaining the different graph node colours on the left, which moves the whole graph slightly to the right side. Moreover, the graph could get more complicated and unclear as new tasks are added with a year's progress. The new web frontend (\autoref{fig:graph-new}) tries to take maximum advantage of the available page width. This is done by moving the legend into a modal dialogue (\autoref{fig:graph-new-settings}) accessible by a help button in the top right corner of the page. Given that the legend is mainly used by only new users of the \acrshort{KSI} web application, there is a little need to keep it visible all the time. Furthermore, to increase the clarity of the task graph, the user can turn splitting the whole graph into multiple smaller graphs by grouping them into their thematic waves (\autoref{fig:graph-split}). In this mode, the user can then keep open only the relevant parts of the graph, presumably only the currently active \acrshort{KSI} task wave.
 
-Though, the most notable change can be seen when using the \acrshort{KSI} web application on a mobile phone (\autoref{fig:graph-mobile}). In the current version, the graph on the mobile is too narrow to fit, which results in multiple tasks overlapping. This makes it nearly impossible to open the correct task. Instead, a special graph presentation mode was created in the new web application. In this mode, the tasks are shown in the mode of a list, where tasks required to be completed before other tasks can be unlocked shown first. This mode lacks information about different graph branches as seen on the desktop version but provides a viable compromise to usability on a mobile phone.
+Though, the most notable change can be seen when using the \acrshort{KSI} web application on a mobile phone (\autoref{fig:graph-mobile}). In the current version, the graph on the mobile is too narrow to fit, which results in multiple tasks overlapping. This makes it nearly impossible to open the correct task. Instead, a special graph presentation mode was created in the new web application. In this mode, the tasks are shown in a list, where tasks required to be completed before other tasks can be unlocked are shown first. This mode lacks information about different graph branches as seen on the desktop version but provides a viable compromise to usability on a mobile phone.
 
-In the spirit of the third followed principle, all tasks in all modes are now rendered as HTML anchor points instead of clickable canvas as in the current version. The advantage of this approach is that now every task can be quickly located by using the search function of a web browser, and multiple tasks can be opened in a new tab by pressing the middle button on the mouse or saved for later without having to be opened one at a time.
+In the spirit of the second followed principle, all tasks in all modes are now rendered as \acrshort{HTML} anchor points instead of clickable canvas as in the current version. The advantage of this approach is that now every task can be quickly located by using the search function of a web browser, and multiple tasks can be opened in a new tab by pressing the middle button on the mouse or saved for later without having to be opened one at a time.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/graph_curr}
@@ -668,7 +668,7 @@ The selection takes the form of a table with the thread's name and its post coun
 
 #### Discussion posts
 
-In the current version (\autoref{fig:discuss-curr}), the posts have no borders and responses to a previous post is differentiated by a larger offset. However, if the posts receive multiple replies, it may overflow the maximum offset, which makes identifying which posts responds to which a difficult task. The new design of the web applications addresses these issues by adding borders to posts and rails that indicate which post is the parent of which reply. If the level of replies is too deep, then an additional button to unpack and continue within the reply thread is shown. When a reply thread is unpacked, it becomes the topmost post, hiding every post with a lesser level. By manually unpacking replies, the web application assures that the structure of posts will never overflow maximum offset and, as such, will always be easily readable. A newly added feature is a unique link to each post, making it easier to share it more precisely, rather than having to share the whole discussion thread and then manually search for the post content.
+In the current version (\autoref{fig:discuss-curr}), the posts have no borders and responses to a previous post is differentiated by a larger offset. However, if the posts receive multiple replies, it may overflow the maximum offset, which makes identifying which posts responds to which a difficult task. The new design of the web applications  (\autoref{fig:discuss-new}) addresses these issues by adding borders to posts and rails that indicate which post is the parent of which reply. If the level of replies is too deep, then an additional button to unpack and continue within the reply thread is shown. When a reply thread is unpacked, it becomes the topmost post, hiding every post with a lesser level. By manually unpacking replies, the web application assures that the structure of posts will never overflow maximum offset and, as such, will always be easily readable. A newly added feature is a unique link to each post, making it easier to share it more precisely, rather than having to share the whole discussion thread and then manually search for the post content.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{assets/img/discussion-curr}
@@ -694,13 +694,13 @@ During the spring semester of 2022, the \acrshort{KSI} organizer team was contac
 
 ## Restoring historic \acrshort{KSI} tasks
 
-Before \acrshort{KSI} was transformed into an online competition, all assignments were sent to the participants through traditional mail. As such, the tasks were written as \LaTeX{} files, which were then built into a final \acrshort{PDF} for printing. This format is incompatible with current tasks written as markdown files and then converted to HTML on the backend. Still, these historic tasks have undeniable educational value, so making them easily accessible online	was set as one of the secondary goals of this thesis.
+Before \acrshort{KSI} was transformed into an online competition, all assignments were sent to the participants through traditional mail. As such, the tasks were written as \LaTeX{} files, which were then built into a final \acrshort{PDF} for printing. This format is incompatible with current tasks written as markdown files and then converted to \acrshort{HTML} on the backend. Still, these historic tasks have undeniable educational value, so making them easily accessible online	was set as one of the secondary goals of this thesis.
 
-Because the backend converts internally the tasks written in markdown to HTML, it is possible to convert the \LaTeX{} to HTML directly with a tool \fnurl{`latex2html`}{https://www.latex2html.org/}, which can be later inserted into the database directly. Whenever `latex2html` encounters a part of a file that it cannot translate into HTML, it renders it as a \acrshort{PNG} or \acrshort{SVG} image and attaches it to the final HTML file. This operation is also performed on blocks with TeX mathematics and source code, both for which the \acrshort{KSI} web has direct support.
+Because the backend converts internally the tasks written in markdown to \acrshort{HTML}, it is possible to convert the \LaTeX{} to \acrshort{HTML} with a tool \fnurl{`latex2html`}{https://www.latex2html.org/}, which can be later inserted into the database directly. Whenever `latex2html` encounters a part of a file that it cannot translate into \acrshort{HTML}, it renders it as a \acrshort{PNG} or \acrshort{SVG} image and attaches it to the final \acrshort{HTML} file. This operation is also performed on blocks with TeX mathematics and source code, both for which the \acrshort{KSI} web has direct support.
 
-To improve the user's experience, as part of the postprocessing of the generated HTML, the original TeX math content is obtained from the alternative text of the respective image from HTML. Additionally, most \acrshort{SVG} images created by the tool contain a large transparent margin that must be removed. Finally, all images are embedded into the HTML code to contain all assets inside a single HTML file.
+To improve the user's experience, as part of the postprocessing of the generated \acrshort{HTML}, the original TeX math content is obtained from the alternative text of the respective image from \acrshort{HTML}. Additionally, most \acrshort{SVG} images created by the tool contain a large transparent margin that must be removed. Finally, all images are embedded into the \acrshort{HTML} code to contain all assets inside a single \acrshort{HTML} file.
 
-After all tasks are converted into their HTML variants, it is possible to generate a SQL script, which will insert the tasks into the database. The script divides the tasks by their year and wave while maintaining their relative order by using \acrshort{KSI} prerequisites. A module for submitting a solution with correct points will be shown if the source task was assigned a number of points.
+After all tasks are converted into their \acrshort{HTML} variants, it is possible to generate a SQL script, which will insert the tasks into the database. The script divides the tasks by their year and wave while maintaining their relative order by using \acrshort{KSI} prerequisites. A module for submitting a solution with correct points will be shown if the source task was assigned a number of points.
 
 Currently, the tasks are accessible only through the public development \acrshort{KSI} instance -- for example, the task \fnurl{"Atlas"}{https://ksi.ahlava.cz/ulohy/183} from the fifth wave of the 2009 year. Before deploying these historic tasks on the production server, a more extensive discussion with the \acrshort{KSI} organizers teams is needed, as follow up tasks, such as creating icons, may be required first. This discussion is planned for the summer of 2022. The source code of this converter is \fnurl{publicly available}{https://github.com/fi-ksi/seminar-till-2014-converter}.
 
@@ -718,7 +718,7 @@ Most participants who submitted the questionnaire have tested the new web on bot
 
 \begin{figure}
 \includegraphics[width=.5\textwidth]{assets/img/questionare/device}
-\caption{Questionnaire: Used devices devices}
+\caption{Questionnaire: Used devices}
 \label{fig:q-device}
 \end{figure}
 
@@ -772,7 +772,7 @@ Before the development of the new web frontend, changes were made to the \acrsho
 
 Throughout the development process, the \acrshort{KSI} organizer team members submitted multiple enhancement ideas and discovered bugs, most of which were already incorporated into the project's code. The remaining discovered bugs require further discussion, as they may require performing breaking changes to the backend. To evaluate the final web application, a questionnaire about their experience with the application was sent to the \acrshort{KSI} participants. The responses to the questionnaire were positive, most notably in relation to the mobile version of the web application, which is now entirely usable with all features available from the desktop version.
 
-At the final meeting of the \acrshort{KSI}, organizers teams decided that the new web application will replace the current one with the start of the \acrshort{KSI} year 2022/2023 in September. In the meantime, the new web application is already being used in a new online activity from the Faculty of Informatics at Masaryk University, which is set to launch on the 25th of May 2022. For this new activity, the web application's colour schema and internationalization texts were modified to meet the activity's requirements. No more significant changes were required, underlining the goal of easy modifiability.
+At the final meeting of the \acrshort{KSI}, organizers teams decided that the new web application will replace the current one with the start of the \acrshort{KSI} year 2022/2023 in September. In the meantime, the new web application is already being used in a new online seminar from the Faculty of Informatics at Masaryk University, which is set to launch on the 25th of May 2022. For this new activity, the web application's colour schema and internationalization texts were modified to meet the activity's requirements. No more significant changes were required, underlining the goal of easy modifiability.
 
 In the future, the new web application is expected to be further actively developed. This subsequent development will reflect breaking changes that are to be made to the \acrshort{KSI} backend, which will make the current web frontend unusable and is scheduled for the summer of 2022. These changes could not be performed before because breaking changes were deemed unsafe while the \acrshort{KSI} year was in progress. Furthermore, the historic \acrshort{KSI} tasks, which are now available on the public \acrshort{KSI} testing server, are to be merged with the production database after additional steps like creating icons to better fit in with the rest of the tasks. All these tasks also require a heavy cooperation of multiple people, which is why it was scheduled outside the university semester.
 
